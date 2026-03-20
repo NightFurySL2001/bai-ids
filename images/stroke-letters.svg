@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1000"
+   height="1000"
+   viewBox="0 0 264.58333 264.58333"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="stroke-letters.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.785"
+     inkscape:cx="500"
+     inkscape:cy="500"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <marker
+       style="overflow:visible"
+       id="TriangleStart"
+       refX="2"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="TriangleStart"
+       markerWidth="5.1891351"
+       markerHeight="5.9990001"
+       viewBox="0 0 5.3244081 6.1553851"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleStart-4"
+       refX="2"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="TriangleStart"
+       markerWidth="5.1891351"
+       markerHeight="5.9990001"
+       viewBox="0 0 5.3244081 6.1553851"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-5" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleStart-4-3"
+       refX="2"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="TriangleStart"
+       markerWidth="5.1891351"
+       markerHeight="5.9990001"
+       viewBox="0 0 5.3244081 6.1553851"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-5-7" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleStart-4-3-3"
+       refX="2"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="TriangleStart"
+       markerWidth="5.1891351"
+       markerHeight="5.9990001"
+       viewBox="0 0 5.3244081 6.1553851"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-5-7-3" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleStart-4-3-3-9"
+       refX="2"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="TriangleStart"
+       markerWidth="5.1891351"
+       markerHeight="5.9990001"
+       viewBox="0 0 5.3244081 6.1553851"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-5-7-3-7" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleStart-3"
+       refX="2"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="TriangleStart"
+       markerWidth="5.1891351"
+       markerHeight="5.9990001"
+       viewBox="0 0 5.3244081 6.1553851"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-8" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleStart-4-3-4"
+       refX="2"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="TriangleStart"
+       markerWidth="5.1891351"
+       markerHeight="5.9990001"
+       viewBox="0 0 5.3244081 6.1553851"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-5-7-36" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleStart-3-0"
+       refX="2"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="TriangleStart"
+       markerWidth="5.1891351"
+       markerHeight="5.9990001"
+       viewBox="0 0 5.3244081 6.1553851"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-8-1" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline">
+    <path
+       d="m 58.088718,29.679638 -3.181206,4.241609 H 18.04591 l 0.504954,1.666346 h 43.981444 c 0.807926,0 1.363375,-0.151486 1.514861,-0.75743 -2.27229,-2.120805 -5.907956,-5.10003 -5.907956,-5.10003 z"
+       style="font-weight:bold;font-size:44.5511px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';stroke:#63fc66;stroke-width:0"
+       id="path336" />
+    <path
+       d="M 101.70831,9.9864528 V 55.280777 h 0.70693 c 1.26238,0 2.72675,-0.85842 2.72675,-1.363374 V 12.056762 c 1.31288,-0.201981 1.71684,-0.706935 1.86832,-1.413869 z"
+       style="font-weight:bold;font-size:44.5511px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';stroke:#63fc66;stroke-width:0"
+       id="path338" />
+    <path
+       d="m 180.24543,12.056762 c -4.59507,18.935754 -13.68424,31.054636 -30.3477,40.295285 l 0.50495,0.858421 c 17.77437,-7.725788 27.82293,-19.996158 32.82197,-38.628939 1.36338,0.151486 2.07032,-0.151487 2.2218,-0.807926 z"
+       style="font-weight:bold;font-size:44.5511px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';stroke:#63fc66;stroke-width:0"
+       id="path340" />
+    <path
+       d="m 216.3917,13.874595 -0.95941,0.555448 c 3.13071,18.834764 12.47235,30.80216 27.0655,36.962592 0.80793,-1.666346 2.2218,-2.575262 3.88815,-2.625758 l 0.15148,-0.504953 C 231.03535,43.010408 219.97687,31.59846 216.3917,13.874595 Z"
+       style="font-weight:bold;font-size:44.5511px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';stroke:#63fc66;stroke-width:0"
+       id="path342" />
+    <path
+       d="m 32.238292,103.04832 -0.605944,0.50496 c 6.109937,4.3426 13.431762,11.9674 15.300089,18.38031 5.302011,3.53467 7.473311,-9.7961 -14.64365,-18.88527 z"
+       style="font-weight:bold;font-size:44.5511px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';stroke:#63fc66;stroke-width:0"
+       id="path345" />
+    <path
+       d="m 83.279149,114.27349 3.050184,5.89701 c 0.677819,-0.20334 1.287855,-0.81337 1.558984,-1.62677 16.335433,-4.33804 28.332823,-8.47272 37.551153,-11.99739 l -0.27112,-1.15228 c -16.67434,4.13469 -34.026504,7.72713 -41.889201,8.94721 z"
+       style="font-weight:bold;font-size:44.5511px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';stroke:#63fc66;stroke-width:0"
+       id="path347" />
+    <path
+       d="m 165.39979,95.462376 -13.9872,3.837646 0.80792,1.312878 13.58325,-3.78715 z m -2.01981,0.65644 1.21189,-0.201982 0.15149,0.504953 c 5.55449,20.804083 8.07925,31.155633 17.16841,36.053673 0.0506,-1.36337 0.95941,-2.67625 2.01981,-3.43368 v -0.65644 c -9.44262,-3.53467 -12.9773,-15.1991 -17.62287,-30.903149 1.81783,-0.605945 3.13071,-1.31288 3.58517,-2.221796 l -5.50399,-2.1713 z"
+       style="font-weight:bold;font-size:44.5511px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';stroke:#63fc66;stroke-width:0"
+       id="path349" />
+    <path
+       d="m 225.85805,91.59948 -0.75744,0.656439 c 8.23074,6.968358 9.59412,14.845631 9.59412,23.833811 0,5.302 -0.60594,11.05847 -2.01981,13.02779 -0.40396,0.55545 -0.85842,0.70694 -1.66635,0.70694 -2.32279,0 -6.96836,-0.40396 -6.96836,-0.40396 v 0.85842 c 1.96932,0.30296 3.63567,0.85842 4.4436,1.31288 0.70693,0.45446 1.0604,1.21188 1.0604,2.37328 2.57526,0 4.44359,-0.55545 5.403,-1.91882 2.47427,-3.23172 3.02971,-9.79611 2.97922,-15.95653 -0.10099,-9.69511 -2.32279,-18.178332 -12.11888,-24.439755 z"
+       style="font-weight:bold;font-size:44.5511px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';stroke:#63fc66;stroke-width:0"
+       id="path351" />
+    <path
+       id="text364"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:46.8963px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#00ff00;stroke:#63fc66;stroke-width:0"
+       d="m 35.414376,205.25259 v 2.89646 c 0.207399,0.005 0.418734,0.008 0.643371,0.008 l 5.862175,0.047 c 8.488222,0 10.270174,-0.46871 10.270174,-1.96939 0,-0.60965 -0.468837,-0.89103 -1.641243,-1.3131 l -0.187586,-0.047 h -0.515731 c -0.37517,0.14069 -0.89129,0.23461 -1.219564,0.23461 -0.328273,0.0469 -0.703575,0.0935 -1.172538,0.0935 -0.75034,0.0938 -2.860296,0.0941 -5.298901,0.0941 h -5.674589 c -0.415593,0 -0.766603,-0.0149 -1.065568,-0.0444 z" />
+    <path
+       id="path902"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:46.8963px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#ffcc00;stroke:#63fc66;stroke-width:0"
+       d="M 33.806722,203.53021 H 30.71182 v 0.87592 c 0,2.75282 1.01318,3.65458 4.702556,3.74292 v -2.89646 c -1.354088,-0.13385 -1.607654,-0.58993 -1.607654,-1.5503 z" />
+    <path
+       id="path900"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:46.8963px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#000080;stroke:#63fc66;stroke-width:0"
+       d="m 30.71182,175.33038 v 28.19983 h 3.094902 v -26.41802 c 1.078614,-0.14069 1.547451,-0.6094 1.641243,-1.21905 h -0.04651 z" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.4046px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#000000;stroke:#63fc66;stroke-width:0"
+       x="40.338272"
+       y="77.985542"
+       id="text368"><tspan
+         sodipodi:role="line"
+         id="tspan366"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;stroke-width:0"
+         x="40.338272"
+         y="77.985542">H 横</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.4046px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#000000;stroke:#63fc66;stroke-width:0"
+       x="104.3205"
+       y="77.562561"
+       id="text368-2"><tspan
+         sodipodi:role="line"
+         id="tspan366-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;stroke-width:0"
+         x="104.3205"
+         y="77.562561">S 竖</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.4046px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#000000;stroke:#63fc66;stroke-width:0"
+       x="167.04143"
+       y="77.985191"
+       id="text368-2-6"><tspan
+         sodipodi:role="line"
+         id="tspan366-9-1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;stroke-width:0"
+         x="167.04143"
+         y="77.985191">P 撇</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.4046px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#000000;stroke:#63fc66;stroke-width:0"
+       x="230.23778"
+       y="77.98455"
+       id="text368-2-5"><tspan
+         sodipodi:role="line"
+         id="tspan366-9-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;stroke-width:0"
+         x="230.23778"
+         y="77.98455">N 捺</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.4046px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#000000;stroke:#63fc66;stroke-width:0"
+       x="40.542019"
+       y="156.91173"
+       id="text368-1"><tspan
+         sodipodi:role="line"
+         id="tspan366-3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;stroke-width:0"
+         x="40.542019"
+         y="156.91173">D 点</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.4046px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#000000;stroke:#63fc66;stroke-width:0"
+       x="104.3399"
+       y="156.89232"
+       id="text368-2-7"><tspan
+         sodipodi:role="line"
+         id="tspan366-9-19"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;stroke-width:0"
+         x="104.3399"
+         y="156.89232">T 提</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.4046px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#000000;stroke:#63fc66;stroke-width:0"
+       x="167.56535"
+       y="156.91208"
+       id="text368-2-6-0"><tspan
+         sodipodi:role="line"
+         id="tspan366-9-1-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;stroke-width:0"
+         x="167.56535"
+         y="156.91208">J 提捺</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.4046px;line-height:1.1;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#000000;stroke:#63fc66;stroke-width:0"
+       x="230.98485"
+       y="155.18509"
+       id="text368-2-5-6"><tspan
+         sodipodi:role="line"
+         id="tspan366-9-9-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;stroke-width:0"
+         x="230.98485"
+         y="155.18509"><tspan
+           style="fill:#000080;stroke-width:0"
+           id="tspan601">W</tspan><tspan
+           style="fill:#008000;stroke-width:0"
+           id="tspan709">g</tspan></tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;stroke-width:0"
+         x="230.98485"
+         y="176.53015"
+         id="tspan498"><tspan
+           style="fill:#000080;stroke-width:0"
+           id="tspan813">弯󠄁</tspan><tspan
+           style="fill:#008000;stroke-width:0"
+           id="tspan815">钩</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.4046px;line-height:1.1;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#000000;stroke:#63fc66;stroke-width:0"
+       x="151.16473"
+       y="247.95932"
+       id="text368-2-5-6-1"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;fill:#000080;stroke-width:0"
+         x="151.16473"
+         y="247.95932"
+         id="tspan498-5">Qc</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.4046px;line-height:1.1;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#008000;stroke:#63fc66;stroke-width:0"
+       x="152.24818"
+       y="204.1254"
+       id="text368-2-5-6-1-1"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;fill:#008000;stroke-width:0"
+         x="152.24818"
+         y="204.1254"
+         id="tspan498-5-0">Qd</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.4046px;line-height:1.1;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#ff0000;stroke:#63fc66;stroke-width:0"
+       x="234.95073"
+       y="204.14299"
+       id="text368-2-5-6-1-9"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;fill:#ff0000;stroke-width:0"
+         x="234.95073"
+         y="204.14299"
+         id="tspan498-5-9">Qa</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.4046px;line-height:1.1;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#ffcc00;stroke:#63fc66;stroke-width:0"
+       x="233.8248"
+       y="247.94173"
+       id="text368-2-5-6-1-9-1"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;fill:#ffcc00;stroke-width:0"
+         x="233.8248"
+         y="247.94173"
+         id="tspan498-5-9-5">Qb</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.4046px;line-height:1.1;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#000000;stroke:#63fc66;stroke-width:0"
+       x="41.237469"
+       y="231.36484"
+       id="text368-2-5-6-4"><tspan
+         sodipodi:role="line"
+         id="tspan366-9-9-2-1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;stroke-width:0"
+         x="41.237469"
+         y="231.36484"><tspan
+           style="fill:#000080;stroke-width:0"
+           id="tspan905">S</tspan><tspan
+           style="fill:#008000;stroke-width:0"
+           id="tspan907">H</tspan><tspan
+           style="fill:#ffcc00;stroke-width:0"
+           id="tspan1115">w</tspan></tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;stroke-width:0"
+         x="41.237469"
+         y="252.7099"
+         id="tspan498-1">竖<tspan
+   style="fill:#93d14b;fill-opacity:1;stroke-width:0"
+   id="tspan1902">曲</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.4046px;line-height:1.1;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';display:inline;fill:#000000;stroke:#63fc66;stroke-width:0"
+       x="104.28342"
+       y="196.64528"
+       id="text368-2-5-6-4-1"><tspan
+         sodipodi:role="line"
+         id="tspan366-9-9-2-1-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;stroke-width:0"
+         x="104.28342"
+         y="196.64528"><tspan
+           style="fill:#000080;stroke-width:0"
+           id="tspan905-6">S</tspan><tspan
+           style="fill:#008000;stroke-width:0"
+           id="tspan907-3">H<tspan
+   style="fill:#ffcc00"
+   id="tspan3550" /></tspan></tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;stroke-width:0"
+         x="104.28342"
+         y="217.99034"
+         id="tspan498-1-0" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.4046px;line-height:1.1;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';display:inline;fill:#000000;stroke:#63fc66;stroke-width:0"
+       x="110.27945"
+       y="240.39215"
+       id="text368-2-5-6-4-1-9"><tspan
+         sodipodi:role="line"
+         id="tspan366-9-9-2-1-9-5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;stroke-width:0"
+         x="110.27945"
+         y="240.39215"><tspan
+           style="fill:#000080;stroke-width:0"
+           id="tspan905-6-1">S<tspan
+   style="fill:#ffcc00"
+   id="tspan4022">b</tspan></tspan><tspan
+           style="fill:#008000;stroke-width:0"
+           id="tspan907-3-3">H</tspan></tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.4046px;font-family:'Source Han Sans SC';-inkscape-font-specification:'Source Han Sans SC';text-align:center;text-anchor:middle;stroke-width:0"
+         x="110.27945"
+         y="261.73721"
+         id="tspan498-1-0-3" /></text>
+    <path
+       id="path588"
+       style="font-weight:bold;font-size:44.5511px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';stroke:#63fc66;stroke-width:0"
+       d="m 233.78263,126.23519 a 7.6432028,14.270537 0 0 0 0.0274,-0.11162 7.6432028,14.270537 0 0 0 0.0145,-0.0724 c -0.0138,0.0617 -0.0277,0.12344 -0.0419,0.18397 z" />
+    <path
+       id="path598"
+       style="font-weight:bold;font-size:44.5511px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#008000;stroke:#63fc66;stroke-width:0"
+       d="m 229.54361,133.93601 a 7.6432028,14.270537 0 0 0 0.12971,-0.0894 7.6432028,14.270537 0 0 0 0.54519,-0.4687 7.6432028,14.270537 0 0 0 0.52348,-0.54777 7.6432028,14.270537 0 0 0 0.49919,-0.62219 7.6432028,14.270537 0 0 0 0.47129,-0.69401 7.6432028,14.270537 0 0 0 0.44028,-0.76068 7.6432028,14.270537 0 0 0 0.40773,-0.82269 7.6432028,14.270537 0 0 0 0.37156,-0.88005 7.6432028,14.270537 0 0 0 0.33331,-0.93173 7.6432028,14.270537 0 0 0 0.293,-0.97771 7.6432028,14.270537 0 0 0 0.10697,-0.43254 c -0.27144,1.03188 -0.60026,1.86542 -0.99063,2.40916 -0.40396,0.55545 -0.85812,0.70693 -1.66605,0.70693 -2.32279,0 -6.96857,-0.40411 -6.96857,-0.40411 v 0.85835 c 1.96932,0.30296 3.63573,0.85864 4.44366,1.3131 0.70092,0.4506 1.05393,1.19931 1.05988,2.34404 z" />
+    <path
+       id="path596"
+       style="font-weight:bold;font-size:44.5511px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#000080;stroke:#63fc66;stroke-width:0"
+       d="m 225.85805,91.599577 -0.75758,0.656291 c 8.23073,6.968351 9.59425,14.845512 9.59425,23.833682 0,3.53907 -0.27021,7.2791 -0.87023,9.96167 a 7.6432028,14.270537 0 0 1 -0.0145,0.0724 7.6432028,14.270537 0 0 1 -0.0274,0.11162 c -0.0378,0.16196 -0.0769,0.31992 -0.11731,0.47335 a 7.6432028,14.270537 0 0 1 -0.10697,0.43254 7.6432028,14.270537 0 0 1 -0.293,0.97771 7.6432028,14.270537 0 0 1 -0.33331,0.93173 7.6432028,14.270537 0 0 1 -0.37156,0.88005 7.6432028,14.270537 0 0 1 -0.40773,0.82269 7.6432028,14.270537 0 0 1 -0.44028,0.76068 7.6432028,14.270537 0 0 1 -0.47129,0.69401 7.6432028,14.270537 0 0 1 -0.49919,0.62219 7.6432028,14.270537 0 0 1 -0.52348,0.54777 7.6432028,14.270537 0 0 1 -0.54519,0.4687 7.6432028,14.270537 0 0 1 -0.12971,0.0894 c 5e-5,0.01 5.2e-4,0.0191 5.2e-4,0.0289 2.57526,0 4.44388,-0.55538 5.40329,-1.91875 2.47426,-3.23171 3.02963,-9.79623 2.97914,-15.95665 -0.10099,-9.6951 -2.32307,-18.177914 -12.11915,-24.43933 z" />
+    <path
+       style="color:#000000;fill:none;stroke:#008000;stroke-width:1.32292;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleStart)"
+       d="m 163.12897,220.09288 c 0,-16.56854 13.43146,-30 30,-30"
+       id="path289" />
+    <path
+       style="color:#000000;fill:none;stroke:#000080;stroke-width:1.32292;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleStart)"
+       d="m 193.12897,250.09288 c -16.56854,0 -30,-13.43146 -30,-30"
+       id="path287" />
+    <path
+       style="color:#000000;fill:none;stroke:#ffcc00;stroke-width:1.32292;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleStart)"
+       d="m 223.12897,220.09288 c 0,16.56854 -13.43146,30 -30,30"
+       id="path285" />
+    <path
+       style="color:#000000;fill:none;stroke:#ff0000;stroke-width:1.32292;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleStart)"
+       d="m 193.12897,190.09288 c 16.56854,0 30,13.43146 30,30"
+       id="path2306" />
+    <g
+       id="g3877">
+      <path
+         style="font-weight:bold;font-size:38.1924px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#000080;stroke:#008000;stroke-width:0"
+         d="m 83.006733,178.59778 h -1.736567 v 25.31241 l 0.602483,-1.31708 c -0.531603,0.20581 -1.275846,0.78202 -1.630248,1.23476 l 2.658012,2.01676 0.886004,-1.52286 h -0.248082 v -25.35356 z"
+         id="path3872" />
+      <path
+         style="font-weight:bold;font-size:38.1924px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#000000;stroke:#008000;stroke-width:0"
+         d="m 84.885062,177.03376 -3.614896,-0.45273 v 3.12803 h 2.30361 v -1.56402 c 0.850563,-0.16463 1.204965,-0.53505 1.275845,-1.11128 z"
+         id="path3870" />
+      <path
+         style="font-weight:bold;font-size:38.1924px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#008000;stroke:#008000;stroke-width:0"
+         d="m 98.352322,200.65867 -1.665688,2.51067 H 82.333371 l 0.283521,1.23475 h 17.861838 c 0.49616,0 0.85057,-0.20579 0.95688,-0.65854 -1.16952,-1.31707 -3.083288,-3.08688 -3.083288,-3.08688 z"
+         id="path3366" />
+    </g>
+    <path
+       style="font-weight:bold;font-size:38.1924px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#008000;stroke:#008000;stroke-width:0"
+       d="m 97.590204,245.11607 -1.878334,2.67529 H 81.558336 l 0.283522,1.15244 h 18.193702 c 0.49617,0 0.85057,-0.20579 0.95689,-0.65853 -1.311278,-1.35823 -3.437686,-3.21036 -3.437686,-3.21036 z"
+       id="path3881" />
+    <path
+       id="path3368"
+       style="font-weight:bold;font-size:38.1924px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#ffcc00;stroke:#008000;stroke-width:0"
+       d="M 83.153064 247.79056 L 80.849329 247.79056 L 80.849329 251.33091 L 81.274626 251.33091 C 82.196069 251.33091 83.153064 250.7138 83.153064 250.34338 L 83.153064 247.79056 z " />
+    <path
+       id="path3940"
+       style="font-weight:bold;font-size:38.1924px;font-family:'CJK Strokes AppF Bk';-inkscape-font-specification:'CJK Strokes AppF Bk Bold';fill:#000080;stroke:#008000;stroke-width:0"
+       d="M 80.849329 220.8196 L 80.849329 247.79056 L 83.153064 247.79056 L 83.153064 222.46601 C 84.074506 222.34253 84.429089 221.931 84.535409 221.31362 L 80.849329 220.8196 z " />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#808080;stroke-width:1.42682;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleStart)"
+       d="M 17.874713,42.899312 H 61.400874"
+       id="path981" />
+    <path
+       style="display:inline;fill:none;fill-opacity:1;stroke:#808080;stroke-width:1.42682;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleStart-3)"
+       d="M 81.423147,107.64541 123.82249,97.805574"
+       id="path981-81" />
+    <path
+       style="display:inline;fill:none;fill-opacity:1;stroke:#808080;stroke-width:1.42682;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleStart-3-0)"
+       d="m 144.42279,108.30719 15.34523,-4.33155 c 2.20164,12.63482 5.99259,22.66402 14.8993,32.14778"
+       id="path981-81-9"
+       sodipodi:nodetypes="ccc" />
+    <path
+       style="display:inline;fill:none;fill-opacity:1;stroke:#808080;stroke-width:1.42682;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleStart-4)"
+       d="M 112.99612,10.476314 V 54.002475"
+       id="path981-8" />
+    <path
+       style="display:inline;fill:none;fill-opacity:1;stroke:#808080;stroke-width:1.42682;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleStart-4-3)"
+       d="M 174.93386,8.8563064 C 169.338,23.85951 160.64206,34.93802 147.52597,45.232581"
+       id="path981-8-7"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="display:inline;fill:none;fill-opacity:1;stroke:#808080;stroke-width:1.42682;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleStart-4-3-4)"
+       d="m 221.11193,95.646365 c 8.77081,9.068925 12.9302,29.418595 5.14538,30.857365 -4.51392,0.83425 -4.90685,-4.1572 -7.23216,-8.57097"
+       id="path981-8-7-4"
+       sodipodi:nodetypes="csc" />
+    <path
+       style="display:inline;fill:none;fill-opacity:1;stroke:#808080;stroke-width:1.42682;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleStart-4-3-3)"
+       d="m 221.8334,10.707804 c 5.1192,13.811557 12.38516,22.983431 26.45457,32.324674"
+       id="path981-8-7-0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="display:inline;fill:none;fill-opacity:1;stroke:#808080;stroke-width:1.42682;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleStart-4-3-3-9)"
+       d="M 35.781279,94.665003 C 46.858717,98.228387 52.6947,104.06366 56.9926,116.97984"
+       id="path981-8-7-0-5"
+       sodipodi:nodetypes="cc" />
+  </g>
+</svg>

@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+    <meta charset="UTF-8" name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>（白式）IDS 延展语法导论</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nightfurysl2001/s-h-sans-webfont@release/index.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nightfurysl2001/s-h-serif-webfont@release/index.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="highlight/prism.css">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div style="float: right">
+        <input type="checkbox" id="toggle-light-mode">
+    </div>
+    <h1>（白式）IDS 延展语法导论</h1>
+    <subtitle>（2026-03-20 更新）</subtitle>
+
+    <section>
+        <h3>目录</h3>
+        <nav class="toc" id="toc"></nav>
+    </section>
+
+    <section>
+        <h2 id="1">1. IDS 简介</h2>
+        <p>
+            IDS 是 Ideographic Description Sequences（表意文字描述序列）的缩写，用于描述汉字的结构，如「<bai-ids>⿱次乙</bai-ids>」可描述汉字「乲」。虽然 IDS
+            的设计初衷是为了描述汉字的结构，但它的语法主旨是形容部件之间的相对位置而非笔画级差异，导致 IDS 的容错性较大，如「<bai-ids>⿻丨日</bai-ids>」可同时表示「田」「甴」「由」「申」「甲」「曱」。
+        </p>
+        <p>
+            因此，<a href="https://zi.tools" target="_blank">字统网 (zi.tools)</a>站长<a href="https://github.com/yi-bai" target="_blank">白易</a>在 IDS的基础上延展了特殊语法形成了「白式 IDS」，以消除 IDS 的歧义。
+            使用该 IDS 语法表述的数据库在 <a href="https://github.com/yi-bai/ids" target="_blank">https://github.com/yi-bai/ids</a> 以 MIT 授权开源发布。本文尝试解说「白式 IDS」中的特殊语法。
+        </p>
+    </section>
+
+    <section>
+        <h2 id="2">2. Unicode IDS 语法</h2>
+        <h3 id="2.1">2.1. IDC 字符种类</h3>
+        <p>
+            截至 Unicode 16.0.0，共有17种 IDC（Ideographic Description Characters，即表意文字描述字符）。在。它们及其 Unicode 码点、含义和用例如下表所示：
+        </p>
+        <table>
+            <tbody>
+                <tr>
+                    <th>IDC</th>
+                    <th>U 码</th>
+                    <th>字统快捷键</th>
+                    <th>含义</th>
+                    <th>用例</th>
+                </tr>
+                <tr>
+                    <td>⿰</td>
+                    <td>U+2FF0</td>
+                    <td>LR (left right)</td>
+                    <td>左右结构</td>
+                    <td><bai-ids>从&#09;⿰人人</bai-ids></td>
+                </tr>
+                <tr>
+                    <td>⿱</td>
+                    <td>U+2FF1</td>
+                    <td>UD (up down)</td>
+                    <td>上下结构</td>
+                    <td><bai-ids>仌&#09;⿱人人</bai-ids></td>
+                </tr>
+                <tr>
+                    <td>⿲</td>
+                    <td>U+2FF2</td>
+                    <td>LL (left left)</td>
+                    <td>左中右结构</td>
+                    <td><bai-ids>衍&#09;⿲彳氵亍</bai-ids></td>
+                </tr>
+                <tr>
+                    <td>⿳</td>
+                    <td>U+2FF3</td>
+                    <td>UU (up up)</td>
+                    <td>上中下结构</td>
+                    <td><bai-ids>佥&#09;⿳亼𭕄一</bai-ids></td>
+                </tr>
+                <tr>
+                    <td>⿴</td>
+                    <td>U+2FF4</td>
+                    <td>OC (over center)</td>
+                    <td>全包围结构</td>
+                    <td><bai-ids>囚&#09;⿴囗人</bai-ids></td>
+                </tr>
+                <tr>
+                    <td>⿵</td>
+                    <td>U+2FF5</td>
+                    <td>OD (over down)</td>
+                    <td>上包围结构</td>
+                    <td><bai-ids>冈&#09;⿵冂乂</bai-ids></td>
+                </tr>
+                <tr>
+                    <td>⿶</td>
+                    <td>U+2FF6</td>
+                    <td>OU (over up)</td>
+                    <td>下包围结构</td>
+                    <td><bai-ids>凶&#09;⿶凵乂</bai-ids></td>
+                </tr>
+                <tr>
+                    <td>⿷</td>
+                    <td>U+2FF7</td>
+                    <td>OR (over left)</td>
+                    <td>左包围结构</td>
+                    <td><bai-ids>区&#09;⿷匚乂</bai-ids></td>
+                </tr>
+                <tr>
+                    <td>⿸</td>
+                    <td>U+2FF8</td>
+                    <td>RD (right down)</td>
+                    <td>左上包围结构</td>
+                    <td><bai-ids>仄&#09;⿸厂人</bai-ids></td>
+                </tr>
+                <tr>
+                    <td>⿹</td>
+                    <td>U+2FF9</td>
+                    <td>LD (left down)</td>
+                    <td>右上包围结构</td>
+                    <td><bai-ids>寸&#09;⿹𬺰丶</bai-ids></td>
+                </tr>
+                <tr>
+                    <td>⿺</td>
+                    <td>U+2FFA</td>
+                    <td>RU (right up)</td>
+                    <td>左下包围结构</td>
+                    <td><bai-ids>亾&#09;⿺𠃊人</bai-ids></td>
+                </tr>
+                <tr>
+                    <td>⿻</td>
+                    <td>U+2FFB</td>
+                    <td>XX (交叉)</td>
+                    <td>重叠</td>
+                    <td><bai-ids>巫&#09;⿻工从</bai-ids></td>
+                </tr>
+                <tr>
+                    <td>⿼</td>
+                    <td>U+2FFC</td>
+                    <td>OL (over left)</td>
+                    <td>右包围结构</td>
+                    <td><bai-ids>㕚&#09;⿼叉丶</bai-ids></td>
+                </tr>
+                <tr>
+                    <td>⿽</td>
+                    <td>U+2FFD</td>
+                    <td>LU (left up)</td>
+                    <td>右下包围结构</td>
+                    <td><bai-ids>斗&#09;⿽十⺀</bai-ids></td>
+                </tr>
+                <tr>
+                    <td>⿾</td>
+                    <td>U+2FFE</td>
+                    <td>MI (mirror)</td>
+                    <td>水平镜像</td>
+                    <td><bai-ids>𱤻&#09;⿾止</bai-ids></td>
+                </tr>
+                <tr>
+                    <td>⿿</td>
+                    <td>U+2FFF</td>
+                    <td>RO (rotate)</td>
+                    <td>旋转</td>
+                    <td><bai-ids>𠄔&#09;⿿予</bai-ids></td>
+                </tr>
+                <tr>
+                    <td>㇯</td>
+                    <td>U+31EF</td>
+                    <td>SU (subtract)</td>
+                    <td>删减</td>
+                    <td><bai-ids>丅&#09;㇯下丶</bai-ids></td>
+                </tr>
+            </tbody>
+        </table>
+        <small>注：U+31EF 较为特殊，因为它不在表意描述字符区段中，可能是由于该区段已无空位。</small>
+        <p>
+            EBNF 语法定义：
+        </p>
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">IDS_Sequence ::= ...
+  | IDS_UnaryOperator IDS_Component
+  | IDS_BinaryOperator IDS_Component IDS_Component
+  | ...
+  | IDS_TrinaryOperator IDS_Component IDS_Component IDS_Component
+
+IDS_UnaryOperator ::= [⿾⿿]
+IDS_BinaryOperator ::= IDS_BinaryUnique | IDS_BinaryOverlap | IDS_BinaryAmbiguousWrapping
+IDS_BinaryUniqueOperator ::= [⿰⿱⿸⿹⿺⿽]
+IDS_BinaryOverlapOperator ::= "⿻"
+IDS_BinaryAmbiguousOperator ::= [⿴⿵⿶⿷⿼㇯]
+IDS_TrinaryOperator ::= [⿲⿳]</code></pre>
+
+        <h3 id="2.2">2.2. 无嵌套的 IDS 语法</h3>
+        <p>
+            无嵌套的 IDS 语法十分简单，为：<bai-ids>&lt;IDC&gt;&lt;TAB&gt;&lt;汉字 ...&gt;</bai-ids>。例：
+        <ul>
+            <li><bai-ids>苒&#09;⿱艹冉</bai-ids></li>
+            <li><bai-ids>万&#09;⿱一勹</bai-ids></li>
+            <li><bai-ids>丕&#09;⿱不一</bai-ids></li>
+            <li><bai-ids>丬&#09;⿰冫丨</bai-ids></li>
+            <li><bai-ids>中&#09;⿻丨口</bai-ids></li>
+            <li><bai-ids>以&#09;⿲𠄌丶人</bai-ids></li>
+            <li><bai-ids>𱤻&#09;⿾止</bai-ids></li>
+        </ul>
+        </p>
+        <h3 id="2.3">2.3. 有嵌套的 IDS 语法</h3>
+        <p>
+            IDS 允许无限嵌套，例：<br>
+        </p>
+        <figure>
+            <div class="text-figure">
+                <div>⿰⿱<span class="highlight">⿰先先</span>貝攵</div>
+                <div class="fig-arrow">&DownArrow;</div>
+                <div>⿰<span class="highlight">⿱<span class="highlight">&#xE000;</span>貝</span>攵</div>
+                <div class="fig-arrow">&DownArrow;</div>
+                <div>⿰<span class="highlight">&#xE001;</span>攵</div>
+                <div class="fig-arrow">&DownArrow;</div>
+                <div>𣀹</div>
+            </div>
+            <figcaption>「𣀹」的 IDS 嵌套结构示例</figcaption>
+        </figure>
+        <p>
+            其他嵌套结果例子：
+        <figure>
+            <div class="text-figure">
+                <div>𣀱 = ⿰⿳米丗⿻人⿱艹一攵</div>
+                <div>𣀎 = ⿰⿳爫出⿺𠃊小攴</div>
+            </div>
+            <figcaption>其他 IDS 嵌套结构示例</figcaption>
+        </figure>
+        </p>
+    </section>
+
+    <section>
+        <h2 id="3">3. 白式 IDS 语法</h2>
+        <h3 id="3.1">3.1. 前言</h3>
+        <p>
+            以下章节将表述由字统网站长白易自定义的 IDS 语法，如：「<bai-ids>{曰}⿴囗一</bai-ids>」只表示「曰」，而不能表示「日」；「<bai-ids>⿻[:-1]丨日</bai-ids>」只表示「由」，而不能表示「甲」「申」「甴」「曱」……所有以下提到的语法皆可以在 <a href="https://zi.tools/zi/?secondary=ids" target="_blank">字统网上的「组字」tab</a> 使用。另外，上面 <a href="#2.1">§2.1〈IDC 字符种类〉</a> 中的「字统快捷键」表格栏也可在该页面使用。
+        </p>
+        <p>
+            本文接下来于内文使用的定义语法为：<code>&lt;字&gt; &lt;TAB&gt; &lt;IDS 定义组&gt;</code>，中间 TAB 字符为 U+0009 字符，表示 &lt;字&gt; 的 IDS 定义为 &lt;IDS 定义组&gt;。如果一个字有多个 IDS 定义，则可以使用第二个 TAB 字符分隔开来，如：<code>&lt;字&gt; &lt;TAB&gt; &lt;IDS 定义组&gt; &lt;TAB&gt; &lt;IDS 另类定义组&gt;</code>，其中 &lt;IDS 定义组&gt; 是默认拆分的方式，&lt;IDS 另类定义组&gt; (alternative) 则是拆分成比较不合理、不常见的部件。例如「滟」的 IDS 条目：
+            <pre class="ids">滟&#09;<u>⿰氵.艳.&#09;</u>⿰沣.色.</pre>
+            一般应拆成「<bai-ids>⿰氵艳</bai-ids>」，而不是另类的「<bai-ids>⿰沣色</bai-ids>」）。
+        </p>
+        <p>
+            EBNF 语法定义：
+        </p>
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">IDS_Definition_Row ::= Ideograph_Char TAB IDS_Locale_Definition (TAB IDS_Alternative_Definition)
+IDS_Locale_Definition ::= IDS_Sequence | IDS_Locale_Sequence (";" IDS_Locale_Sequence)*
+IDS_Alternative_Definition ::= (IDS_Sequence | IDS_Locale_Sequence)  (";" (IDS_Sequence | IDS_Locale_Sequence))*
+</code></pre>
+
+        <h3 id="3.2">3.2. 特殊符号</h3>
+        <p>
+            为方便在字统网上快速搜索汉字，字统网特别添加了一个特殊 IDS 符号「🔄︎」（emoji: <span style="font-family: sans-serif;">🔄️</span>，U+1F504）来表示「替换」。其用法为「<bai-ids>🔄︎字₁字₂字₃</bai-ids>」表示字₁里面的字₂部件换成字₃部件，如「<bai-ids>嬴&#09;🔄赢贝女</bai-ids>」表示将「嬴」里面的「贝」换成「女」。此 IDS 字符主要用于快速在字统网里面查询汉字，但不在字统网 IDS 数据库内使用。
+        </p>
+        <figure>
+            <div class="text-figure">
+                <div>嬴 = 🔄赢贝女</div>
+                <div>輿 = 🔄興同車</div>
+            </div>
+            <figcaption>字统网「替换」 IDS 符号示例</figcaption>
+        </figure>
+        <h3 id="3.3">3.3. 数据库格式</h3>
+        <p>
+            本文研究的数据来源是字统网站长白易在 GitHub 上开源的 <a href="https://github.com/yi-bai/ids" target="_blank">IDS 数据库</a>。以下所有延展语法的解说都是从该数据库的 IDS 定义提取出来。该数据库为每个汉字提供 IDS 定义，其中统一化的程度可区分为三级：
+            <ul>
+                <li>ids_lv0.txt：笔画级区分，例如一（横）和㇀（提）、丶（点）和㇏（捺）皆区分。</li>
+                <li>ids_lv1.txt：合并笔画级区分。</li>
+                <li>ids_lv2.txt：依据 Unicode UCV 表合并部件。</li>
+            </ul>
+            文件每行的格式参考 <a href="#3.1">§3.1〈白式 IDS 语法前言〉</a>。
+        </p>
+        <p>
+            本文使用的<a href="https://unicode.org/irg/docs/n2813-Complete.pdf" target="_blank">UCV 表（Unifiable Component Variations, 可统一组件变体列表）</a>是 IRG （Ideographic Research Group，即「表意文字研究小组」）下 <a href="https://unicode.org/irg/IWDS.html" target="_blank">IWDS 系列二文件（IRG Working Document Series 2）</a>的最新文件。
+        </p>
+        <p>
+            以下内容皆以 lv0 IDS（即笔画级区分）为基础进行解说，提到的扩展语法都是 lv0 IDS 内已使用的语法。
+        </p>
+        <h3 id="3.4">3.4. 特殊语法分类</h3>
+        <p>
+            为方便理解，以下拆分不同章节分别解说：
+            <ol start="4">
+                <li>汉字的字形变体</li>
+                <li>部件之间的重叠穿插</li>
+                <li>笔画之间的相接/穿插</li>
+            </ol>
+        </p>
+    </section>
+
+    <section>
+        <h2 id="4">4. 汉字的字形变体</h2>
+        <h3 id="4.1">4.1. 概念</h3>
+        <p>
+            如果你细心观察 <a href="#2.3">§2.3〈有嵌套的 IDS 语法〉</a> 中「<bai-ids>⿰⿱⿰先先貝攵</bai-ids>」的例子的话，你会发现直接接用此 IDS 组出来的字与实际上的「𣀹」有所不同：直接接用此 IDS
+            组出来的字的左上角的「先」的最后一笔是「乚」，但是「𣀹」的左上角的「先」的最后一笔是「𠄌」，这是由于部件避让的习惯而产生的差异。汉字有诸多写法，为了方便表示不同写法变体之间的其中一种，因此需要标上「字形变体标识符」（EBNF 语法内的 <code>Variant_Identifier_Definition</code>）。
+        </p>
+
+        <h3 id="4.2">4.2 定义及使用语法</h3>
+        <p>
+            EBNF 语法定义：
+        </p>
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">/* 定义 IDS 组合里面的「字形变体标识符」 */
+IDS_Locale_Sequence ::= ... IDS_Sequence Variant_Identifier_Definition?
+Variant_Identifier_Definition ::= "(" Variant_Identifier ("," Variant_Identifier)* ")"
+
+/* 在 IDS 里使用「字形变体标识符」 */
+Ideo_with_Variant_ID ::= Ideograph_Char_with_Variant Variant_Identifier?
+</code></pre>
+        <p>
+            从 ids_lv0.txt 读取<a href="https://zi.tools/令" target="_blank">「令」（U+4EE4）</a>的条目是:
+            <pre class="ids">令&#09;<u>⿱亽龴.(.);⿱亼.龴.(H);⿱人.𪜁(J);⿳人d丶.龴.(d..);⿱亼d龴.(dh.);⿱人d𪜁(dhs);⿱亽卩(hdx);⿱亼.卩(hsx)</u>&#09;⿱亼.𰆊(J);⿱亼d𰆊(dhs)</pre>
+            其中有两个 TAB 字符，依据 <a href="#3.1">§3.1〈白式 IDS 语法前言〉</a> 的说明可知有两段：「定义组」 <bai-ids>⿱亽龴.(.);⿱亼.龴.(H);⿱人.𪜁(J);⿳人d丶.龴.(d..);⿱亼d龴.(dh.);⿱人d𪜁(dhs);⿱亽卩(hdx);⿱亼.卩(hsx)</bai-ids> 及 「另类定义组」 <bai-ids>⿱亼.𰆊(J);⿱亼d𰆊(dhs)</bai-ids>。其中每段变体的 IDS 之间以 <code>;</code> 分隔，且每段变体后面以括号 <code>()</code> 包裹「字形变体标识符」。以下表格展示拆分以上 IDS 条目后得到的变体列表及代表字形。
+        </p>
+        <table>
+            <tr>
+                <th>字形变体标识符 ID</th>
+                <th>IDS 组别</th>
+                <th>IDS</th>
+                <th>变体来源</th>
+                <th>字形展示</th>
+            </tr>
+            <tr>
+                <td>(.)</td>
+                <td>定义组</td>
+                <td><bai-ids>⿱亽龴.</bai-ids></td>
+                <td>G</td>
+                <td><span class="large-sample">令</span></td>
+            </tr>
+            <tr>
+                <td>(H)</td>
+                <td>定义组</td>
+                <td><bai-ids>⿱亼.龴.</bai-ids></td>
+                <td>H,T (V,KP)</td>
+                <td><span class="large-sample">&#xE014;</span></td>
+            </tr>
+            <tr>
+                <td rowspan="2">(J)</td>
+                <td>定义组</td>
+                <td><bai-ids>⿱人.𪜁</bai-ids></td>
+                <td rowspan="2">J,K</td>
+                <td rowspan="2"><span class="large-sample" >&#xE013;</span></td>
+            </tr>
+            <tr>
+                <td>另类定义组</td>
+                <td><bai-ids>⿱亼.𰆊</bai-ids></td>
+            </tr>
+            <tr>
+                <td>(d..)</td>
+                <td>定义组</td>
+                <td><bai-ids>⿳人d丶.龴.</bai-ids></td>
+                <td>G左边，上面人避点</td>
+                <td><span class="large-sample">&#xE017;</span><br><span lang="zh-Hans-CN">領</span>左边</td>
+            </tr>
+            <tr>
+                <td>(dh.)</td>
+                <td>定义组</td>
+                <td><bai-ids>⿱亼d龴.</bai-ids></td>
+                <td>H,T左边，上面人避点</td>
+                <td><span class="large-sample">&#xE016;</span><br><span lang="zh-Hant-HK">領</span>左边</td>
+            </tr>
+            <tr>
+                <td rowspan="2">(dhs)</td>
+                <td>定义组</td>
+                <td><bai-ids>⿱人d𪜁</bai-ids></td>
+                <td rowspan="2">J,K左边，上面人避点</td>
+                <td rowspan="2"><span class="large-sample">&#xE015;</span><br><span lang="ja">領</span>左边</td>
+            </tr>
+            <tr>
+                <td>另类定义组</td>
+                <td><bai-ids>⿱亼d𰆊</bai-ids></td>
+            </tr>
+            <tr>
+                <td>(hdx)</td>
+                <td>定义组</td>
+                <td><bai-ids>⿱亽卩</bai-ids></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>(hsx)</td>
+                <td>定义组</td>
+                <td><bai-ids>⿱亼.卩</bai-ids></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <caption>「令」（U+4EE4）在白式 IDS 里面的字形变体列表</caption>
+        </table>
+
+        <p>
+            通过以上表格能看出，白式 IDS 里「令」一共有八种变体。如果要使用以上的变体，在其他使用「令」的汉字时，在「令」后面加上「字形变体标识符」即可。以下抽取两个使用「令」的汉字：「冷」及「刢」，并组装出它们的字形变体列表：
+        </p>
+
+        <pre class="ids">冷&#09;⿰冫令.(.);⿰冫令H(H);⿰冫令J(J)</pre>
+        <table>
+            <tr>
+                <th>字形变体标识符 ID</th>
+                <th>IDS 组别</th>
+                <th>IDS</th>
+                <th>使用的「令」变体</th>
+                <th>字形展示</th>
+            </tr>
+            <tr>
+                <td>(.)</td>
+                <td rowspan="3">定义组</td>
+                <td><bai-ids>⿰冫令.</bai-ids></td>
+                <td>令.（G）</td>
+                <td><span class="large-sample" lang="zh-Hans-CN">冷</span></td>
+            </tr>
+            <tr>
+                <td>(H)</td>
+                <td><bai-ids>⿰冫令H</bai-ids></td>
+                <td>令H（H,T）</td>
+                <td><span class="large-sample" lang="zh-Hant-HK">冷</span></td>
+            </tr>
+            <tr>
+                <td>(J)</td>
+                <td><bai-ids>⿰冫令J</bai-ids></td>
+                <td>令J（J,K）</td>
+                <td><span class="large-sample">&#xE020;</span></td>
+            </tr>
+            <caption>「冷」（U+51B7）在白式 IDS 里面的字形变体列表</caption>
+        </table>
+
+        <pre class="ids">刢&#09;⿰令d..刂(.);⿰令dhs刂(J);⿰令dh.刂(T)</pre>
+        <table>
+            <tr>
+                <th>字形变体标识符 ID</th>
+                <th>IDS 组别</th>
+                <th>IDS</th>
+                <th>使用的「令」变体</th>
+                <th>字形展示</th>
+            </tr>
+            <tr>
+                <td>(.)</td>
+                <td rowspan="3">定义组</td>
+                <td><bai-ids>⿰令d..刂</bai-ids></td>
+                <td>令d..（G左边，上面人避点）</td>
+                <td><span class="large-sample">刢</span></td>
+            </tr>
+            <tr>
+                <td>(J)</td>
+                <td><bai-ids>⿰令dhs刂</bai-ids></td>
+                <td>令dhs（J,K左边，上面人避点）</td>
+                <td><span class="large-sample">&#xE019;</span></td>
+            </tr>
+            <tr>
+                <td>(T)</td>
+                <td><bai-ids>⿰令dh.刂</bai-ids></td>
+                <td>令dh.（H,T左边，上面人避点）</td>
+                <td><span class="large-sample">&#xE018;</span></td>
+            </tr>
+            <caption>「刢」（U+5222）在白式 IDS 里面的字形变体列表</caption>
+        </table>
+        <p>由此可见，通过使用不同的字形变体标识符，可以在不同的应用场景中灵活地选择任意汉字的字形，只要该汉字有相对应的字形变体。</p>
+        <p>注：如果汉字本身没有对应的字形变体，则可以<em>省略</em>字形变体标识符。</p>
+
+        <h3 id="4.3">4.3. 字形变体标识符的种类</h3>
+        <p>字形变体标识符的种类较多，大致可以分为以下四种。</p>
+        <p>
+            EBNF 语法定义：
+        </p>
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">Variant_Identifier ::= Wildcard_Source | Unicode_Sources | UCV_Full_Position | Imaginary_UCV | Alternate_Variants</code></pre>
+
+        <h4 id="4.3.1">4.3.1. 提交源的变体</h4>
+        <p>
+            EBNF 语法定义：
+        </p>
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">Wildcard_Source ::= "."
+Unicode_Sources ::= [BGHJKMPSTUVQ]</code></pre>
+        <p>
+            每个汉字都有一个及以上的提交源，每个提交源的字形都可能不一样。针对提交源的变体，「字形变体标识符」使用的是各个提交源的大写字母。各个提交源的「字形变体标识符」字母如下：
+            <table>
+                <tbody>
+                    <tr>
+                        <th>字形变体标识符 ID</th>
+                        <th>提交源</th>
+                        <th>来源</th>
+                    </tr>
+                    <tr>
+                        <td>B</td>
+                        <td>UK</td>
+                        <td>英国</td>
+                    </tr>
+                    <tr>
+                        <td>G</td>
+                        <td>G</td>
+                        <td>中国大陆（仅用于不符合「抽象构型」的「<a href="https://zi.tools/zi/%E5%BD%90" target="_blank">彐（U+5F50）</a>」）</td>
+                    </tr>
+                    <tr>
+                        <td>H</td>
+                        <td>H</td>
+                        <td>香港</td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>J</td>
+                        <td>J</td>
+                        <td>日本</td>
+                    </tr>
+                    <tr>
+                        <td>K</td>
+                        <td>K</td>
+                        <td>韩国</td>
+                    </tr>
+                    <tr>
+                        <td>M</td>
+                        <td>M</td>
+                        <td>澳门</td>
+                    </tr>
+                    <tr>
+                        <td>P</td>
+                        <td>KP</td>
+                        <td>朝鲜</td>
+                    </tr>
+                    <tr>
+                        <td>S</td>
+                        <td>SAT</td>
+                        <td>大藏经文本数据库委员会</td>
+                    </tr>
+                    <tr>
+                        <td>T</td>
+                        <td>T</td>
+                        <td>台湾</td>
+                    </tr>
+                    <tr>
+                        <td>U</td>
+                        <td>UTC</td>
+                        <td>美国及 Unicode 技术委员会</td>
+                    </tr>
+                    <tr>
+                        <td>V</td>
+                        <td>V</td>
+                        <td>越南</td>
+                    </tr>
+                    <tr>
+                        <td>Q</td>
+                        <td>UCS2003</td>
+                        <td>
+                            <a href="https://www.unicode.org/notes/tn53/" target="_blank">UTN #53</a>，Unicode 13.0 以前的 UCS2003 栏<br>仅用于中日韩统一汉字——扩展B区 (CJK Unified Ideographs Extension B)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>.</td>
+                        <td>通配符</td>
+                        <td>取符合「抽象构型」的所有提交源，默认包括 G 源（除上述特例）</td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        <p>
+            如有多个源字形的 IDS 组合一致时，提交源「字形变体标识符」按 Unicode 码表内最先出现的源标识符为代表符。目前 Unicode 码表顺序为：
+            <pre>Q > G > H > T > J > K > P > V > M > U > S > B</pre>
+        </p>
+        <p>
+            提交源变体示例：
+        </p>
+        <div class="text-figure">
+            <div class="ids"><span class="highlight">伨</span>&#09;⿰亻匀.<span
+                    class="highlight">(.)</span>;⿰亻勻<span
+                    class="highlight">(H)</span></div>
+            <div class="fig-arrow">&DownArrow;</div>
+            <div>
+                <span lang="zh-Hans-CN">伨</span>
+                <span class="highlight">(.)</span>
+                ;
+                <span lang="zh-Hant-HK">伨</span>
+                <span class="highlight">(H)</span>
+            </div>
+        </div>
+        <div class="text-figure">
+            <div class="ids"><span class="highlight">𣂀</span>&#09;⿰⿸厂.兆t斗<span
+                    class="highlight">(.)</span>;⿰𠩓斗<span
+                    class="highlight">(Q)</span></div>
+            <div class="fig-arrow">&DownArrow;</div>
+            <div>
+                <span lang="zh-Hans-CN">𣂀</span>
+                <span class="highlight">(.)</span>
+                ;
+                <span lang="zh-Hans-CN">&#xe002;</span>
+                <span class="highlight">(Q)</span>
+            </div>
+        </div>
+        <div class="text-figure">
+            <div class="ids"><span class="highlight">睹</span>&#09;⿰目者.<span
+                    class="highlight">(.)</span>;⿰目者K<span
+                    class="highlight">(J)</span></div>
+            <div class="fig-arrow">&DownArrow;</div>
+            <div class="ids"><span class="highlight">睹</span>&#09;⿰目者<span
+                    class="highlight">(.)</span>;⿰目者<span
+                    class="highlight">(J)</span></div>
+            <div class="fig-arrow">&DownArrow;</div>
+            <div>
+                <span lang="zh-Hans-CN">睹</span>
+                <span class="highlight">(.)</span>
+                ;
+                <span lang="ko">睹</span>
+                <span class="highlight">(J)</span>
+            </div>
+        </div>
+
+        <h4 id="4.3.2">4.3.2 UCV 规则下的变体</h4>
+        <p>
+            EBNF 语法定义：
+        </p>
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">UCV_Full_Position ::= [qpxy] UCV_ID_Number UCV_Position_Number
+UCV_ID_Number ::= Three_Digit_Number [a-z]?
+UCV_Position_Number ::= (Positive_Numeral | Two_Digit_Number) [xy]?
+Imaginary_UCV ::= "qq" UCV_ID_Number+</code></pre>
+        <p>
+            如果一个 IDS 组成的某些部件使用了某个 UCV 规则（下文称为「UCV」）</a>下的其他变体，则该 IDS 组合的「字形变体标识符」就以 <code>q</code> （或<code>p</code> - 撇、<code>x</code> - 交叉、<code>y</code> - 其他）开头，后面接上该 UCV 的三位数序号（若序号的数字不足，用 <code>0</code> 补足），再接上该 UCV 中的某个字形的索引（若该 UCV 少过 10 个变体，索引为一位数从 1 开始，否则索引为二位数从 01 开始），最后还可以接上一个小写字母 x 或 y 表示其他异体。
+        </p>
+        <p>
+            例一：「<bai-ids>烕&#09;⿵戌大.(q008a2)</bai-ids>」中的「<code>(q008a2)</code>」表示该 IDS 适用于 UCV #8a 的第二个字形（如下图）。
+        </p>
+        <figure>
+            <img src="images/ucv-8a.png">
+            <figcaption>UCV #8a</figcaption>
+        </figure>
+        <p>
+            例二：「<bai-ids>龰&#09;⿱丷乀.(q3932)</bai-ids>」中的「<code>(q3932)</code>」表示该 IDS 适用于 UCV #393 的第二个字形（为一位数）。
+        </p>
+        <figure>
+            <img src="images/ucv-393.png">
+            <figcaption>UCV #393</figcaption>
+        </figure>
+        <p>
+            例三：「<bai-ids>滿&#09;⿰氵.⿱艹.⿵𠔼十.(q454a17)</bai-ids>」中的「<code>(q454a17)</code>」表示该 IDS 适用于 UCV #454a 的第十七个字形（如下图）。
+        </p>
+        <figure>
+            <img src="images/ucv-454a.png">
+            <figcaption>UCV #454a</figcaption>
+        </figure>
+        
+        <p>
+            当一个字通过<em>类推/反推</em>某个 UCV 的部件而创造出<em>新的变体</em>，则该 IDS 组合的「字形变体标识符」就以 <code>qq</code>开头，后面接上一个或多个 UCV 的三位数序号（若序号的数字不足，用 <code>0</code> 补足）。
+        </p>
+        <p>
+            例一：「<bai-ids>父&#09;⿱八d乂.(.); ⿱儿.乂.(qq222)</bai-ids>」中的「<code>(qq222)</code>」表示该 IDS 描述 <bai-ids>⿱儿.乂.</bai-ids> 中相对于 <code>(.)</code> 有一个部件（<code>八d</code>）变成了 UCV #222 中的一个变体（<code>儿.</code>）。见下两图。
+        </p>
+        <figure>
+            <img src="images/ucv-222-selected.png">
+            <figcaption>UCV #222</figcaption>
+            <div class="text-figure">
+                <div class="ids">⿱八d乂.<span class="highlight">(.)</span>; ⿱儿.乂.<span class="highlight">(qq222)</span></div>
+                <div class="fig-arrow">&DownArrow;</div>
+                <div class="ids">⿱&#xE012;乂<span class="highlight">(.)</span>; ⿱儿乂<span class="highlight">(qq222)</span></div>
+                <div class="fig-arrow">&DownArrow;</div>
+                <div class="ids">父<span class="highlight">(.)</span>; &#xE021;<span class="highlight">(qq222)</span></div>
+            </div>
+            <figcaption>依据 UCV #222 生成的 <bai-ids>&#xE021;qq222</bai-ids> 变体</figcaption>
+        </figure>
+        <p>
+            例二：「<bai-ids>&#xE023;&#09;⿱夂.月.(.); ⿱攵.⺼.(qq053194)</bai-ids>」中的「<code>(qq053194)</code>」表示该 IDS 描述 <bai-ids>⿱攵.⺼.</bai-ids> 的字中有一个部件（<code>夂</code>）变成了 UCV #53 中的一个变体（<code>攵</code>），还有一个部件（<code>月</code>）变成了 UCV #194 中的一个变体（<code>⺼</code>）。见下两图。
+        </p>
+        <figure>
+            <img src="images/ucv-53-194.png">
+            <figcaption>UCV #53 & UCV #194</figcaption>
+            <div class="text-figure">
+                <div class="ids">⿱夂.月.<span class="highlight">(.)</span>; ⿱攵.⺼.<span class="highlight">(qq053194)</span></div>
+                <div class="fig-arrow">&DownArrow;</div>
+                <div class="ids">&#xE023;<span class="highlight">(.)</span>;&#xE022;<span class="highlight">(qq053194)</span></div>
+            </div>
+            <figcaption>依据 UCV #53 & UCV #194 生成的 <bai-ids>&#xE022;qq053194</bai-ids> 变体</figcaption>
+        </figure>
+
+        <h4 id="4.3.3">4.3.3. 笔画样式及位置差异的变体</h4>
+        <p>
+            EBNF 语法定义：
+        </p>
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">Alternate_Variants ::= [0-9a-z.]+</code></pre>
+        <p>
+            如果一个字存在笔画级别差异或部分部件的位置差异的变体，则该 IDS 组合的「字形变体标识符」就会以小写字母、点 <code>.</code> 及数字标示。
+        </p>
+        <p>
+            笔画样式及位置差异的示例：
+        </p>
+        <table class="text-figure">
+            <tr>
+                <td>
+                        <div class="ids"><span class="highlight">丰</span>&#09;⿻丿三<span
+                                class="highlight">(..p)</span></div>
+                        <div class="fig-arrow">&DownArrow;</div>
+                        <div class="ids"><span class="highlight">&#xE003;</span> (..p)</div>
+                        <small>然后</small>
+                        <div class="ids"><span class="highlight">邦</span>&#09;⿰<span
+                                style="color: orange;">丰..p</span>阝<span class="highlight">(.)</span></div>
+                        <div class="fig-arrow">&DownArrow;</div>
+                        <div class="ids"><span class="highlight">邦</span>&#09;⿰<span style="color: orange;"
+                                class="example-font">&#xE003;</span>阝</div>
+                </td>
+                <td>
+                        <div class="ids"><span class="highlight">勳</span>&#09;⿺熏力<span
+                                class="highlight">(r)</span></div>
+                        <div class="fig-arrow">&DownArrow;</div>
+                        <div class="ids"><span class="highlight">&#xE004;</span>(r)</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                        <div class="ids"><span class="highlight">刍</span>&#09;⿱⺈⺕<span
+                                class="highlight">(x)</span></div>
+                        <div class="fig-arrow">&DownArrow;</div>
+                        <div class="ids"><span class="highlight">&#xE006;</span>(x)</div>
+                </td>
+                <td>
+                        <div class="ids"><span class="highlight">务</span>&#09;⿱攵力<span class="highlight">(y)</span></div>
+                        <div class="fig-arrow">&DownArrow;</div>
+                        <div class="ids"><span class="highlight" class="example-font">&#xE007;</span>(y)</div>
+                </td>
+            </tr>
+        </table>
+        <p>
+            常见的笔画式「字形变体标识符」字符及其含义如下：
+            <ul>
+                <li><code>.</code>：占位符、默认字形</li>
+                <li><code>a</code>：未知</li>
+                <li><code>b</code>：未知</li>
+                <li><code>c</code>：未知</li>
+                <li><code>d</code>：点</li>
+                <li><code>g</code>：钩</li>
+                <li><code>h</code>：横</li>
+                <li><code>n</code>：捺</li>
+                <li><code>p</code>：撇</li>
+                <li><code>s</code>：竖</li>
+                <li><code>t</code>：提</li>
+                <li><code>w</code>：弯</li>
+                <li><code>x</code>：更多交叉（x 为 cross 的缩写）</li>
+                <li><code>y</code>：更少交叉</li>
+                <li><code>z</code>：折</li>
+            </ul>
+        </p>
+        <p>
+            常见的位置「字形变体标识符」字符及其含义如下：
+            <ul>
+                <li><code>u</code>：上（up）</li>
+                <li><code>l</code>：左（left）</li>
+                <li><code>r</code>：右（right）</li>
+            </ul>
+        </p>
+        <p>
+            「字形变体标识符」的完整组合是对该字的全部部件，每个部件的笔画样式字符或使用的「字形变体标识符」，按部件顺序串联，例：上文中的「<bai-ids>(..p)</bai-ids>」表示「丰」的前两个部分不改变，而第三个部分中的一部分与撇相似的笔画变成撇，即代表「&#xE003;」；「<bai-ids>(r)</bai-ids>」表示「勳」的某个部分（灬）往右移动一些，于是「勳」就变成了「&#xE004;」。
+        </p>
+        <p>
+            此类「字形变体标识符」一般用于表示某个汉字应该用的是部件的原字形，但是由于某些因素（避让）需要更换成不同的字形。例如：「子」有两个 IDS「字形变体标识符」：<bai-ids>⿻了.一.(.)</bai-ids> 和 <bai-ids>⿻了.一t(t)</bai-ids>，这表示即使<bai-ids>子t</bai-ids>（「孩」左）中间看起来是一个提<bai-ids>#(T)</bai-ids>，但是实际上是由「一」避让而来的<bai-ids>一t</bai-ids>；「孑」就不一样，其 IDS <bai-ids>⿻了.㇀</bai-ids>直接表明中间的部件是不同的，是「<bai-ids>㇀</bai-ids>」（提）而不能写成横。此类「字形变体标识符」在<a href="#7.2">§7.2 〈lv1 的合并〉</a>将有妙用。
+        </p>
+        
+        <h4 id="4.3.4">4.3.4. 其他变体</h4>
+        <p>
+            EBNF 语法定义与 <a href="#4.3.3">§4.3.3 〈笔画样式及位置差异的变体〉</a> 一样，「字形变体标识符」使用小写字母、点 <code>.</code> 及数字标示。部分常见变体如下：
+        </p>
+        <ul>
+            <li>
+                「<code>(m)</code>」表示镜像汉字或带有镜像部件的变体，例：「<bai-ids>𱤻&#09;<span
+                    class="highlight">⿾</span>止.<span
+                    class="highlight">(m)</span></bai-ids>」「<bai-ids>𡴧&#09;⿳屮.⿰止.𱤻<span
+                    class="highlight">m</span>亡.<span class="highlight">(m)</span></bai-ids>」
+            </li>
+            <li>
+                「<code>(e)</code>」表示该 IDS 组合出的字与原字相似（？）但不在 UCV 规则内，例：「<bai-ids>𠪧&#09;⿰𠂬果.<span
+                    class="highlight">(e)</span></bai-ids>」
+            </li>
+            <li>
+                以「<code>j</code>」「<code>q</code>」或数字开头表示其他种类的笔画差异，例：「<bai-ids>(jss)</bai-ids>」「<bai-ids>(qy)</bai-ids>」「<bai-ids>(2t)</bai-ids>」……
+            </li>
+        </ul>
+        <figure>
+            <div class="text-figure">
+                <div class="ids"><span style="color: gold">𠁁</span>&#09;⿱⿰⿸#(丿𠃊)#(丨-一𠃑)#(一-𠃍𠃑-一丨)一.<span
+                        style="color: gold">(y2)</span></div>
+                <div class="fig-arrow">&DownArrow;</div>
+                <div class="ids"><span style="color: gold">&#xE008;</span> (y2)</div>
+            </div>
+            <figcaption>y2类变体</figcaption>
+        </figure>
+
+        <h4 id="4.3.5">4.3.5. 注释</h4>
+        <p>
+            实际上，<a href="#4.3.2">§4.3.2 〈UCV 规则下的变体〉</a>、<a href="#4.3.3">§4.3.3 〈笔画样式及位置差异的变体〉</a>、<a href="#4.3.4">§4.3.4 〈其他变体〉</a>都是「字形变体标识符」的<em>自定义</em>子类，使用小写字母、数字和点 <code>.</code> 组合而成。它们之间并没有严格的界限，某些变体可能同时属于多个上述子类。只要「字形变体标识符」的语法符合上述 EBNF 定义，并且能够清晰地区分某个汉字内不同字形变体的不同 IDS 组合，就是合法的「字形变体标识符」。
+        </p>
+    </section>
+    
+    <section>
+        <h2 id="5">5. 笔画之间的相接</h2>
+        <h3 id="5.1">5.1. 笔画链的简介</h3>
+        <p>
+            有些字中有一些结构难以用一般 IDS 描述，或只能以自循环表述，如「乙」「亞」「凸」「一」……为了仍可描述这些汉字的写法而不陷入自循环，就有了「笔画链」（EBNF 语法内的 <code>Stroke_Sequence</code>）。
+        </p>
+
+        <h3 id="5.2">5.2. 笔画链语法</h3>
+        <p>
+            EBNF 语法定义：
+        </p>
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">IDS_Sequence ::= Stroke_Sequence | ...
+Stroke_Sequence ::= "#" "(" Stroke_Part+ "z"? ")"</code></pre>
+        <p>
+            「笔画链」以 <code>#(</code> 开头，以 <code>)</code> 结尾，中间部分包含笔画字符、控制字符和笔画修饰字符。笔画字符和笔画修饰字符也可用字母代替以避免自循环和方便输入。笔画字符又可分为独立笔画字符和复合笔画字符。「笔画链」里的笔画字符<em>按顺序首尾相连</em>，连贯地书写下去，所以称之为「链」。所有笔画忽略书写时的角度，只关注笔画的起点、终点和粗细变化。「笔画链」作为一个独体，当与其他部件穿插重叠时，仍然保持「笔画链」的笔画顺序和连接关系不变。
+        </p>
+        
+        <h3 id="5.3">5.3. 独立笔画字母</h3>
+        <p>
+            EBNF 语法定义：
+        </p>
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">Stroke_Part ::= StReversed_Indicator? (Ideograph_Char | Stroke_Letter) (StCrossing_Indicator | StBreak_Indicator)?
+Stroke_Letter ::= [HSPN] [g]? | [SP] "Hw" [g]? | [DTJZ] | "Wg" | [Q][abcd]
+StReversed_Indicator ::= "-"
+StCrossing_Indicator ::= "x" Number
+StBreak_Indicator ::= "b"</code></pre>
+        <figure class="float-right">
+            <img src="images/stroke-letters.svg" alt="笔画字母示例" class="invert-dark-mode">
+            <figcaption>笔画字母示例</figcaption>
+        </figure>
+        <p>
+            独立笔画字母包括：
+            <ul>
+                <li>一：H 横</li>
+                <li>丨：S 竖</li>
+                <li>丿：P 撇</li>
+                <li>乀：N 捺</li>
+                <li>丶：D 点</li>
+                <li>㇀：T 横折</li>
+                <li>㇝：J 提捺</li>
+                <li>←：Z 左（仅用于<bai-ids>㇘&#09;#(SZ)</bai-ids> 兼容《康熙字典》形）</li>
+                <li>㇁：Wg 弯钩（W不会单独出现，必须是 Wg）</li>
+                <li>◝：Qa</li>
+                <li>◞：Qb</li>
+                <li>◟：Qc</li>
+                <li>◜：Qd</li>
+            </ul>
+            注：Q（圈）系曲线的书写方式依据顺时针。
+        </p>
+        <p>
+            笔画修饰字符包括：
+            <ul>
+                <li><code>w</code>：只能在 <code>SH</code> 或 <code>PH</code> 之后使用，表示横的起始连接处更圆润，如：<bai-ids>㇄&#09;#(SH<span class="highlight">w</span>)</bai-ids>。注意不要将其与笔画字符「<code>W</code>」混淆。</li>
+                <li><code>g</code>：表示这个笔画的末尾带钩，如：<bai-ids>㇁&#09;#(W<span class="highlight">g</span>)</bai-ids>。只能在 <code>H</code>、<code>S</code>、<code>P</code>、<code>N</code>、<code>W</code> 之后使用；其也可与「<code>w</code>」连用，此时置于「<code>w</code>」之后，如：<bai-ids>㇈&#09;#(HSHwg)。</bai-ids></li>
+                <li><code>b</code>：用于单个笔画字符之后，表示笔画强制中断，标准化时不可连接下一笔变成另一个笔画；但是下一笔起始点仍在当前笔画的末端位置。如<code>凵y</code>：<bai-ids>凵&#09;#(丨<span class="highlight">b</span>一-丨)(y)</bai-ids>，用于<bai-ids>廿&#09;⿻<span class="highlight">凵y</span>一.</bai-ids>表示「廿」的「凵」应当拆成三笔。</li>
+            </ul>
+        </p>
+        <p>
+            控制字符包括：
+            <ul>
+                <li><code>-</code>：用于单个笔画字符之前，表示这个笔画字符的组合方向方向要倒着写（指起点和终点反转），如：<bai-ids>𠃎&#09;#(一<span class="highlight">-丨</span>)</bai-ids>在组合时里面的「丨」的终点。</li>
+                <li><code>z</code>：用于单个笔画链的末尾，表示这个笔画链首尾相连，如：<bai-ids>口&#09;#(-丨𠃍-一<span class="highlight">z</span>)</bai-ids>。</li>
+                <li>
+                    <code>x</code>：用于单个笔画字符之后，在此控制字符之后要加上一个正整数 <code>n</code>，表示这个笔画字符与其所在笔画链中的第 <code>n</code> 个笔画字符交叉（笔画字符的序号是从 0 开始数，而不是从 1 开始）。取 IDS 条目<bai-ids>母&#09;⿻⿴#(-𠃌𠃊<span class="highlight">x0</span>)⺀一</bai-ids>为例，「母」外框「&#xE00C;」的笔画链如下：
+                    <table>
+                        <tr>
+                            <th>笔画链</th>
+                            <td>#(</td>
+                            <td>-𠃌</td>
+                            <td class="ids">𠃊<span class="highlight">x0</span></td>
+                            <td>)</td>
+                        </tr>
+                        <tr>
+                            <th>顺序</th>
+                            <td></td>
+                            <td class="ids"><span class="highlight">0</span></td>
+                            <td>1</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    其他 <code>x</code> 例子：
+                    <ul>
+                        <li><bai-ids>又&#09;<span class="highlight">#(-乀x1㇇)</span></bai-ids></li>
+                        <li>
+                            <bai-ids>𡆢&#09;⿴囗#(<span class="highlight"><ruby>◞<rt>0</rt>x3</ruby></span><ruby>◟<rt>1</rt></ruby><ruby>◜<rt>2</rt><ruby>◝<rt><span class="highlight">3</span></rt></ruby>-<ruby>◟<rt>4</rt></ruby>)</bai-ids>
+                        </li>
+                        <li><bai-ids>𠇇&#09;⿰亻⿺⿻<span class="highlight">#(丨x3◞◟◜)</span class="highlight">二丶</bai-ids></li>
+                        <li><bai-ids>𠍋&#09;⿲亻⿱丶<span class="highlight">#(㇇◝x4◞◟◜)</span class="highlight">𧈧</bai-ids></li>
+                    </ul>
+
+                </li>
+            </ul>
+        </p>
+        <p>
+            下表提供复合笔画字符和部分汉字的「笔画链」：
+            <table>
+                <tr>
+                    <th>复合笔画字符</th>
+                    <td>⺄</td>
+                    <td>㇁</td>
+                    <td>㇂</td>
+                    <td>㇄</td>
+                    <td>㇅</td>
+                    <td>㇇</td>
+                    <td>㇈</td>
+                </tr>
+                <tr>
+                    <th>笔画链</th>
+                    <td>#(HNg)</td>
+                    <td>#(Wg)</td>
+                    <td>#(Ng)</td>
+                    <td>#(SHw)</td>
+                    <td>#(HSH)</td>
+                    <td>#(HP)</td>
+                    <td>#(HSHwg)</td>
+                </tr>
+                <tr>
+                    <th>复合笔画字符</th>
+                    <td>㇉</td>
+                    <td>㇊</td>
+                    <td>㇋</td>
+                    <td>㇌</td>
+                    <td>㇍</td>
+                    <td>㇎</td>
+                    <td>乁</td>
+                </tr>
+                <tr>
+                    <th>笔画链</th>
+                    <td>#(SHSg)</td>
+                    <td>#(HST)</td>
+                    <td>#(HSHP)</td>
+                    <td>#(HPWg)</td>
+                    <td>#(HSHw)</td>
+                    <td>#(HSHS)</td>
+                    <td>#(HN)</td>
+                </tr>
+                <tr>
+                    <th>复合笔画字符</th>
+                    <td>㇝</td>
+                    <td>㇢</td>
+                    <td>乙</td>
+                    <td>乚</td>
+                    <td>乛</td>
+                    <td>亅</td>
+                    <td>𠃊</td>
+                </tr>
+                <tr>
+                    <th>笔画链</th>
+                    <td>#(J)</td>
+                    <td>#(Pg)</td>
+                    <td>#(HPHwg)</td>
+                    <td>#(SHwg)</td>
+                    <td>#(Hg)</td>
+                    <td>#(Sg)</td>
+                    <td>#(SH)</td>
+                </tr>
+                <tr>
+                    <th>复合笔画字符</th>
+                    <td>𠃋</td>
+                    <td>𠃌</td>
+                    <td>𠃍</td>
+                    <td>𠃑</td>
+                    <td>𠄌</td>
+                    <td>𠄎</td>
+                    <td>〇</td>
+                </tr>
+                <tr>
+                    <th>笔画链</th>
+                    <td>#(PH)</td>
+                    <td>#(HSg)</td>
+                    <td>#(HS)</td>
+                    <td>#(SHS)</td>
+                    <td>#(ST)</td>
+                    <td>#(HSHSg)</td>
+                    <td>#(◟◜◝◞z)</td>
+                </tr>
+                <tr>
+                    <th>汉字</th>
+                    <td>𠂆</td>
+                    <td>匚</td>
+                    <td>𠤬</td>
+                    <td>𱍫</td>
+                    <td>弓</td>
+                    <td>己</td>
+                    <td>巳</td>
+                </tr>
+                <tr>
+                    <th>笔画链</th>
+                    <td>#(丿丿)</td>
+                    <td>#(-一𠃊)</td>
+                    <td>#(-𠃊㇈)</td>
+                    <td>#(-𠃊㇎z)</td>
+                    <td>#(𠃍-一㇉)</td>
+                    <td>#(𠃍-一乚)</td>
+                    <td>#(一-𠃍乚)</td>
+                </tr>
+            </table>
+        </p>
+        <p>
+            笔画链的示例：
+        </p>
+        <div class="text-figure">
+            <div class="ids">兜&#09;⿱⿲<span style="color: gold;">#(丿𠄌)</span>白コ儿.(.)</div>
+            <div class="fig-arrow">&DownArrow;</div>
+            <div class="ids">兜&#09;⿱⿲<span style="color: gold;">&#xE009;</span>白コ儿.(.)</div>
+        </div>
+        <div class="text-figure">
+            <div class="ids">乌&#09;⿱丿⿹<span style="color: gold;">#(-𠃌㇉)</span>一.(.)</div>
+            <div class="fig-arrow">&DownArrow;</div>
+            <div class="ids">乌&#09;⿱丿⿹<span style="color: gold;">&#xE00A;</span>一.(.)</div>
+        </div>
+        <div class="text-figure">
+            <div class="ids">母&#09;⿻⿴<span style="color: gold;">#(-𠃌𠃊x0)</span>⺀一.</div>
+            <div class="fig-arrow">&DownArrow;</div>
+            <div class="ids">母&#09;⿻⿴<span style="color: gold;">&#xE00C;</span>⺀一.</div>
+        </div>
+        <div class="text-figure">
+            <div class="ids">𠆭&#09;⿳人.二.<span style="color: gold;">#(丨x4◞◟◜◝◞◝◞◝)</span>(.)</div>
+            <div class="fig-arrow">&DownArrow;</div>
+            <div class="ids">𠆭&#09;⿳人.二.<span style="color: gold;">&#xE00B;</span>(.)</div>
+        </div>
+    </section>
+
+    <section>
+        <h2 id="6">6. 部件之间的重叠穿插</h2>
+        <h3 id="6.1">6.1. 重叠标记的简介及基础概念</h3>
+        <p>
+            重叠 IDC （<bai-ids>⿻</bai-ids>, U+2FFB）有时会具有歧义，如「⿻丨日」除能表示「甲」外，还可以表示「申」「曱」「甴」「由」「田」。重叠标记语法设计来解决此问题，尽可能表示笔画之间的穿插关系，例如将「甲」的 IDS 限制为「⿻[1:]丨日」。
+        </p>
+        <p>
+            在白式 IDS 语法中，重叠 IDC （<bai-ids>⿻字₁字₂</bai-ids>）的语法被添加了限制。<bai-ids>⿻字₁字₂</bai-ids>中，<bai-ids>字₁</bai-ids>是<em>纵向部件</em>，<bai-ids>字₂</bai-ids>是<em>横向部件</em>。纵向部件代表汉字里面的「竖」或接近的垂直结构，例如：「艹」「〢」的两竖、「口」的左竖和【横折中的竖】、竖撇「丿」）；横向部件代表汉字里面的「横」或接近的水平结构，例如：「口」的【横折中的横】和下面的横、「コ」的【横折中的横】和下面的横、「乐」的第一笔撇与第二笔【竖折中的横】。
+        </p>
+        <p>
+            白式 IDS 语法中，重叠 IDC 添加了扩展语法「穿过表达式」以对重叠 IDC 提供更多资讯。扩展语法为在重叠 IDC 后面添加方括号<code>[ ]</code>，里面添加描述字符，即变成<bai-ids>⿻[...]字₁字₂</bai-ids>。重叠 IDC 的扩展语法目前有两种版本：速成版和完整版，另外还有一个特例。
+        </p>
+        <p>
+            EBNF 语法定义：
+        </p>
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">IDS_Sequence ::= ... | IDS_BinaryOverlapOperator Overlap_Modifier IDS_Component IDS_Component | ...
+Overlap_Modifier ::= "[" Overlap_Matrix ("|" Overlap_Matrix)? "]"
+IDS_BinaryOverlapOperator ::= "⿻"</code></pre>
+
+        <h3 id="6.2">6.2. 重叠速成版：垂直结构穿过水平结构的限制语法</h3>
+        <p>
+            EBNF 语法定义：
+        </p>
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">Overlap_Matrix ::= Overlap_Horizontal_Indexing | ...
+Overlap_Horizontal_Indexing ::= (Number | Negative_Number)? ":" (Number | Negative_Number)?</code></pre>
+        <p>
+            垂直结构穿过水平结构的限制语法，在「穿过表达式」里为：前面一个正整数，后面一个（一般是负）整数，中间用冒号分隔。两个整数中可省略其中一者，但不能都省略。水平结构的序号从 0 开始、从上往下数；如果是负数，则从下往上数，-1 表示最后一个水平结构。
+        </p>
+        <h4 id="6.2.1">6.2.1. 完整情况</h4>
+        <p>
+            最常见的限制语法是：<bai-ids>⿻[a:b]字₁字₂</bai-ids>（<code>a</code>、<code>b</code> 为正整数）表示 <bai-ids>字₁</bai-ids> 里面的<em>全部</em>垂直结构的顶端在 <bai-ids>字₂</bai-ids> 的第 <code>a</code> 个水平结构正下面接触（如「丅」形）；<bai-ids>字₁</bai-ids> 垂直结构的底端在 <bai-ids>字₂</bai-ids> 的第 <code>b</code> 个水平结构正上面接触（如「丄」形）。
+        </p>
+        <h4 id="6.2.2">6.2.2. 负数情况</h4>
+        <p>
+            如果 <bai-ids>⿻[a:b]字₁字₂</bai-ids> 里 <code>b</code> 前面带有负号（如<bai-ids>⿻[a:-y]字₁字₂</bai-ids>），则表示 <bai-ids>字₁</bai-ids> 垂直结构的底端在 <bai-ids>字₂</bai-ids> 的<em>倒数</em>（从下往上数）第 <code>y</code> 个水平结构接触而非正数；如果 <code>a</code> 前面带有负号（如<bai-ids>⿻[-x:b]字₁字₂</bai-ids>）同理。
+        </p>
+        <p>
+            冒号 <code>:</code> 前面的数字应当取尽量取正数 <code>a</code>，除非倒数时 <code>-x</code> 的 <code>x</code> 比正数时的 <code>a</code> 小（如数值 -1）；冒号 <code>:</code> 后面的数字应当尽量取负数 <code>-y</code>，除非正数时的值 <code>b</code> 比 <code>y</code> 小（如数值 1）。
+        </p>
+        <h4 id="6.2.3">6.2.3. 省略情况</h4>
+        <p>
+            若省略冒号 <code>:</code> 前面的数字（如 <bai-ids>⿻[:b]字₁字₂</bai-ids>），则表示 <bai-ids>字₁</bai-ids> 垂直结构的顶端<em>往上凸出</em> <bai-ids>字₂</bai-ids> 的第一个水平结构之上（垂直结构底端遵循 <code>b</code>）；若省略冒号 <code>:</code> 后面的数字（如 <bai-ids>⿻[a:]字₁字₂</bai-ids>），则表示 <bai-ids>字₁</bai-ids> 的底端<em>往下凸出</em> <bai-ids>字₂</bai-ids> 的最后一个水平结构之下（垂直结构顶端遵循 <code>a</code>）。
+        </p>
+        <p>
+            若垂直结构的顶端和底端都在水平结构的范围之外（即上下都凸出），则直接省略方括号的限制语法：<bai-ids>⿻字₁字₂</bai-ids>（即默认情况）。
+        </p>
+        <h4 id="6.2.4">6.2.4. 例子</h4>
+        <p>
+            下面以最经典的重叠 IDS「<bai-ids>⿻丨日</bai-ids>」为例来说明重叠速成版的限制语法。<bai-ids>字₁</bai-ids> 的垂直结构就是「丨」，<bai-ids>字₂</bai-ids> 的水平结构是「日」里面的三个横。以下就以重叠 IDS + 限制语法分开展示<bai-ids>⿻丨日</bai-ids>如何可以组合成「甴」「由」「申」「甲」「曱」「田」。
+        </p>
+        <table>
+            <tr>
+                <th>汉字</th>
+                <th>正式重叠 IDS 限制语法</th>
+                <th>等价但错误的写法</th>
+            </tr>
+            <tr>
+                <td class="large-sample">甴</td>
+                <td>
+                    <div class="ids">⿻<span class="highlight">[:-2]</span>丨日</div>
+                </td>
+                <td>
+                    <div class="ids">⿻<span class="highlight">[:2]</span>丨日</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="large-sample">由</td>
+                <td>
+                    <div class="ids">⿻<span class="highlight">[:-1]</span>丨日</div>
+                </td>
+                <td>
+                    <div class="ids">⿻<span class="highlight">[:3]</span>丨日</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="large-sample">申</td>
+                <td>
+                    <div class="ids">⿻丨日</div>
+                </td>
+                <td>
+                    <div class="ids">⿻<span class="highlight">[:]</span>丨日</div>
+                    <div class="ids">⿻<span class="highlight">[0:-0]</span>丨日</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="large-sample">甲</td>
+                <td>
+                    <div class="ids">⿻<span class="highlight">[1:]</span>丨日</div>
+                </td>
+                <td>
+                    <div class="ids">⿻<span class="highlight">[-3:]</span>丨日</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="large-sample">曱</td>
+                <td>
+                    <div class="ids">⿻<span class="highlight">[2:]</span>丨日</div>
+                </td>
+                <td>
+                    <div class="ids">⿻<span class="highlight">[-2:]</span>丨日</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="large-sample">田</td>
+                <td>
+                    <div class="ids">⿴囗十</div><small>（你以为会很复杂？）</small>
+                </td>
+                <td>
+                    <div class="ids">⿻<span class="highlight">[1:-1]</span>丨日</div>
+                    <div class="ids">⿻<span class="highlight">[1:3]</span>丨日</div>
+                    <div class="ids">⿻<span class="highlight">[-3:-1]</span>丨日</div>
+                    <div class="ids">⿻<span class="highlight">[-3:3]</span>丨日</div>
+                </td>
+            </tr>
+            <caption>重叠 IDS「<bai-ids>⿻丨日</bai-ids>」使用重叠速成版语法区分不同汉字</caption>
+        </table>
+        <h4 id="6.2.5">6.2.5. 题外话</h4>
+        <p>
+            <a href="#6.2.3">§6.2.3〈省略情况〉</a>里，「省略」的情况其实是代表第 <code>0</code> 横（即第一个横再上面的一个「虚拟」横）或第 <code>-0</code> 横（即最后一个横再下面的一个「虚拟」横）。可参考下图「申」计算<bai-ids>⿻[0:-0]丨日</bai-ids>里的水平结构序号：
+        </p>
+        <figure>
+            <img src="images/stroke-hori-index-virtual.svg" alt="「申」里带「虚拟」横的水平结构序号示例" class="invert-dark-mode">
+            <figcaption>「申」里带「虚拟」横的水平结构序号示例</figcaption>
+        </figure>
+
+        <h3 id="6.3">6.3. 重叠完整版：任意穿插的矩阵结构</h3>
+        <p>
+            EBNF 语法定义：
+        </p>
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">Overlap_Matrix ::= ... | Overlap_Rows | Overlap_Cell+
+Overlap_Rows ::= Overlap_Row? ("," Overlap_Row?)+
+Overlap_Row ::= Overlap_Cell*
+Overlap_Cell ::= Overlap_Identity | Overlap_Crossing | Overlap_Non_Crossing
+Overlap_Identity ::= "." |  "_"
+Overlap_Crossing ::= [xabcd]
+Overlap_Non_Crossing ::= [lr]</code></pre>
+        <p>
+            汉字最基础笔画结构是「横」和「竖」。笔画穿插（大多数情况下）是由「横」和「竖」之间的穿插关系引起的，因此重叠标记的设计主要考量「横」和「竖」之间的关系，而纵横交叉最自然的方式就是矩阵结构。重叠完整版的矩阵字串表示重叠 IDC 中「横」和「竖」之间的穿插关系，甚至可以表示更复杂的穿插关系（如「丅」「丄」「⺊」「┤」形）。
+        </p>
+        <p>
+            以下步骤描述如何分析重叠 IDC 中的矩阵穿插关系：
+            <ol>
+                <li>计算 <bai-ids>字₁</bai-ids> 纵向部件内的垂直结构数量，得 <code>n</code> 竖</li>
+                <li>计算 <bai-ids>字₂</bai-ids> 横向部件内的水平结构数量，得 <code>m</code> 横</li>
+                <li>准备一个 <code>m</code> 横行 × <code>n</code> 竖列大小的穿过矩阵。</li>
+                <li>for <code>横i</code> in 1..<code>m</code>（<bai-ids>字₂</bai-ids> 里的横，上到下）:
+                    <br>&nbsp;&nbsp;for <code>竖j</code> in 1..<code>n</code>（<bai-ids>字₁</bai-ids> 里的竖，左到右）:
+                    <ol type="a">
+                        <li>如果<bai-ids>字₁</bai-ids> 的第<code>竖j</code> 与<bai-ids>字₂</bai-ids>的第<code>横i</code> 交叉（十形）：
+                            <ol type="i">
+                                <li><bai-ids>字₁</bai-ids><code>竖j</code> 有多个垂直段？有的话，从上到下依序每段打 <bai-ids>a</bai-ids>、<bai-ids>b</bai-ids>、<bai-ids>c</bai-ids>...<a href="#6.注1"><sup>注1</sup></a>，矩阵的<code>横i</code><code>竖j</code> 元素为交叉对应垂直段的字母</li>
+                                <li><bai-ids>字₁</bai-ids><code>竖j</code> 没有多个垂直段，矩阵的<code>横i</code><code>竖j</code> 元素元素为 <bai-ids>x</bai-ids></li>
+                            </ol>
+                        </li>
+                        <li>否则如果<bai-ids>字₁</bai-ids> 的第<code>竖j</code> 顶在<bai-ids>字₂</bai-ids>的第<code>横i</code> 上（丅形或丄形，可以不触碰），则矩阵<code>横i</code><code>竖j</code> 元素为 <bai-ids>.</bai-ids></li>
+                        <li>否则如果<bai-ids>字₂</bai-ids> 的第<code>横i</code> 顶在<bai-ids>字₁</bai-ids>的第<code>竖j</code> 上（⺊形或┤形，可以不触碰），则矩阵<code>横i</code><code>竖j</code> 元素为 <bai-ids>_</bai-ids></li>
+                    </ol>
+                </li>
+                <li>分析完所有<code>横i</code> 和<code>竖j</code> 后，得到一个完整填充的穿过矩阵表示。</li>
+                <li>为每一行进行简化：
+                    <ol type="a">
+                        <li>如果一行均为 <bai-ids>x</bai-ids> 或 <bai-ids>a</bai-ids> 的任意组合，可留空该行。</li>
+                        <li>如果一行均为 <bai-ids>.</bai-ids>，可以用一个元素代替</li>
+                        <li>
+                            如果一行（<code>横i</code>）均为 <bai-ids>_</bai-ids>：
+                            <ol type="i">
+                                <li>如果<code>横i</code> 在所有竖的左边（<code>-|||…|</code> 形），则矩阵的<code>横i</code>行全部替换为一个 <bai-ids>l</bai-ids> 元素</li>
+                                <li>如果<code>横i</code> 在所有竖的右边（<code>|…|||-</code> 形），则矩阵的<code>横i</code>行全部替换为一个 <bai-ids>r</bai-ids> 元素</li>
+                            </ol>
+                        </li>
+                    </ol>
+                    然后再为整体穿过矩阵进行简化：
+                    <ol type="a" start="4">
+                        <li>如果第 <code>m</code> 行到第 <code>n</code> 行之间（不含头尾）均为 <bai-ids>x</bai-ids>，其他行均为 <bai-ids>.</bai-ids>，则视为 <a href="#6.2">§6.2〈重叠速成版：垂直结构穿过水平结构的限制语法〉</a>可简化成 <code>m:n</code>（<code>m</code>、<code>n</code> 为负数时表示到最后虚拟 -0 行的距离）。<code>m</code>、<code>n</code> 为 0 时应省略<a href="#6.注2"><sup>注2</sup></a></li>
+                        <li>如果矩阵里面全部元素是 <bai-ids>x</bai-ids>（全部穿过）、或只有一行一列且是元素 <bai-ids>a</bai-ids>（<bai-ids>⿻[a]</bai-ids>），应直接不写「穿过表达式」（即默认情况）。</li>
+                    </ol>
+                </li>
+                <li>将简化后的穿过矩阵，每行的元素直接连写，行和行之间用逗号 <code>,</code> 连接，形成「矩阵字串」。</li>
+                <li>「矩阵字串」使用方括号 <code>[ ]</code> 包裹，形成最终的「穿过表达式」。</li>
+            </ol>
+        </p>
+        <div class="info">
+            <span id="6.注1">注1</span>：步骤4.a.i 「<bai-ids>字₁</bai-ids><code>竖j</code> 有多个垂直段？有的话，从上到下依序每段打 <bai-ids>a</bai-ids>、<bai-ids>b</bai-ids>、<bai-ids>c</bai-ids>...」，可以参考下图 <bai-ids>⿻㇉一</bai-ids>：垂直部件 「<bai-ids>㇉</bai-ids>」有两个垂直段，上面的竖是 <bai-ids>a</bai-ids>，下面的竖勾是 <bai-ids>b</bai-ids>。
+            <figure>
+                <div class="text-figure">
+                    <div class="ids">⿻<span class="highlight">[a]</span>㇉一 → <a href="https://zi.tools/zi/%F0%A0%80%81" target="_blank">𠀁</a></div>
+                    <div class="ids">⿻<span class="highlight">[b]</span>㇉一 → &#xE005;</div>
+                </div>
+            </figure>
+            其中<bai-ids>⿻[a]字₁字₂</bai-ids> 和<bai-ids>⿻[x]字₁字₂</bai-ids> 一样属于默认情况不写「穿过表达式」，<bai-ids>⿻[a]㇉一</bai-ids>应该简化成<bai-ids>⿻㇉一</bai-ids>。类推可知 「<bai-ids>弓</bai-ids>」有三个垂直段，分别是 <bai-ids>a</bai-ids>、<bai-ids>b</bai-ids>、<bai-ids>c</bai-ids>。
+        </div>
+        <div class="info">
+            <span id="6.注2">注2</span>：实际上横向部件计数的限制语法参考 <a href="https://docs.python.org/3/reference/expressions.html#slicings" target="_blank">Python 的切片语法</a>，横的计数方式从上到下，0 为第一横。<img src="images/stroke-hori-index-full.svg" height="200px" class="invert-dark-mode">
+            <br>
+            在此情况下，切片语法 <code>m:n</code> 代表第 <code>m</code> 行到第 <code>n - 1</code> 行之间均为 <bai-ids>x</bai-ids>，其他行（包括 <code>n</code>）均为 <bai-ids>.</bai-ids>。穿过矩阵里面，第 <code>m</code> 行（到第 <code>n - 1</code> 行）的元素是 <code>x</code>，第 <code>n</code> 行的元素是 <code>.</code>。
+            <br>
+            例：<code>[<ruby>.<rt>0</rt></ruby>, <ruby>.<rt>1</rt></ruby>, <ruby>.<rt>2</rt></ruby>, <ruby>x<rt>3</rt></ruby>, <ruby>x<rt>4</rt></ruby>, <ruby>x<rt>5</rt></ruby>]</code> 中从第 3 行到第 5 行均为 <bai-ids>x</bai-ids>，其他行均为 <bai-ids>.</bai-ids>，因此可以简化成 <code>[3:]</code>（最后一行出头）或错误的 <code>[3:6]</code>/<code>[3:-0]</code>（<code>6</code>/<code>-0</code> 表示该行不是 <code>x</code>，但是第 6 行并不存在而错误） 。
+            <br>
+            另外提供<a href="#6.2.4">§6.2.4</a> 的切片语法和穿过矩阵对比。
+            
+            <table>
+                <tr>
+                    <th>汉字</th>
+                    <th>切片语法</th>
+                    <th>穿过矩阵</th>
+                </tr>
+                <tr>
+                    <td class="large-sample">甴</td>
+                    <td>
+                        <div class="ids">⿻<span class="highlight">[:-2]</span>丨日</div>
+                    </td>
+                    <td>
+                        <div class="ids">⿻<span class="highlight">[x, <ruby>.<rt>-2</rt></ruby>, <ruby>.<rt>-1</rt></ruby>]</span>丨日</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="large-sample">由</td>
+                    <td>
+                        <div class="ids">⿻<span class="highlight">[:-1]</span>丨日</div>
+                    </td>
+                    <td>
+                        <div class="ids">⿻<span class="highlight">[x, x, <ruby>.<rt>-1</rt></ruby>]</span>丨日</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="large-sample">申</td>
+                    <td>
+                        <div class="ids">⿻<span class="highlight">[0:-0]</span>丨日</div>
+                    </td>
+                    <td>
+                        <div class="ids">⿻<span class="highlight">[x, x, x]</span>丨日</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="large-sample">甲</td>
+                    <td>
+                        <div class="ids">⿻<span class="highlight">[1:]</span>丨日</div>
+                    </td>
+                    <td>
+                        <div class="ids">⿻<span class="highlight">[<ruby>.<rt>0</rt></ruby>, <ruby>x<rt>1</rt></ruby>, x]</span>丨日</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="large-sample">曱</td>
+                    <td>
+                        <div class="ids">⿻<span class="highlight">[2:]</span>丨日</div>
+                    </td>
+                    <td>
+                        <div class="ids">⿻<span class="highlight">[<ruby>.<rt>0</rt></ruby>, <ruby>.<rt>1</rt></ruby>, <ruby>x<rt>2</rt></ruby>]</span>丨日</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="large-sample">田</td>
+                    <td>
+                        <div class="ids">⿻<span class="highlight">[1:-1]</span>丨日</div>
+                    </td>
+                    <td>
+                        <div class="ids">⿻<span class="highlight">[<ruby>.<rt>0</rt></ruby>, <ruby>x<rt>1</rt></ruby>, <ruby>.<rt>-1</rt></ruby>]</span>丨日</div>
+                    </td>
+                </tr>
+                <caption>重叠 IDS「<bai-ids>⿻丨日</bai-ids>」在不同汉字中的「切片语法」和「穿过矩阵」的对比</caption>
+            </table>
+        </div>
+        <p>
+            例：「<bai-ids>曲</bai-ids>」如果拆分成「<bai-ids>⿻〢日</bai-ids>」，则「<bai-ids>〢</bai-ids>」是纵向部件，「<bai-ids>日</bai-ids>」是横向部件。按以上步骤开始分析「<bai-ids>曲</bai-ids>」的穿插关系：
+            <details>
+                <summary>「<bai-ids>曲</bai-ids>」的穿插关系分析（展开阅读）</summary>
+
+                <ol>
+                    <li><bai-ids>字₁</bai-ids> 纵向部件「<bai-ids>〢</bai-ids>」内的垂直结构数量，<code>n</code> = 2</li>
+                    <li><bai-ids>字₂</bai-ids> 横向部件「<bai-ids>日</bai-ids>」内的水平结构数量，<code>m</code> = 3</li>
+                    <li>矩阵 = 3 行 × 2 列，表示为 <code>[(?,?), (?,?), (?,?)]</code></li>
+                    <li>
+                        <bai-ids>日</bai-ids> 里的<code>横₁</code>:
+                        <br>&nbsp;&nbsp;<bai-ids>〢</bai-ids> 里的<code>竖₁</code>:
+                        <ol>
+                            <li>如果 <bai-ids>字₁</bai-ids> 的第<code>竖₁</code> 与<bai-ids>字₂</bai-ids>的第<code>横₁</code> 交叉（十形），则矩阵的<code>横₁</code><code>竖₁</code>元素为：<bai-ids>x</bai-ids>（<code>竖₁</code> 没有多个部分）</li>
+                        </ol>
+                        &nbsp;&nbsp;<bai-ids>〢</bai-ids> 里的<code>竖₂</code>:
+                        <ol>
+                            <li>如果 <bai-ids>字₁</bai-ids> 的第<code>竖₂</code> 与<bai-ids>字₂</bai-ids>的第<code>横₁</code> 交叉（十形），则矩阵的<code>横₁</code><code>竖₂</code>元素为：<bai-ids>x</bai-ids>（<code>竖₂</code> 没有多个部分）</li>
+                        </ol>
+                        // 此时矩阵 = <code>[(x,x), (?,?), (?,?)]</code>
+                        <br>
+                        <bai-ids>日</bai-ids> 里的<code>横₂</code>:
+                        <br>&nbsp;&nbsp;<bai-ids>〢</bai-ids> 里的<code>竖₁</code>:
+                        <ol>
+                            <li>如果 <bai-ids>字₁</bai-ids> 的第<code>竖₁</code> 与<bai-ids>字₂</bai-ids>的第<code>横₂</code> 交叉（十形），则矩阵的<code>横₂</code><code>竖₁</code>元素为：<bai-ids>x</bai-ids>（<code>竖₁</code> 没有多个部分）</li>
+                        </ol>
+                        &nbsp;&nbsp;<bai-ids>〢</bai-ids> 里的<code>竖₂</code>:
+                        <ol>
+                            <li>如果 <bai-ids>字₁</bai-ids> 的第<code>竖₂</code> 与<bai-ids>字₂</bai-ids>的第<code>横₂</code> 交叉（十形），则矩阵的<code>横₂</code><code>竖₂</code>元素为：<bai-ids>x</bai-ids>（<code>竖₂</code> 没有多个部分）</li>
+                        </ol>
+                        // 此时矩阵 = <code>[(x,x), (x,x), (?,?)]</code>
+                        <br>
+                        <bai-ids>日</bai-ids> 里的<code>横₃</code>:
+                        <br>&nbsp;&nbsp;<bai-ids>〢</bai-ids> 里的<code>竖₁</code>:
+                            <li>如果 <bai-ids>字₁</bai-ids> 的第<code>竖₁</code> 与<bai-ids>字₂</bai-ids>的第<code>横₂</code> 交叉（十形）：（条件不符合）</li>
+                            <li>如果 <bai-ids>字₁</bai-ids> 的第<code>竖₁</code> 顶在<bai-ids>字₂</bai-ids>的第<code>横₃</code> 上（丅形或丄形），则矩阵的<code>横₃</code><code>竖₁</code>元素为：<bai-ids>.</bai-ids></li>
+                        </ol>
+                        &nbsp;&nbsp;<bai-ids>〢</bai-ids> 里的<code>竖₂</code>:
+                        <ol>
+                            <li>如果 <bai-ids>字₁</bai-ids> 的第<code>竖₂</code> 与<bai-ids>字₂</bai-ids>的第<code>横₂</code> 交叉（十形）：（条件不符合）</li>
+                            <li>如果 <bai-ids>字₁</bai-ids> 的第<code>竖₂</code> 顶在<bai-ids>字₂</bai-ids>的第<code>横₃</code> 上（丅形或丄形），则矩阵的<code>横₃</code><code>竖₂</code>元素为：<bai-ids>.</bai-ids></li>
+                        </ol>
+                    </li>
+                    <li>分析完所有<code>横i</code> 和<code>竖j</code> 后，完整的穿过矩阵表示 = <code>[(x,x), (x,x), (.,.)]</code></li>
+                    <li>为每一行进行简化：
+                        <ol type="a">
+                            <li>如果一行均为<bai-ids>x</bai-ids> 或 <bai-ids>a</bai-ids> 的任意组合，可留空该行<br>// 此时矩阵 = <code>["", "", (.,.)]</code></li>
+                            <li>如果一行均为<bai-ids>.</bai-ids>，可以用一个元素代替<br>// 此时矩阵 = <code>["", "", "."]</code></li>
+                            <li>如果一行均为<bai-ids>_</bai-ids>：（条件不符合）</code></li>
+                        </ol>
+                        然后再为整体矩阵进行简化：
+                        <ul>
+                            <li>如果第<code>m</code>行到第<code>n</code>行之间（不含头尾）均为<bai-ids>x</bai-ids>，其他行均为<bai-ids>.</bai-ids>，则视为 <a href="#6.2">§6.2〈重叠速成版：垂直结构穿过水平结构的直接限制〉</a>可简化成 <code>m:n</code>（<code>m</code>、<code>n</code>为负数时表示到最后一行的距离）。<code>m</code>、<code>n</code>为0时应省略<br>// 此时矩阵表达式 = <bai-ids>[:-1]</bai-ids></li>
+                            <li>如果矩阵里面全部元素是<bai-ids>x</bai-ids>（全部穿过），应直接不写「穿过表达式」（即默认情况）。</li>
+                        </ul>
+                    </li>
+                    <li>将简化后的穿过矩阵，每行的元素直接连写，行和行之间用逗号 <code>,</code> 连接。<br>// 如果没有变成 <bai-ids>[:-1]</bai-ids>，则错误地写成 <bai-ids>[,,.]</bai-ids></li>
+                </ol>
+            
+            </details>
+        </p>
+        <p>
+            以下给出其他例子供参考：
+        </p>
+        <ul>
+            <li><bai-ids>廴&#09;<span class="highlight">⿻[b]㇋乀</span></bai-ids>：「<bai-ids>㇋</bai-ids>」有两段竖（一个竖，一个撇），「<bai-ids>乀</bai-ids>」穿过 <code>b</code> 段（即撇）</li>
+            <li><bai-ids>𤓷&#09;⿺爪<span class="highlight">⿻[c]弓z丶</span></bai-ids>：「<bai-ids>弓z</bai-ids>（最后一笔是竖折撇㇥）」有三段竖（𠃍的竖，㇥的竖，㇥的撇），「<bai-ids>丶</bai-ids>」穿过 <code>c</code> 段（即撇）</li>
+            <li><bai-ids>𦫵&#09;<span class="highlight">⿻[bx]<u>⿰𠃑丨</u>一</span></bai-ids>：纵向部件的第一笔「<bai-ids>𠃑</bai-ids>」有两段竖，「<bai-ids>一</bai-ids>」穿过 <code>b</code> 段（即下面的竖）；向部件的第二笔「<bai-ids>丨</bai-ids>」直接穿过「<bai-ids>一</bai-ids>」</li>
+            <li><bai-ids>身&#09;⿱丿⿹⿴<span class="highlight">⿻[.x]冂丿</span>二一</bai-ids>：「<bai-ids>冂</bai-ids>」有一个竖、一个竖钩，「<bai-ids>丿</bai-ids>」在竖的下面（<code>.</code>）通过、然后穿过竖钩（<code>x</code>）</li>
+            <li><bai-ids>𠥻&#09;<span class="highlight">⿻[,._]〢二t</span></bai-ids>：「<bai-ids>〢</bai-ids>」穿过第一横（扩展语法是空行）；「<bai-ids>〢</bai-ids>」的第一竖垂直触碰（丄形）下面的提（<code>.</code>）、然后下面的提从左边触碰（┤形）第二竖（<code>_</code>）</li>
+            <li><bai-ids>𠂀&#09;⿴<span class="highlight">⿻[,.x]〢二</span>丶</bai-ids></li>
+            <li><bai-ids>𠕋&#09;<span class="highlight">⿻[_xx_,]𦉫T二</span></bai-ids>：<bai-ids>𦉫T</bai-ids>为右下角带勾</li>
+        </ul>
+
+        <h3 id="6.4">6.4. 重叠完整版：反向矩阵结构</h3>
+        <p>
+            EBNF 语法定义：
+        </p>
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">Overlap_Modifier ::= "[" Overlap_Matrix ("|" Overlap_Matrix)? "]"</code></pre>
+        <p>
+            以上描述只能表示一个纵向部件和一个横向部件之间的穿插关系，但有些汉字的结构比较复杂，纵向部件里面也有水平笔画 与 横向部件里面的竖直笔画 交叉，因此也需要将反向的纵横穿插关系表示出来。<a href="#6.1">§6.1〈重叠标记的简介及基础概念〉</a>中提到：
+
+            <pre><bai-ids>⿻字₁字₂</bai-ids>中，<bai-ids>字₁</bai-ids>是纵向部件，<bai-ids>字₂</bai-ids>是横向部件。</pre>
+
+            对于需要反向矩阵结构的重叠 IDC，则将以上定义的纵向部件和横向部件的概念反过来使用，即：
+
+            <pre><bai-ids>⿻字₁字₂</bai-ids>中，<bai-ids>字₁</bai-ids>是<em>横向部件</em>，<bai-ids>字₂</bai-ids>是<em>纵向部件</em>。</pre>
+        </p>
+        <p>
+            首先完成一遍<a href="#6.3">§6.3〈重叠完整版：任意穿插的矩阵结构〉</a>得到「穿过表达式」矩阵字串 <code>"fr,on,t"</code>，然后将<bai-ids>字₁</bai-ids>、<bai-ids>字₂</bai-ids>的定义反过来，重复 <a href="#6.3">§6.3〈重叠完整版：任意穿插的矩阵结构〉</a>得到「穿过表达式」矩阵字串 <code>"ba,ck"</code>。最后将两个字串使用竖线 <code>|</code> 合并，得到最终的重叠完整版的「穿过表达式」 <code>[fr,on,t|ba,ck]</code>，其中竖线 <code>|</code> 分隔了正向矩阵结构和反向矩阵结构。
+        </p>
+        <p>
+            例：<a href="https://zi.tools/zi/%F0%AB%A0%A3" target="_blank">「𫠣」（U+2B823）</a>的 lv0 IDS 条目简化两轮如下：
+            <figure>
+                <div class="text-figure">
+                    <div class="ids">⿻[1:|b]𠃌⿱<span class="highlight">⿻𠃊.一.</span>八d</div>
+                    <div class="fig-arrow">&DownArrow;</div><small></small>
+                    <div class="ids">⿻[1:|b]𠃌<span class="highlight">⿱&#xE011;&#xE012;</span></div>
+                    <div class="fig-arrow">&DownArrow;</div><small></small>
+                    <div class="ids">⿻[1:|b]𠃌<span class="highlight">&#xE010;</span></div>
+                </div>
+                <figcaption>「𫠣」的 IDS 条目两轮简化</figcaption>
+            </figure>
+            可见「穿过表达式」表示有前后两个矩阵字串：
+            <ul>
+                <li>
+                    正向矩阵字串：<bai-ids>1:</bai-ids>。先分析结构：
+                    <ul>
+                        <li>纵向部件：<bai-ids>𠃌</bai-ids>，横折钩的竖</li>
+                        <li>横向部件：<bai-ids>&#xE010;</bai-ids>，横1是「一」，横2是竖折的横</li>
+                    </ul>
+                    然后判读：横折钩的竖应该在<bai-ids>&#xE010;</bai-ids>的横1下面，横2上面。
+                </li>
+                <li>
+                    反向矩阵字串：<bai-ids>b</bai-ids>。先分析结构：
+                    <ul>
+                        <li>纵向部件：<bai-ids>&#xE010;</bai-ids>，竖折的竖，被横1分成两段 <code>a</code> 和 <code>b</code></li>
+                        <li>横向部件：<bai-ids>𠃌</bai-ids>，横折钩的横</li>
+                    </ul>
+                    然后判读：<bai-ids>&#xE010;</bai-ids>竖折的竖 <code>b</code> 段应该和<bai-ids>𠃌</bai-ids>的横交叉。
+                </li>
+            </ul>
+            就可完整代表
+        </p>
+        <p>
+            以下给出另一个虚拟例子供参考：
+        </p>
+        <ul>
+            <li><bai-ids>&#xE024;&#09;⿻<span class="highlight">[xl,.l|r.,rx]</span>口口</bai-ids></li>
+        </ul>
+
+        <h3 id="6.5">6.5. 重叠特例：任意穿插曲线笔画（？？？）</h3>
+        <p>
+            最后看重叠的一个特例<a target="_blank" href="https://zi.tools/zi/%F0%A2%80%93">「𢀓」（U+22013）</a>：
+            <pre class="ids">𢀓&#09;⿻<span class="highlight">[r,r,l,l]</span>工.#(◝◞-◜-◟)</pre>
+            其中<bai-ids>#(◝◞-◜-◟)</bai-ids>已知表示一个特殊的连贯曲线笔画，但是因为其特殊的形状和结构无法判断其横向部件（位于 <bai-ids>⿻字₁字₂</bai-ids> 里的 <bai-ids>字₂</bai-ids>），因此这里方括号 <code>[ ]</code> 里面表示的不是矩阵穿过关系，而是单纯这个线段每个 Q 部分是在纵向部件的左边 <code>l</code> 还是右边 <code>r</code>。目前已知的特例只有这一个汉字。
+        </p>
+        
+        <h3 id="6.6">6.6. 全包围、半包围部件的定位</h3>
+        <p>
+            EBNF 语法定义：
+        </p>
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">IDS_Sequence ::= ... | IDS_BinaryAmbiguousOperator Index_Modifier IDS_Component IDS_Component | ...
+Index_Modifier ::= "[" Number "]"
+IDS_BinaryAmbiguousOperator ::= [⿴⿵⿶⿷⿼] | ...</code></pre>
+        <p>
+            除了重叠 IDC 会有歧义，全包围及半包围 IDC 也会产生类似的歧义。
+        </p>
+        <table>
+            <tr>
+                <th>包围方式</th>
+                <th>IDC 字符</th>
+                <th>Unicode</th>
+            </tr>
+            <tr>
+                <td>全包围</td>
+                <td>⿴</td>
+                <td>U+2FF4</td>
+            </tr>
+            <tr>
+                <td rowspan="4">半包围</td>
+                <td>⿵</td>
+                <td>U+2FF5</td>
+            </tr>
+            <tr>
+                <td>⿶</td>
+                <td>U+2FF6</td>
+            </tr>
+            <tr>
+                <td>⿷</td>
+                <td>U+2FF7</td>
+            </tr>
+            <tr>
+                <td>⿼</td>
+                <td>U+2FFC</td>
+            </tr>
+        </table>
+        <p>
+            产生的什么歧义呢？以一个虚拟的 IDS 举例：「<bai-ids>⿴日丶</bai-ids>」。请问这个点应该放在上面的格内还是下面的格内？对于这种歧义情况，白式 IDS 的包围扩展语法为在包围 IDC 后面添加方括号 <code>[ ]</code>，里面填写数字使之成为 <bai-ids>⿴[x]字₁字₂</bai-ids>。其中的 <code>x</code> 是一个正整数，表示<bai-ids>字₂</bai-ids>放置在<bai-ids>字₁</bai-ids>（即「日」）的第 <code>x + 1</code> 个<em>全封闭</em>空间内（从上到下、先中间，然后左到右数）。如果 <code>x</code> 为 <code>0</code>（表示放在第一个全封闭空间）时，整个扩展语法 <code>[0]</code> 可以省略不写。
+        </p>
+        <p>
+            全包围计数例子：
+            <img src="images/9f9c-counting.svg" class="invert-dark-mode"></img>
+        </p>
+        <p>
+            全包围例子：
+            <ul>
+                <li><bai-ids>𫡆&#09;<span class="highlight">⿴[1]<u>⿴</span>㠯一</u>一</bai-ids>：「<bai-ids>㠯</bai-ids>」共有两个全封闭空间，下划线的 IDS 将「<bai-ids>一</bai-ids>」填充在「<bai-ids>㠯</bai-ids>」上面的格内，外面的 <code>[1]</code> IDS则将「<bai-ids>一</bai-ids>」填充在「<bai-ids>㠯</bai-ids>」下面的格内。</li>
+                <li><bai-ids>𢧟&#09;⿹戈<span class="highlight">⿴[2]⿴[1]⿴</span><u>⿻[1:]丨#(𠃍-一𠃑-一丿)</u>丶丶丶</yi-i></li>
+            </ul>
+        </p>
+        <p>
+            对于半包围 IDS 同理，只是查看的是符合半包围 IDC 包围方式的半封闭空间数量。比如「<bai-ids>⿵⺵丶</bai-ids>」的半包围 IDC 是「⿵」，包围方式是「上左右包围」（形似「冂」），因此能得知「⺵」共有 3 个「⿵」空间，从左到右分别是 <code>[0]</code>（默认省略）、<code>[1]</code> 和 <code>[2]</code>。
+        </p>
+        <p>
+            半包围例子：
+            <ul>
+                <li><bai-ids>𦥮&#09;⿻<span class="highlight">⿷[1]</span><u>#(-一𠃑-一丨)</u>一<span class="highlight">⿼[1]</span><u>#(一-𠃑一-𠃍)</u>一(T)</yi-i></li>
+            </ul>
+        </p>
+        
+        <h3 id="6.7">6.7. 减法消歧义</h3>
+        <p>
+            EBNF 语法定义：
+        </p>
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">IDS_Sequence ::= ... | IDS_BinaryAmbiguousOperator Index_Modifier IDS_Component IDS_Component | ...
+IDS_BinaryAmbiguousOperator ::= ... | [㇯]</code></pre>
+        <p>
+            最后加上一个可在字统网快速使用的消歧义：当使用减法「㇯」这个二元 IDS 符号时（如<bai-ids>㇯字₁字₂</bai-ids>），表示从<bai-ids>字₁</bai-ids> 的结构中去掉<bai-ids>字₂</bai-ids> 后剩下的部分；但是由于<bai-ids>字₁</bai-ids> 里面可能有多个<bai-ids>字₂</bai-ids>部件，因此可以在「㇯」IDS 后面加上方括号 <code>[ ]</code> 来指定要去掉的<bai-ids>字₂</bai-ids> 是第几个（从左到右、上到下数，起始为 0）。如果<code>[ ]</code> 里面的数字为 <code>0</code>，则表示去掉第一个<bai-ids>字₂</bai-ids>，此时 <code>[0]</code> 可以省略不写。
+        </p>
+        <p>
+            例子（可用字统网查询）：
+            <table>
+                <tr>
+                    <th>IDS</th>
+                    <th>汉字</th>
+                    <th>说明</th>
+                </tr>
+                <tr>
+                    <td><bai-ids>㇯王一</bai-ids></td>
+                    <td>土</td>
+                    <td>「王」去掉第0个「一」，即上面的「一」</td>
+                </tr>
+                <tr>
+                    <td><bai-ids>㇯[1]王一</bai-ids></td>
+                    <td>工</td>
+                    <td>「王」去掉第1个「一」，即中间的「一」</td>
+                </tr>
+                <tr>
+                    <td><bai-ids>㇯[2]王一</bai-ids></td>
+                    <td>干</td>
+                    <td>「王」去掉第2个「一」，即下面的「一」</td>
+                </tr>
+                <tr>
+                    <td><bai-ids>㇯品口</bai-ids></td>
+                    <td>吅</td>
+                    <td>「品」去掉第0个「口」，即上面的「口」</td>
+                </tr>
+                <tr>
+                    <td><bai-ids>㇯[1]品口</bai-ids></td>
+                    <td>吕</td>
+                    <td>「品」去掉第1个「口」，即下左的「口」</td>
+                </tr>
+            </table>
+        </p>
+        <p>
+            注意事项：
+            <ol>
+                <li>减法 IDS 并不会用在 IDS 数据库内，仅用于快速在字统网查询汉字。</li>
+                <li>进行减法操作时，<bai-ids>字₁</bai-ids> 里由<a href="#5">「笔画链」</a>组成的部件不可被计数、删除。例：<bai-ids>㇯[1]日一</bai-ids>是非法语句，因为「日」的外壳是「口」，而「口」是由「笔画链」所组成的（<bai-ids>#(-丨𠃍-一z)</bai-ids>），因此「口」里面的横不可被删除；但是<bai-ids>㇯日一</bai-ids>可得「口」。</li>
+            </ol>
+        </p>
+    </section>
+
+    <section>
+        <h2 id="7">7. 唯一化及统一化</h2>
+        <h3 id="7.1">7.1. lv0 的唯一化</h3>
+        <p>
+            EBNF 语法定义：
+        </p>
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">IDS_Locale_Sequence ::= Unique_Sequence_Separator? IDS_Sequence ...
+Unique_Sequence_Separator ::= "{" ("?"  One_Digit_Number?)? Ideograph_Char_with_Variant Unicode_Sources? "}"</code></pre>
+        <p>
+            虽然以上定义了诸多延展格式，但是仍会有部分形似汉字无法仅透过 IDS 区分。这种情况下，为了保证每个 IDS 组合都可以反向唯一地映射到一个汉字，在 IDS 组合前面插入带有「抽象构型」的「唯一化分隔符」（EBNF 里面的 <code>Unique_Sequence_Separator</code>）来实现。
+        </p>
+        <p>
+            「唯一化分隔符」的语法为：<code>{</code>，汉字，<code>}</code>，如：<code>{字}</code>，其中的汉字必须是符合这个 IDS 组合汉字的「抽象构型」。以下是判断「唯一化分隔符」的使用原则：
+            <ul>
+                <li>「唯一化分隔符」不会添加在较常用字，而是添加在较生僻字；</li>
+                <li>和中日韩笔画区段 (CJK Strokes) 有一样笔画链的汉字会添加「唯一化分隔符」。</li>
+            </ul>
+            汉字的前后还可以添加一些额外的标识来提供更多信息和区分：
+            <ul>
+                <li>与同字其他提交源有较大差异、且与另外码位撞形的 IDS 条目也会添加「唯一化分隔符」。此时在「与同字其他提交源有较大差异」的汉字前面加上问号（和一位数字？）即 <code>{?</code>，数字?，汉字，<code>}</code>，如：<code>{?字}</code>、<code>{?0字}</code>；</li>
+                <li>如果该 IDS 组合是针对特定提交源的，可在汉字后面加上提交源的「字形变体标识符」（参考 <a href="#4.3.1">§4.3.1〈提交源的变体〉</a>）即 <code>{</code>，汉字，大写字母，<code>}</code>，如：<code>{字T}</code> 代表 T 源。</li>
+            </ul>
+        </p>
+        <p>
+            例子：
+            <ul>
+                <li>「日」和「曰」的 IDS 完全一样：<bai-ids>⿴囗一</bai-ids>。为了区分它们，判断常用字是「日」，然后给「曰」使用「唯一化分隔符」：<bai-ids>{曰}⿴囗一</bai-ids>。</li>
+                <li>「土」和「士」的 IDS 完全一样：<bai-ids>⿱十一</bai-ids>。为了区分它们，判断常用字是「土」，然后给「士」使用「唯一化分隔符」：<bai-ids>{士}⿱十一</bai-ids>。</li>
+                <li>「一」的 IDS lv0 条目里面有两个形：<bai-ids>一&#09;#(H)(.);{一}#(T)(t)</bai-ids>，其中「<bai-ids>一t</bai-ids>」的笔画链<bai-ids>#(T)</bai-ids>与「<bai-ids>㇀</bai-ids>」(U+31C0，提) 完全一样，因此需要使用「唯一化分隔符」来区分「<bai-ids>一t</bai-ids>」的 IDS。</li>
+                <li>「<a href="https://zi.tools/zi/%E5%8F%B1" target="_blank">叱（U+53F1）</a>」有两个形：<bai-ids>⿰口.𠤎.(.)</bai-ids>（撇𠤎）和<bai-ids>⿰口.七.(V)</bai-ids>（横七）。其中「<bai-ids>叱V</bai-ids>」来源和已编码字「<a href="https://zi.tools/zi/%F0%A0%AE%9F" target="_blank">𠮟（U+20B9F）</a>」撞形，因此需要使用「唯一化分隔符」来区分「<bai-ids>叱V</bai-ids>」的 IDS：<bai-ids>{?叱}⿰口.七.(V)</bai-ids>。</li>
+                <li>
+                    「<a href="https://zi.tools/zi/%F0%A1%AE%82" target="_blank">𡮂（U+21B82）</a>」有两个形：<bai-ids>{𡮂J}⿱小.𤽄V(J)</bai-ids> J 源与<bai-ids>{𡮂T}⿱小s𤽄V(T)</bai-ids> T 源。这两者的表达式和「<a href="https://zi.tools/zi/%F0%A1%AD%BD" target="_blank">𡭽（U+21B7D）</a>」的 IDS 组合一样：<bai-ids>⿱小s𤽄V(.);⿱小.𤽄V(J)</bai-ids>，因此给「𡮂（U+21B82）」的 IDS 组合「唯一化分隔符」加上按提交源的「字形变体标识符」。
+                    <small>（主要原因是「𡮂（U+21B82）」如果写成<bai-ids>⿱少𣌢</bai-ids>，按照「白式 IDS 简化」后还是会变成<bai-ids>⿱小𤽄</bai-ids>……这部分目前没有公开资料可参考，仅由字统网站长白易口头说明。）</small>
+                </li>
+            </ul>
+        </p>
+        <p>
+            「抽象构型」(abstract shape) 指的是汉字可以拥有不同的变体部件，但仍可辨识和区分汉字的意义。详细可参考 <a href="https://zhuanlan.zhihu.com/p/480635382" target="_blank">https://zhuanlan.zhihu.com/p/480635382</a>。例如：「<bai-ids>土</bai-ids>」和「<bai-ids>士</bai-ids>」的「抽象构型」并不一样，因为笔画长短影响了汉字的定义和识别；但是「<bai-ids>天</bai-ids>」和「<bai-ids lang="ja">天</bai-ids>」的「抽象构型」是一样的，因为笔画长短<em>不影响</em>汉字的定义和识别，仍被阅读者认定为同一个汉字。因此在 IDS 组合中，引用「抽象构型」就<em>一定</em>可以区分 IDS 一样但含义不同的汉字了。
+        </p>
+        <h3 id="7.2">7.2. lv1 的合并</h3>
+        <p>
+            在 ids_lv1（即字统网使用的）中，所有的笔画级别差异（即相同位置的相似笔画，如在同一位置上的「<bai-ids>丶</bai-ids>」和「<bai-ids>乀</bai-ids>」）都将被合并。例：<a href="https://zi.tools/zi/𡕆" target="_blank">「<bai-ids>𡕆</bai-ids>」(U+21546) </a>有两个
+            IDS：<bai-ids>⿰壴t咨.(.);⿰壴t咨T(T)</bai-ids>。其中的「<code>.</code>」和「<code>T</code>」只是将「<bai-ids>咨</bai-ids>」中「<bai-ids>次</bai-ids>」的「<bai-ids>冫</bai-ids>」的点的方向改变了。因此，「<code>.</code>」和「<code>T</code>」都只造成了笔画级别差异。所以这两个 IDS 会在 ids_lv1 中被合并为「<bai-ids>⿰壴咨(.,T)</bai-ids>」。
+        </p>
+        <p>
+            合并的过程主要是通过移除附着在汉字部件后面、没有括号、修饰笔画样式的「字形变体标识符」（见 <a href="#4.3.3">§4.3.3〈笔画样式及位置差异的变体〉</a>）。合并的笔画类「字形变体标识符」有以下几种：
+            <ul>
+                <li>
+                    「㇐」（横）变「㇀」（提，<code>t</code>）的避让字形，如<bai-ids>一.</bai-ids>（横）和 <bai-ids>一t</bai-ids>（提）、<bai-ids>土.</bai-ids> 和 <bai-ids>土t</bai-ids>、<bai-ids>马.</bai-ids> 和 <bai-ids>马t</bai-ids>（「驮」左）、<bai-ids>里.</bai-ids> 和 <bai-ids>里t</bai-ids>（「野」左）、<bai-ids>血.</bai-ids> 和 <bai-ids>血t</bai-ids>（「衅」左）……
+                </li>
+                <li>
+                    「㇏」（捺）变「丶」（点，<code>d</code>）的避让字形，如<bai-ids>人.</bai-ids> 和 <bai-ids>人d</bai-ids>、<bai-ids>大.</bai-ids> 和 <bai-ids>大d</bai-ids>、<bai-ids>又.</bai-ids> 和 <bai-ids>又d</bai-ids>、<bai-ids>奴.</bai-ids> 和 <bai-ids>奴d</bai-ids>（「𨥬」上）、<bai-ids>辰.</bai-ids> 和 <bai-ids>辰d</bai-ids>（「辱」上）……
+                </li>
+                <li>
+                    「乚」（竖弯钩）变「㇙」（竖提，<code>t</code>）的避让字形，如<bai-ids>儿.</bai-ids> 和 <bai-ids>儿t</bai-ids>（「頹」左下）、<bai-ids>电.</bai-ids> 和 <bai-ids>电t</bai-ids>（「鵪」左下）、<bai-ids>厄.</bai-ids> 和 <bai-ids>厄d</bai-ids>（「顾」左）、<bai-ids>己.</bai-ids> 和 <bai-ids>己t</bai-ids>（「改」左）、<bai-ids>九.</bai-ids> 和 <bai-ids>九t</bai-ids>（「鸠」左）……
+                </li>
+                <li>
+                    「丨」（竖）变「丿」（撇，<code>p</code>）的避让字形，如<bai-ids>半.</bai-ids> 和 <bai-ids>半p</bai-ids>（「判」左）、<bai-ids>干.</bai-ids> 和 <bai-ids>干p</bai-ids>（「幵」左）、<bai-ids>丰.</bai-ids> 和 <bai-ids>丰..p</bai-ids>（「&#xE003;」，「邦」左）……
+                </li>
+            </ul>
+        </p>
+        <p>
+            如果地区「字形变体标识符」的字形差异也是在笔画层级的区别，且在 UCV 列表中定义，也可以按此规则合并删除「字形变体标识符」（例如：<bai-ids>户戸戶</bai-ids>）。例如：「<bai-ids>𦡰</bai-ids>」的其中一个 IDS 条目是「<bai-ids>⿰⺼蒪H(T)</bai-ids>」，其中的「<code>H</code>」将「<bai-ids>蒪</bai-ids>」中的「<bai-ids>艹</bai-ids>」变成了「<bai-ids>⺿</bai-ids>」，而「<bai-ids>艹</bai-ids>」和「<bai-ids>⺿</bai-ids>」的字形都在 UCV #152 中，所以这个 IDS 条目也会被合并删除「<code>H</code>」，
+        </p>
+        <h4 id="7.3">7.3. lv2 的合并</h4>
+        <p>
+            在 ids_lv2 中，IDS 组合内的汉字部件将尽量替换成靠近 G 源常用字的形态；UCV 列表中被认为「必须统一」的部件也会被合并。例如：lv1 的<bai-ids>伔&#09;⿰亻冗(.);⿰亻⿱冖儿(J)</bai-ids>在 lv2 中会被合并为<bai-ids>伔&#09;⿰亻冗(.,J)</bai-ids>，因为「冗」的「<bai-ids>⿱冖几</bai-ids>」「<bai-ids>⿱冖儿</bai-ids>」字形差异在 UCV #119 中被认为「必须统一」，因此合并了「字形变体标识符」<code>.</code> 和 <code>J</code>。
+        </p>
+    </section>
+
+    <section>
+        <h2 id="8">8. 实操练习</h2>
+        <p>
+            接下来请尝试理解<a href="https://zi.tools/zi/%E9%BE%9C" target="_blank">「龜」(U+9F9C) </a>的白式 IDS 条目（lv0），并依据 IDS 绘出最终字形。【注：在<a href="https://github.com/yi-bai/ids/tree/8a585351e19dac0635b61cb9ea50646e426173d4" target="_blank">编撰时的 IDS 数据库</a>里面，<bai-ids>⿴[4]？乂</bai-ids>错误写成<bai-ids>⿴[3]？乂</bai-ids>，本页面暂时将其调整以符合预期字形。】
+        </p>
+        <pre class="ids">龜&#09;⿱丿⿻#(-丨一-𠃍丨b一b乚)⿰⿱⺕⺕⿼コ乂d(.);⿱⺈⿹⿴⿻[1:]⿺乚.#(丨b一-𠃍)#(一-𠃍丨b一)乂d⿱⺕⺕(H);⿱⺈⿴[4]⿻[.,.__,r,,bxx]⿹⿺乚.丨⿱ココ⿱#(一-𠃍丨b一)コ乂d(J);⿱⺈⿻[1:]⿺乚.丨⿱#(一-𠃍丨b一)⿰⿱⺕⺕⿼コ乂d(K);⿱⺈⿴[4]⿻[.,.__,r,,bx.]⿹⿺乚.丨⿱ココ⿱#(一-𠃍丨b一)コ乂d(T);⿱⺈⿻#(-丨一-𠃍丨b一b乚)⿰⿱⺕⺕⿼コ乂d(V);⿱⺈⿻[1:]乚.⿱口.⿰⿱⺕⺕目(q4072)</pre>
+        
+        <p>将 IDS 依据「字形变体标识符」拆分得到 IDS 表：</p>
+        <table>
+            <tr>
+                <th>变体标识符 ID</th>
+                <th>IDS 条目</th>
+                <th>参考示例字形</th>
+            </tr>
+            <tr>
+                <td>(.)</td>
+                <td><bai-ids>⿱丿⿻#(-丨一-𠃍丨b一b乚)⿰⿱⺕⺕⿼コ乂d</bai-ids></td>
+                <td><img src="images/9f9c-g.png" style="height: 4em;"></td>
+            </tr>
+            <tr>
+                <td>(H)</td>
+                <td><bai-ids>⿱⺈⿹⿴⿻[1:]⿺乚.#(丨b一-𠃍)#(一-𠃍丨b一)乂d⿱⺕⺕</bai-ids></td>
+                <td><img src="images/9f9c-h.png" style="height: 4em;"></td>
+            </tr>
+            <tr>
+                <td>(J)</td>
+                <td><bai-ids>⿱⺈⿴[4]⿻[.,.__,r,,bxx]⿹⿺乚.丨⿱ココ⿱#(一-𠃍丨b一)コ乂d</bai-ids></td>
+                <td><img src="images/9f9c-j.png" style="height: 4em;"></td>
+            </tr>
+            <tr>
+                <td>(K)</td>
+                <td><bai-ids>⿱⺈⿻[1:]⿺乚.丨⿱#(一-𠃍丨b一)⿰⿱⺕⺕⿼コ乂d</bai-ids></td>
+                <td><img src="images/9f9c-k.png" style="height: 4em;"></td>
+            </tr>
+            <tr>
+                <td>(T)</td>
+                <td><bai-ids>⿱⺈⿴[4]⿻[.,.__,r,,bx.]⿹⿺乚.丨⿱ココ⿱#(一-𠃍丨b一)コ乂d</bai-ids></td>
+                <td><img src="images/9f9c-t.png" style="height: 4em;"></td>
+            </tr>
+            <tr>
+                <td>(V)</td>
+                <td><bai-ids>⿱⺈⿻#(-丨一-𠃍丨b一b乚)⿰⿱⺕⺕⿼コ乂d</bai-ids></td>
+                <td><img src="images/9f9c-v.png" style="height: 4em;"></td>
+            </tr>
+            <tr>
+                <td>(q4072)</td>
+                <td><bai-ids>⿱⺈⿻[1:]乚.⿱口.⿰⿱⺕⺕目</bai-ids></td>
+                <td><img src="images/9f9c-q407.png" style="height: 3em;"></td>
+            </tr>
+        </table>
+        <details>
+            <summary>组装验证（展开阅读）</summary>
+
+            
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>组装</th>
+            </tr>
+            <tr>
+                <td>(.)</td>
+                <td><img src="images/9f9c-g-decompose.svg" style="background-color: white; width: 100%;"></td>
+            </tr>
+            <tr>
+                <td>(H)</td>
+                <td><img src="images/9f9c-h-decompose.svg" style="background-color: white; width: 100%;"></td>
+            </tr>
+            <tr>
+                <td>(J)</td>
+                <td><img src="images/9f9c-j-decompose.svg" style="background-color: white; width: 100%;"></td>
+            </tr>
+            <tr>
+                <td>(K)</td>
+                <td><img src="images/9f9c-k-decompose.svg" style="background-color: white; width: 100%;"></td>
+            </tr>
+            <tr>
+                <td>(T)</td>
+                <td><img src="images/9f9c-t-decompose.svg" style="background-color: white; width: 100%;"></td>
+            </tr>
+            <tr>
+                <td>(V)</td>
+                <td><img src="images/9f9c-v-decompose.svg" style="background-color: white; width: 100%;"></td>
+            </tr>
+            <tr>
+                <td>(q4072)</td>
+                <td><img src="images/9f9c-q4072-decompose.svg" style="background-color: white; width: 100%;"></td>
+            </tr>
+        </table>
+        </details>
+    </section>
+
+    <section>
+        <h2 id="9">9. 完整 EBNF 语法定义</h2>
+        <p>
+            下面是白式 IDS 语法的 EBNF（扩展巴科斯-瑙尔范式）定义。以下定义由 @NightFurySL2001 整理且仅供参考，并非正式定义。以下使用<a href="https://www.w3.org/TR/xml/#sec-notation" target="_blank"> W3C XML</a> 的 EBNF 语法表述。
+        </p>
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">/* zi.tools IDS Database EBNF syntax */
+
+IDS_Definition_Row ::= Ideograph_Char TAB IDS_Locale_Definition (TAB IDS_Alternative_Definition)
+
+/* 单个部件描述 */
+
+IDS_Locale_Definition ::= IDS_Sequence | IDS_Locale_Sequence (";" IDS_Locale_Sequence)*
+IDS_Alternative_Definition ::= (IDS_Sequence | IDS_Locale_Sequence)  (";" (IDS_Sequence | IDS_Locale_Sequence))*
+IDS_Locale_Sequence ::= Unique_Sequence_Separator? IDS_Sequence Variant_Identifier_Definition?
+
+IDS_Sequence ::= Stroke_Sequence
+  | IDS_UnaryOperator IDS_Component
+  | IDS_BinaryOperator IDS_Component IDS_Component
+  | IDS_BinaryOverlapOperator Overlap_Modifier IDS_Component IDS_Component
+  | IDS_BinaryAmbiguousOperator Index_Modifier IDS_Component IDS_Component
+  | IDS_TrinaryOperator IDS_Component IDS_Component IDS_Component
+
+IDS_Component ::= IDS_Sequence | Stroke_Sequence | Ideo_with_Variant_ID | Curves | [リ〢〣コ] 
+
+/* 4. 汉字的字形变体 */
+Ideo_with_Variant_ID ::= Ideograph_Char_with_Variant Variant_Identifier?
+Variant_Identifier_Definition ::= "(" Variant_Identifier ("," Variant_Identifier)* ")"
+Variant_Identifier ::= Wildcard_Source | Unicode_Sources | UCV_Full_Position | Imaginary_UCV | Alternate_Variants
+
+Wildcard_Source ::= "."
+Unicode_Sources ::= [BGHJKMPSTUVQ]
+UCV_Full_Position ::= [qpxy] UCV_ID_Number UCV_Position_Number
+UCV_ID_Number ::= Three_Digit_Number [a-z]?
+UCV_Position_Number ::= (Positive_Numeral | Two_Digit_Number) [xy]?
+Imaginary_UCV ::= "qq" UCV_ID_Number+
+Alternate_Variants ::= [0-9a-z.]+
+
+/* 5. 笔画之间的相接 */
+Stroke_Sequence ::= "#" "(" Stroke_Part+ "z"? ")"
+Stroke_Part ::= StReversed_Indicator? (Ideograph_Char | Stroke_Letter) (StCrossing_Indicator | StBreak_Indicator)?
+Stroke_Letter ::= [HSPN] [g]? | [SP] "Hw" [g]? | [DTJZ] | "Wg" | [Q][abcd]
+StReversed_Indicator ::= "-"
+StCrossing_Indicator ::= "x" Number
+StBreak_Indicator ::= "b"
+
+/* 6. 部件之间的重叠穿插 */
+Overlap_Modifier ::= "[" Overlap_Matrix ("|" Overlap_Matrix)? "]"
+Overlap_Matrix ::= Overlap_Horizontal_Indexing | Overlap_Rows | Overlap_Cell+
+Overlap_Horizontal_Indexing ::= (Number | Negative_Number)? ":" (Number | Negative_Number)?
+Overlap_Rows ::= Overlap_Row? ("," Overlap_Row?)+
+Overlap_Row ::= Overlap_Cell*
+Overlap_Cell ::= Overlap_Identity | Overlap_Crossing | Overlap_Non_Crossing
+Overlap_Identity ::= "." |  "_"
+Overlap_Crossing ::= [xabcd]
+Overlap_Non_Crossing ::= [lr]
+Index_Modifier ::= "[" Number "]"
+
+/* 7. 统一化 */
+Unique_Sequence_Separator ::= "{" ("?"  One_Digit_Number?)? Ideograph_Char_with_Variant Unicode_Sources? "}"
+
+/* 字符定义 */
+Ideograph_Char ::= Ideograph_Char_with_Variant | Curves | [リ〢〣コ]
+Ideograph_Char_with_Variant ::= Hanzi | CJK_Stroke | [ユス]
+Hanzi ::= \p{Ideographic=Y} | \p{Radical=Y} | 
+Curves ::= [◝◞◟◜]
+CJK_Stroke ::= [#x31C0-#x31E3] // U+30E4 和 U+30E5 未收录进 zi.tools 笔画库
+TAB ::= #x0009
+IDS_UnaryOperator ::= [⿾⿿]
+IDS_BinaryOperator ::= IDS_BinaryUnique | IDS_BinaryOverlap | IDS_BinaryAmbiguousWrapping
+IDS_BinaryUniqueOperator ::= [⿰⿱⿸⿹⿺⿽]
+IDS_BinaryOverlapOperator ::= "⿻"
+IDS_BinaryAmbiguousOperator ::= [⿴⿵⿶⿷⿼㇯]
+IDS_TrinaryOperator ::= [⿲⿳]
+
+Positive_Numeral ::= [1-9]
+One_Digit_Number ::= "0" | Positive_Numeral
+Two_Digit_Number ::= One_Digit_Number One_Digit_Number
+Three_Digit_Number ::= One_Digit_Number One_Digit_Number One_Digit_Number
+Number ::= "0" | Positive_Numeral One_Digit_Number*
+Negative_Number ::= "-" Positive_Numeral One_Digit_Number*
+</code></pre>
+    <p>
+        上面的 EBNF 定义也被转换成使用 Python <a href="https://pypi.org/project/regex/" target="_blank">regex</a> 模块的正则表达式实现。你可以对「白式 IDS 数据库」内的 .txt 文件运行<a href="./verify.py" target="_blank">该 Python 脚本文件</a> 以验证该 EBNF 定义是否对应「白式 IDS 数据库」的条目。
+    </p>
+    </section>
+
+    <section>
+        <h2 id="end">10. 结尾</h2>
+        <p>
+            以上就是白式 IDS 扩展语法的基本内容，部分内容为反向推导。如果你对上述描述有任何疑问或者建议，欢迎在<a href="https://github.com/NightFurySL2001/bai-ids" target="_blank">GitHub 仓库</a>讨论。
+        </p>
+        <p class="credits">
+            IDS 扩展设计：<a href="https://zi.tools" target="_blank">字统网 (zi.tools)</a> 站长<a href="https://github.com/yi-bai" target="_blank">白易</a>，IDS数据库的创建者和维护者，整理时提供关键理论指导
+            <br>
+            白式 IDS 数据库：<a href="https://github.com/yi-bai/ids" target="_blank">https://github.com/yi-bai/ids</a>（编撰时的版本是 <a href="https://github.com/yi-bai/ids/tree/8a585351e19dac0635b61cb9ea50646e426173d4" target="_blank">v17.0.65260201</a>）
+            <br>
+            整合/校对/开源：<a href="https://github.com/NightFurySL2001" target="_blank">NightFurySL2001（夜煞之乐）</a>
+            <br>
+            HTML原作：<a href="https://github.com/1-PT-AxH-RV-0" target="_blank">-PT_AxH_RV-（幻溯验劣/&#xF8FF;/溯　潋 - Phatravix
+                Rethyvola/Ocedaep Ginanob）</a>
+            <br>
+            DOCX/PPTX原作：<a href="https://github.com/Losketch" target="_blank">Losketch</a>
+            <br>
+            本文以 <a href="./LICENSE" target="_blank">MIT 协议授权</a>发布。
+        </p>
+    </section>
+</body>
+
+<script src="highlight/prism.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const tocContainer = document.getElementById("toc");
+        const headings = document.querySelectorAll("h2, h3, h4"); // Select headings
+        const rootList = document.createElement("ul");
+
+        // Build a nested ToC: h2 > h3 > h4
+        let currentH2 = null;
+        let currentH2Li = null;
+        let currentH3Ul = null;
+
+        headings.forEach((heading, index) => {
+            let id = heading.getAttribute("id");
+            if (!id) {
+                id = "heading-" + index;
+                heading.setAttribute("id", id);
+            }
+
+            if (heading.tagName.toUpperCase() === "H2") {
+                // New h2
+                currentH2Li = document.createElement("li");
+                const anchor = document.createElement("a");
+                anchor.href = "#" + id;
+                anchor.innerText = heading.innerText;
+                currentH2Li.appendChild(anchor);
+                rootList.appendChild(currentH2Li);
+                // Prepare for h3 children
+                currentH3Ul = document.createElement("ul");
+                currentH2Li.appendChild(currentH3Ul);
+                // Reset h3/h4 tracking
+                currentH3Li = null;
+                currentH4Ul = null;
+            } else if (heading.tagName.toUpperCase() === "H3" && currentH3Ul) {
+                // h3 under current h2
+                currentH3Li = document.createElement("li");
+                const anchor = document.createElement("a");
+                anchor.href = "#" + id;
+                anchor.innerText = heading.innerText;
+                currentH3Li.appendChild(anchor);
+                currentH3Ul.appendChild(currentH3Li);
+                // Prepare for h4 children
+                currentH4Ul = document.createElement("ul");
+                currentH3Li.appendChild(currentH4Ul);
+            } else if (heading.tagName.toUpperCase() === "H4" && currentH4Ul) {
+                // h4 under current h3
+                const h4Li = document.createElement("li");
+                const anchor = document.createElement("a");
+                anchor.href = "#" + id;
+                anchor.innerText = heading.innerText;
+                h4Li.appendChild(anchor);
+                currentH4Ul.appendChild(h4Li);
+            }
+        });
+
+        tocContainer.appendChild(rootList);
+    });
+</script>
+
+
+</html>

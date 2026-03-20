@@ -1,0 +1,326 @@
+:root {
+    --color-background: #303030;
+    --color-text: #c6c6c6;
+    --color-surface: #585858;
+    --color-border: #ababab;
+    --color-accent: cornflowerblue;
+    --color-link-visited: cadetblue;
+    --color-code: #ffed29;
+    --color-ids-text: #a0f0a0;
+    --color-highlight: pink;
+    --color-credit-border: green;
+}
+
+* {
+    font-family: Inter, example, "Source Han Sans CN", IDC, Plgo1, Plgo2;
+    font-style: normal;
+    font-variant-numeric: tabular-nums;
+}
+
+.invert-dark-mode {
+    filter: invert(100%);
+}
+
+body {
+    background-color: var(--color-background);
+    line-height: 1.75;
+    color: var(--color-text);
+    max-width: 70em;
+    padding: 1em;
+    margin: auto;
+    position: relative;
+
+    &:has(input#toggle-light-mode:checked) {
+        --color-background: #F8F8F8;
+        --color-text: #101010;
+        --color-surface: #e8e8e8;
+        --color-border: #ababab;
+        --color-accent: #0000EE;
+        --color-link-visited: #551A8B;
+        --color-code: #cd8500;
+        --color-ids-text: darkgreen;
+        --color-highlight: darkred;
+        --color-credit-border: darkgreen;
+
+        .invert-dark-mode {
+            filter: invert(0%);
+        }
+    }
+}
+
+h1 {
+    font:
+        1000 2.5em "Source Han Serif",
+        serif;
+    margin: 1em 0 0 0;
+    padding: 5px;
+    text-align: center;
+    line-height: 1.2;
+}
+subtitle {
+    display: block;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+h2 {
+    font-weight: 800;
+    font-size: 1.7rem;
+    margin: 1em 0 8px;
+    padding: 6px 6px 6px 0.5em;
+    border-top: solid 2px var(--color-accent);
+    border-left: solid 2px var(--color-accent);
+}
+
+h3 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 0.5em 0 8px;
+    padding: 5px;
+    border-bottom: solid 1px var(--color-border);
+    width: fit-content;
+}
+
+h4 {
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin: 0.5em 0 0 0;
+    padding: 5px;
+}
+
+h5 {
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin: 0.5em 0 0 0;
+    padding: 5px;
+}
+
+p {
+    text-indent: 2em;
+    margin: 0;
+}
+u {
+    text-underline-offset: 6px;
+}
+
+em {
+    text-emphasis: filled circle;
+    text-emphasis-position: under;
+
+    &[lang="en"] {
+        text-emphasis: none;
+        font-style: italic;
+    }
+}
+
+pre,
+code {
+    color: var(--color-code);
+    background-color: var(--color-surface);
+    padding: 2px 4px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+pre {
+    padding: 8px;
+    overflow-x: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:link {
+    color: var(--color-accent);
+}
+
+a:visited {
+    color: var(--color-link-visited);
+}
+
+ul {
+    margin-top: 0;
+}
+
+.toc {
+    line-height: 1.25;
+}
+
+.toc ul,
+.toc ul ul,
+.toc ul ul ul,
+.toc ul ul ul ul {
+    list-style-type: none;
+    padding-left: 1em;
+}
+
+.toc li {
+    margin-bottom: 10px;
+}
+
+.toc ul ul li {
+    margin-bottom: 5px;
+}
+
+.toc ul ul ul li {
+    margin-bottom: 2px;
+}
+
+.toc ul ul ul ul li {
+    margin-bottom: 0;
+}
+
+table {
+    width: fit-content;
+    max-width: 100%;
+    margin: auto;
+    margin-top: 8px;
+    border-collapse: collapse;
+    overflow-x: auto;
+}
+
+th {
+    background-color: var(--color-surface);
+}
+
+th,
+td {
+    padding: 5px;
+    border: solid 1px var(--color-border);
+    text-align: center;
+}
+
+@font-face {
+    font-family: "Plgo1";
+    src: url("fonts/Plgo1.woff2") format("woff2");
+    font-display: swap;
+    unicode-range: U+2????;
+}
+@font-face {
+    font-family: "Plgo2";
+    src: url("fonts/Plgo2.woff2") format("woff2");
+    font-display: swap;
+    unicode-range: U+30000-323AF;
+}
+
+@font-face {
+    font-family: "SM-SC";
+    src: url("fonts/Sarasa-Mono-SC-Regular.woff2") format("woff2");
+    font-display: swap;
+}
+
+@font-face {
+    /* 除了 PUA，还有修改思源 CN 错误的 U+2E95,U+5F50，必须优先于思源使用 */
+    font-family: "example";
+    src: url("fonts/example.woff2") format("woff2");
+    font-display: swap;
+    unicode-range: U+2E95,U+5F50,U+E000-F8FF;
+}
+
+@font-face {
+    font-family: "IDC";
+    src: url("fonts/Ideographic-Description-Character.woff2") format("woff2");
+    font-display: swap;
+    unicode-range: U+25DC-25DF, U+2FF?, U+31EF, U+1F504;
+}
+
+.sm-font,
+code,
+[class="language-w3cebnf"] * {
+    font-family: SM-SC !important;
+    font-style: normal;
+}
+
+figure {
+    display: block;
+    margin: 1em auto;
+    text-align: center;
+    font-weight: 350;
+}
+
+figure img {
+    display: block;
+    max-width: 70%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
+figcaption,
+table caption {
+    font-size: 0.9em;
+    color: var(--color-border);
+    line-height: 1.4;
+    padding: 0.5em 0;
+    text-align: center;
+    caption-side: bottom;
+}
+
+.ids,
+bai-ids {
+    white-space: pre-wrap;
+    tab-size: 2rem;
+}
+
+bai-ids {
+    color: var(--color-ids-text);
+    background-color: var(--color-surface);
+    padding: 2px 4px;
+    border-radius: 5px;
+    white-space: pre; /* 避免靠近行尾时中间断开 */
+    overflow-wrap: anywhere; /* 允许一行放不完时换行 */
+}
+bai-ids .highlight, .ids .highlight {
+    color: var(--color-highlight);
+    font-weight: bold;
+}
+
+.text-figure {
+    /** Figure that use text instead of an image. **/
+    width: fit-content;
+    margin-inline: auto;
+    padding: 16px;
+    text-align: center;
+    font-size: 2em;
+    border: solid 1px var(--color-border);
+}
+.large-sample {
+    font-size: 3em;
+    line-height: 1;
+}
+.fig-arrow {
+    font-size: 0.8em;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+}
+figure.float-right {
+    float: right;
+    margin-left: 1em;
+    max-width: 50%;
+}
+
+p.credits {
+    text-indent: 0;
+    border-left: var(--color-credit-border) solid 2px;
+    padding: 0.5em 2em;
+}
+div.info {
+    text-indent: 0;
+    border-left: var(--color-accent) solid 2px;
+    padding: 0 2em;
+    margin: 0.5em;
+}
+
+@media print {
+    body {
+        padding: 2em;
+    }
+    code[class="language-w3cebnf"] {
+        white-space: pre-wrap !important;
+    }
+}
