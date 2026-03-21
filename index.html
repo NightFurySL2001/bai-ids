@@ -243,7 +243,7 @@ IDS_TrinaryOperator ::= [⿲⿳]</code></pre>
         <p>
             本文接下来于内文使用的定义语法为：<code>&lt;字&gt; &lt;TAB&gt; &lt;IDS 定义组&gt;</code>，中间 TAB 字符为 U+0009 字符，表示 &lt;字&gt; 的 IDS 定义为 &lt;IDS 定义组&gt;。如果一个字有多个 IDS 定义，则可以使用第二个 TAB 字符分隔开来，如：<code>&lt;字&gt; &lt;TAB&gt; &lt;IDS 定义组&gt; &lt;TAB&gt; &lt;IDS 另类定义组&gt;</code>，其中 &lt;IDS 定义组&gt; 是默认拆分的方式，&lt;IDS 另类定义组&gt; (alternative) 则是拆分成比较不合理、不常见的部件。例如「滟」的 IDS 条目：
             <pre class="ids">滟&#09;<u>⿰氵.艳.&#09;</u>⿰沣.色.</pre>
-            一般应拆成「<bai-ids>⿰氵艳</bai-ids>」，而不是另类的「<bai-ids>⿰沣色</bai-ids>」）。
+            一般应拆成「<bai-ids>⿰氵艳</bai-ids>」，而不是另类组的「<bai-ids>⿰沣色</bai-ids>」）。
         </p>
         <p>
             EBNF 语法定义：
@@ -284,10 +284,12 @@ IDS_Alternative_Definition ::= (IDS_Sequence | IDS_Locale_Sequence)  (";" (IDS_S
         <p>
             为方便理解，以下拆分不同章节分别解说：
             <ol start="4">
-                <li>汉字的字形变体</li>
-                <li>部件之间的重叠穿插</li>
-                <li>笔画之间的相接/穿插</li>
+                <li>汉字的字形变体：单个汉字如何记录不同变体；</li>
+                <li>笔画之间的相接：「笔画链」的概念和使用；</li>
+                <li>部件之间的重叠穿插：定义重叠和包围 IDS 符号；</li>
+                <li>唯一化及统一化：IDS 数据库里面 IDS 组合对应汉字变体的唯一化和统一化处理。</li>
             </ol>
+            每章节都附带相关的 EBNF 语法定义和白式 IDS 数据库条目示例。
         </p>
     </section>
 
