@@ -299,7 +299,7 @@ IDS_Alternative_Definition ::= (IDS_Sequence | IDS_Locale_Sequence)  (";" (IDS_S
             组出来的字的左上角的「先」的最后一笔是「乚」，但是「𣀹」的左上角的「先」的最后一笔是「𠄌」，这是由于部件避让的习惯而产生的差异。汉字有诸多写法，为了方便表示不同写法变体之间的其中一种，因此需要标上「字形变体标识符」（EBNF 语法内的 <code>Variant_Identifier_Definition</code>）。
         </p>
 
-        <h3 id="4.2">4.2 定义及使用语法</h3>
+        <h3 id="4.2">4.2. 定义及使用语法</h3>
         <p>
             EBNF 语法定义：
         </p>
@@ -602,7 +602,7 @@ Unicode_Sources ::= [BGHJKMPSTUVQ]</code></pre>
             </div>
         </div>
 
-        <h4 id="4.3.2">4.3.2 UCV 规则下的变体</h4>
+        <h4 id="4.3.2">4.3.2. UCV 规则下的变体</h4>
         <p>
             EBNF 语法定义：
         </p>
@@ -654,7 +654,7 @@ Imaginary_UCV ::= "qq" UCV_ID_Number+</code></pre>
             <figcaption>依据 UCV #222 生成的 <bai-ids>&#xE021;qq222</bai-ids> 变体</figcaption>
         </figure>
         <p>
-            例二：「<bai-ids>&#xE023;&#09;⿱夂.月.(.); ⿱攵.⺼.(qq053194)</bai-ids>」中的「<code>(qq053194)</code>」表示该 IDS 描述 <bai-ids>⿱攵.⺼.</bai-ids> 的字中有一个部件（<code>月</code>）变成了 UCV #53 中的一个变体（<code>⺼</code>），还有一个部件（<code>夂</code>）变成了 UCV #194 中的一个变体（<code>攵</code>）。见下两图。
+            例二：「<bai-ids>&#xE023;&#09;⿱夂.月.(.); ⿱攵.⺼.(qq053194)</bai-ids>」<a href="https://zi.tools/zi/%F0%A1%95%99" target="_blank">（U+21559）</a>中的「<code>(qq053194)</code>」表示该 IDS 描述 <bai-ids>⿱攵.⺼.</bai-ids> 的字中有一个部件（<code>月</code>）变成了 UCV #53 中的一个变体（<code>⺼</code>），还有一个部件（<code>夂</code>）变成了 UCV #194 中的一个变体（<code>攵</code>）。见下两图。
         </p>
         <figure>
             <img src="images/ucv-53-194.png">
@@ -1270,7 +1270,7 @@ Overlap_Non_Crossing ::= [lr]</code></pre>
             为什么<a href="#6.2">§6.2〈重叠速成版：垂直结构穿过水平结构的限制语法〉</a>会说「从 1 开始」呢？这是因为 Python 的切片语法的 <code>a:b</code> 是包括 <code>a</code> 但不包括 <code>b</code> 的区间，导致「从 0 开始」数的 <code>a</code> 对应的符号是 <code>x</code>（交叉），但是 <code>b</code> 对应的符号是 <code>.</code>（正上/下方），需要记忆「<code>a</code> 横是第一个横竖交叉点，<code>b</code> 横最后触碰竖」。如果简单的介绍用「从 1 开始」数，则 <code>a</code> 和 <code>b</code> 都对应的符号是 <code>.</code>，更容易理解成「<code>a</code> 横和 <code>b</code> 横都触碰竖」，这就需要引入「虚拟」横的概念且能够对应反向的 <code>-0</code> 横。
         </div>
         <p>
-            例：「<bai-ids>曲</bai-ids>」如果拆分成「<bai-ids>⿻〢日</bai-ids>」，则「<bai-ids>〢</bai-ids>」是纵向部件，「<bai-ids>日</bai-ids>」是横向部件。按以上步骤开始分析「<bai-ids>曲</bai-ids>」的穿插关系：
+            例：「<bai-ids>曲</bai-ids>」如果拆分成「<bai-ids>⿻〢日</bai-ids>」，则「<bai-ids>〢</bai-ids>」是纵向部件，「<bai-ids>日</bai-ids>」是横向部件。按以上步骤开始分析「<bai-ids>曲</bai-ids>」的穿插关系以得到「<bai-ids>⿻[:-1]〢日</bai-ids>」：
             <details>
                 <summary>「<bai-ids>曲</bai-ids>」的穿插关系分析（展开阅读）</summary>
 
