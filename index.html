@@ -1010,13 +1010,13 @@ StBreak_Indicator ::= "b"</code></pre>
         <h2 id="6">6. 部件之间的重叠穿插</h2>
         <h3 id="6.1">6.1. 重叠标记的简介及基础概念</h3>
         <p>
-            重叠 IDC （<bai-ids>⿻</bai-ids>, U+2FFB）有时会具有歧义，如「⿻丨日」除能表示「甲」外，还可以表示「申」「曱」「甴」「由」「田」。重叠标记语法设计来解决此问题，尽可能表示笔画之间的穿插关系，例如将「甲」的 IDS 限制为「⿻[1:]丨日」。
+            重叠 IDC （<bai-ids>⿻</bai-ids>, U+2FFB）有时会具有歧义，如「<bai-ids>⿻丨日</bai-ids>」除能表示「甲」外，还可以表示「申」「曱」「甴」「由」「田」。重叠标记语法设计来解决此问题，尽可能表示笔画之间的穿插关系，例如将「甲」的 IDS 限制为「<bai-ids>⿻[1:]丨日</bai-ids>」。
         </p>
         <p>
             在白式 IDS 语法中，重叠 IDC （<bai-ids>⿻字₁字₂</bai-ids>）的语法被添加了限制。<bai-ids>⿻字₁字₂</bai-ids>中，<bai-ids>字₁</bai-ids>是<em>纵向部件</em>，<bai-ids>字₂</bai-ids>是<em>横向部件</em>。纵向部件代表汉字里面的「竖」或接近的垂直结构，例如：「艹」「〢」的两竖、「口」的左竖和【横折中的竖】、竖撇「丿」）；横向部件代表汉字里面的「横」或接近的水平结构，例如：「口」的【横折中的横】和下面的横、「コ」的【横折中的横】和下面的横、「乐」的第一笔撇与第二笔【竖折中的横】。
         </p>
         <p>
-            白式 IDS 语法中，重叠 IDC 添加了扩展语法「穿过表达式」以对重叠 IDC 提供更多资讯。扩展语法为在重叠 IDC 后面添加方括号<code>[ ]</code>，里面添加描述字符，即变成<bai-ids>⿻[...]字₁字₂</bai-ids>。重叠 IDC 的扩展语法目前有两种版本：速成版和完整版，另外还有一个特例。
+            白式 IDS 语法中，重叠 IDC 添加了扩展语法「<em>穿过表达式</em>」（EBNF 的 <code>Overlap_Modifier</code>）以对重叠 IDC 提供更多资讯。扩展语法为在重叠 IDC 后面添加方括号<code>[ ]</code>，里面添加描述字符，即变成<bai-ids>⿻[...]字₁字₂</bai-ids>。重叠 IDC 的扩展语法目前有两种版本：速成版和完整版，另外还有一个特例。
         </p>
         <p>
             EBNF 语法定义：
@@ -1034,9 +1034,13 @@ Overlap_Horizontal_Indexing ::= (Number | Negative_Number)? ":" (Number | Negati
         <p>
             垂直结构穿过水平结构的限制语法，在「穿过表达式」里为：前面一个正整数，后面一个（一般是负）整数，中间用冒号分隔。两个整数中可省略其中一者，但不能都省略。
         </p>
-        <h4 id="6.2.1">6.2.1. 完整情况</h4>
+        <figure>
+            <img src="images/stroke-hori-index-virtual.svg" alt="「申」里带「虚拟」横的水平结构序号示例" class="invert-dark-mode">
+            <figcaption>「申」里带「虚拟」横的水平结构序号示例</figcaption>
+        </figure>
+        <h4 id="6.2.1">6.2.1. 普通情况</h4>
         <p>
-            最常见的限制语法是：<bai-ids>⿻[a:b]字₁字₂</bai-ids>（<code>a</code>、<code>b</code> 为正整数）表示 <bai-ids>字₁</bai-ids> 里面的<em>全部</em>垂直结构的顶端在 <bai-ids>字₂</bai-ids> 的第 <code>a</code> 个水平结构正下面接触（如「丅」形）；<bai-ids>字₁</bai-ids> 垂直结构的底端在 <bai-ids>字₂</bai-ids> 的第 <code>b</code> 个水平结构正上面接触（如「丄」形）。<bai-ids>字₂</bai-ids> 的水平结构的序号从 1 开始、从上往下数；如果是负数，则从下往上数，-1 表示最后一个水平结构。
+            最常见的限制语法是：<bai-ids>⿻[a:b]字₁字₂</bai-ids>（<code>a</code>、<code>b</code> 为正整数）表示 <bai-ids>字₁</bai-ids> 里面的<em>全部</em>垂直结构的顶端在 <bai-ids>字₂</bai-ids> 的第 <code>a</code> 个水平结构正下面<em>接触</em>（如「丅」形）；<bai-ids>字₁</bai-ids> 垂直结构的底端在 <bai-ids>字₂</bai-ids> 的第 <code>b</code> 个水平结构正上面<em>接触</em>（如「丄」形）。<bai-ids>字₂</bai-ids> 的水平结构的序号从 1 开始、从上往下数；如果是负数，则从下往上数，-1 表示最后一个水平结构。
         </p>
         <h4 id="6.2.2">6.2.2. 负数情况</h4>
         <p>
@@ -1047,10 +1051,13 @@ Overlap_Horizontal_Indexing ::= (Number | Negative_Number)? ":" (Number | Negati
         </p>
         <h4 id="6.2.3">6.2.3. 省略情况</h4>
         <p>
-            若省略冒号 <code>:</code> 前面的数字（如 <bai-ids>⿻[:b]字₁字₂</bai-ids>），则表示 <bai-ids>字₁</bai-ids> 垂直结构的顶端<em>往上凸出</em> <bai-ids>字₂</bai-ids> 的第一个水平结构之上（垂直结构底端遵循 <code>b</code>）；若省略冒号 <code>:</code> 后面的数字（如 <bai-ids>⿻[a:]字₁字₂</bai-ids>），则表示 <bai-ids>字₁</bai-ids> 的底端<em>往下凸出</em> <bai-ids>字₂</bai-ids> 的最后一个水平结构之下（垂直结构顶端遵循 <code>a</code>）。
+            若省略冒号 <code>:</code> 前面的数字（如 <bai-ids>⿻[:b]字₁字₂</bai-ids>），则表示 <bai-ids>字₁</bai-ids> 垂直结构的顶端<em>往上凸出</em> <bai-ids>字₂</bai-ids> 的第一个水平结构之上（垂直结构底端遵循 <code>b</code>）；其可视为触碰第 <code>a = 0</code> 个水平结构（即第一个水平结构再上面的一个「虚拟」横）。
         </p>
         <p>
-            若垂直结构的顶端和底端都在水平结构的范围之外（即上下都凸出），则直接省略方括号的限制语法：<bai-ids>⿻字₁字₂</bai-ids>（即默认情况）。
+            若省略冒号 <code>:</code> 后面的数字（如 <bai-ids>⿻[a:]字₁字₂</bai-ids>），则表示 <bai-ids>字₁</bai-ids> 的底端<em>往下凸出</em> <bai-ids>字₂</bai-ids> 的最后一个水平结构之下（垂直结构顶端遵循 <code>a</code>）；其可视为触碰第 <code>b = -0</code> 个水平结构（即最后一个水平结构再下面的一个「虚拟」横）。
+        </p>
+        <p>
+            若是直接省略方括号<bai-ids>⿻字₁字₂</bai-ids>（即默认情况）即代表垂直结构的顶端和底端都在水平结构的范围之外（即上下都凸出）；不要写成<bai-ids>⿻[0:-0]字₁字₂</bai-ids>或<bai-ids>⿻[:]字₁字₂</bai-ids>。可参考上图「申」计算<bai-ids>⿻丨日</bai-ids>里的水平结构序号。
         </p>
         <h4 id="6.2.4">6.2.4. 例子</h4>
         <p>
@@ -1122,14 +1129,6 @@ Overlap_Horizontal_Indexing ::= (Number | Negative_Number)? ":" (Number | Negati
             </tr>
             <caption>重叠 IDS「<bai-ids>⿻丨日</bai-ids>」使用重叠速成版语法区分不同汉字</caption>
         </table>
-        <h4 id="6.2.5">6.2.5. 题外话</h4>
-        <p>
-            <a href="#6.2.3">§6.2.3〈省略情况〉</a>里，「省略」的情况其实是代表第 <code>0</code> 横（即第一个横再上面的一个「虚拟」横）或第 <code>-0</code> 横（即最后一个横再下面的一个「虚拟」横）。可参考下图「申」计算<bai-ids>⿻[0:-0]丨日</bai-ids>里的水平结构序号：
-        </p>
-        <figure>
-            <img src="images/stroke-hori-index-virtual.svg" alt="「申」里带「虚拟」横的水平结构序号示例" class="invert-dark-mode">
-            <figcaption>「申」里带「虚拟」横的水平结构序号示例</figcaption>
-        </figure>
 
         <h3 id="6.3">6.3. 重叠完整版：任意穿插的矩阵结构</h3>
         <p>
@@ -1198,7 +1197,7 @@ Overlap_Non_Crossing ::= [lr]</code></pre>
             其中<bai-ids>⿻[a]字₁字₂</bai-ids> 和<bai-ids>⿻[x]字₁字₂</bai-ids> 一样属于默认情况不写「穿过表达式」，<bai-ids>⿻[a]㇉一</bai-ids>应该简化成<bai-ids>⿻㇉一</bai-ids>。类推可知 「<bai-ids>弓</bai-ids>」有三个垂直段，分别是 <bai-ids>a</bai-ids>、<bai-ids>b</bai-ids>、<bai-ids>c</bai-ids>。
         </div>
         <div class="info">
-            <span id="6.注2">注2</span>：实际上横向部件计数的限制语法参考 <a href="https://docs.python.org/3/reference/expressions.html#slicings" target="_blank">Python 的切片语法</a>，横的计数方式从上到下，0 为第一横。<img src="images/stroke-hori-index-full.svg" height="200px" class="invert-dark-mode">
+            <span id="6.注2">注2</span>：实际上横向部件计数的限制语法参考 <a href="https://docs.python.org/3/reference/expressions.html#slicings" target="_blank">Python 的切片语法</a>；水平结构的计数方式从上到下，0 为第一横：<img src="images/stroke-hori-index-full.svg" height="200px" class="invert-dark-mode">，而不是 <a href="#6.2">§6.2〈重叠速成版：垂直结构穿过水平结构的限制语法〉</a>说的「从 1 开始」。
             <br>
             在此情况下，切片语法 <code>m:n</code> 代表第 <code>m</code> 行到第 <code>n - 1</code> 行之间均为 <bai-ids>x</bai-ids>，其他行（包括 <code>n</code>）均为 <bai-ids>.</bai-ids>。穿过矩阵里面，第 <code>m</code> 行（到第 <code>n - 1</code> 行）的元素是 <code>x</code>，第 <code>n</code> 行的元素是 <code>.</code>。
             <br>
@@ -1233,7 +1232,7 @@ Overlap_Non_Crossing ::= [lr]</code></pre>
                 <tr>
                     <td class="large-sample">申</td>
                     <td>
-                        <div class="ids">⿻<span class="highlight">[0:-0]</span>丨日</div>
+                        <div class="ids">⿻<span class="highlight">[:]</span>丨日</div>
                     </td>
                     <td>
                         <div class="ids">⿻<span class="highlight">[x, x, x]</span>丨日</div>
@@ -1268,6 +1267,7 @@ Overlap_Non_Crossing ::= [lr]</code></pre>
                 </tr>
                 <caption>重叠 IDS「<bai-ids>⿻丨日</bai-ids>」在不同汉字中的「切片语法」和「穿过矩阵」的对比</caption>
             </table>
+            为什么<a href="#6.2">§6.2〈重叠速成版：垂直结构穿过水平结构的限制语法〉</a>会说「从 1 开始」呢？这是因为 Python 的切片语法的 <code>a:b</code> 是包括 <code>a</code> 但不包括 <code>b</code> 的区间，导致「从 0 开始」数的 <code>a</code> 对应的符号是 <code>x</code>（交叉），但是 <code>b</code> 对应的符号是 <code>.</code>（正上/下方），需要记忆「<code>a</code> 横是第一个横竖交叉点，<code>b</code> 横最后触碰竖」。如果简单的介绍用「从 1 开始」数，则 <code>a</code> 和 <code>b</code> 都对应的符号是 <code>.</code>，更容易理解成「<code>a</code> 横和 <code>b</code> 横都触碰竖」，这就需要引入「虚拟」横的概念且能够对应反向的 <code>-0</code> 横。
         </div>
         <p>
             例：「<bai-ids>曲</bai-ids>」如果拆分成「<bai-ids>⿻〢日</bai-ids>」，则「<bai-ids>〢</bai-ids>」是纵向部件，「<bai-ids>日</bai-ids>」是横向部件。按以上步骤开始分析「<bai-ids>曲</bai-ids>」的穿插关系：
@@ -1447,10 +1447,10 @@ IDS_BinaryAmbiguousOperator ::= [⿴⿵⿶⿷⿼] | ...</code></pre>
             </tr>
         </table>
         <p>
-            产生的什么歧义呢？以一个虚拟的 IDS 举例：「<bai-ids>⿴日丶</bai-ids>」。请问这个点应该放在上面的格内还是下面的格内？对于这种歧义情况，白式 IDS 的包围扩展语法为在包围 IDC 后面添加方括号 <code>[ ]</code>，里面填写数字使之成为 <bai-ids>⿴[x]字₁字₂</bai-ids>。其中的 <code>x</code> 是一个正整数，表示<bai-ids>字₂</bai-ids>放置在<bai-ids>字₁</bai-ids>（即「日」）的第 <code>x + 1</code> 个<em>全封闭</em>空间内（从上到下、先中间，然后左到右数）。如果 <code>x</code> 为 <code>0</code>（表示放在第一个全封闭空间）时，整个扩展语法 <code>[0]</code> 可以省略不写。
+            产生的什么歧义呢？以一个虚拟的 IDS 举例：「<bai-ids>⿴日丶</bai-ids>」。请问这个点应该放在上面的格内还是下面的格内？对于这种歧义情况，白式 IDS 的包围扩展语法为在包围 IDC 后面添加方括号 <code>[ ]</code>，里面填写数字使之成为 <bai-ids>⿴[x]字₁字₂</bai-ids>。其中的 <code>x</code> 是一个正整数，表示<bai-ids>字₂</bai-ids>放置在<bai-ids>字₁</bai-ids>（即「日」）的第 <code>x + 1</code> 个<em>四方形全封闭</em>空间内（从上到下、先中间，然后左到右数）。如果 <code>x</code> 为 <code>0</code>（表示放在第一个全封闭空间）时，整个扩展语法 <code>[0]</code> 可以省略不写。
         </p>
         <p>
-            全包围计数例子：
+            全包围的「四方形全封闭」空间计数例子：
             <img src="images/9f9c-counting.svg" class="invert-dark-mode"></img>
         </p>
         <p>
