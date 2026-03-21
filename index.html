@@ -787,15 +787,15 @@ Imaginary_UCV ::= "qq" UCV_ID_Number+</code></pre>
         <h2 id="5">5. 笔画之间的相接</h2>
         <h3 id="5.1">5.1. 笔画链的简介</h3>
         <p>
-            有些字中有一些结构难以用一般 IDS 描述，或只能以自循环表述，如「乙」「亞」「凸」「一」……为了仍可描述这些汉字的写法而不陷入自循环，就有了「笔画链」（EBNF 语法内的 <code>Stroke_Sequence</code>）。
+            有些字中有一些结构难以用一般 IDS 描述，或只能以自循环表述，如「乙」「亞」「凸」「一」……为了仍可描述这些汉字的写法而不陷入自循环，就有了「笔画链」（EBNF 语法内的 <code>Stroke_Chain</code>）。
         </p>
 
         <h3 id="5.2">5.2. 笔画链语法</h3>
         <p>
             EBNF 语法定义：
         </p>
-        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">IDS_Sequence ::= Stroke_Sequence | ...
-Stroke_Sequence ::= "#" "(" Stroke_Part+ "z"? ")"</code></pre>
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">IDS_Sequence ::= Stroke_Chain | ...
+Stroke_Chain ::= "#" "(" Stroke_Part+ "z"? ")"</code></pre>
         <p>
             「笔画链」以 <code>#(</code> 开头，以 <code>)</code> 结尾，中间部分包含笔画字符、控制字符和笔画修饰字符。笔画字符和笔画修饰字符也可用字母代替以避免自循环和方便输入。笔画字符又可分为独立笔画字符和复合笔画字符。「笔画链」里的笔画字符<em>按顺序首尾相连</em>，连贯地书写下去，所以称之为「链」。所有笔画忽略书写时的角度，只关注笔画的起点、终点和粗细变化。「笔画链」作为一个独体，当与其他部件穿插重叠时，仍然保持「笔画链」的笔画顺序和连接关系不变。
         </p>
@@ -1699,14 +1699,14 @@ IDS_Locale_Definition ::= IDS_Sequence | IDS_Locale_Sequence (";" IDS_Locale_Seq
 IDS_Alternative_Definition ::= (IDS_Sequence | IDS_Locale_Sequence)  (";" (IDS_Sequence | IDS_Locale_Sequence))*
 IDS_Locale_Sequence ::= Unique_Sequence_Separator? IDS_Sequence Variant_Identifier_Definition?
 
-IDS_Sequence ::= Stroke_Sequence
+IDS_Sequence ::= Stroke_Chain
   | IDS_UnaryOperator IDS_Component
   | IDS_BinaryOperator IDS_Component IDS_Component
   | IDS_BinaryOverlapOperator Overlap_Modifier IDS_Component IDS_Component
   | IDS_BinaryAmbiguousOperator Index_Modifier IDS_Component IDS_Component
   | IDS_TrinaryOperator IDS_Component IDS_Component IDS_Component
 
-IDS_Component ::= IDS_Sequence | Stroke_Sequence | Ideo_with_Variant_ID | Curves | [リ〢〣コ] 
+IDS_Component ::= IDS_Sequence | Stroke_Chain | Ideo_with_Variant_ID | Curves | [リ〢〣コ] 
 
 /* 4. 汉字的字形变体 */
 Ideo_with_Variant_ID ::= Ideograph_Char_with_Variant Variant_Identifier?
@@ -1722,7 +1722,7 @@ Imaginary_UCV ::= "qq" UCV_ID_Number+
 Alternate_Variants ::= [0-9a-z.]+
 
 /* 5. 笔画之间的相接 */
-Stroke_Sequence ::= "#" "(" Stroke_Part+ "z"? ")"
+Stroke_Chain ::= "#" "(" Stroke_Part+ "z"? ")"
 Stroke_Part ::= StReversed_Indicator? (Ideograph_Char | Stroke_Letter) (StCrossing_Indicator | StBreak_Indicator)?
 Stroke_Letter ::= [HSPN] [g]? | [SP] "Hw" [g]? | [DTJZ] | "Wg" | [Q][abcd]
 StReversed_Indicator ::= "-"

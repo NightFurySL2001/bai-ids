@@ -8,14 +8,14 @@ IDS_Locale_Definition ::= IDS_Sequence | IDS_Locale_Sequence (";" IDS_Locale_Seq
 IDS_Alternative_Definition ::= (IDS_Sequence | IDS_Locale_Sequence)  (";" (IDS_Sequence | IDS_Locale_Sequence))*
 IDS_Locale_Sequence ::= Unique_Sequence_Separator? IDS_Sequence Variant_Identifier_Definition?
 
-IDS_Sequence ::= Stroke_Sequence
+IDS_Sequence ::= Stroke_Chain
   | IDS_UnaryOperator IDS_Component
   | IDS_BinaryOperator IDS_Component IDS_Component
   | IDS_BinaryOverlapOperator Overlap_Modifier IDS_Component IDS_Component
   | IDS_BinaryAmbiguousOperator Index_Modifier IDS_Component IDS_Component
   | IDS_TrinaryOperator IDS_Component IDS_Component IDS_Component
 
-IDS_Component ::= IDS_Sequence | Stroke_Sequence | Ideo_with_Variant_ID | Curves | [リ〢〣コ] 
+IDS_Component ::= IDS_Sequence | Stroke_Chain | Ideo_with_Variant_ID | Curves | [リ〢〣コ] 
 
 /* 4. 汉字的字形变体 */
 Ideo_with_Variant_ID ::= Ideograph_Char_with_Variant Variant_Identifier?
@@ -31,7 +31,7 @@ Imaginary_UCV ::= "qq" UCV_ID_Number+
 Alternate_Variants ::= [0-9a-z.]+
 
 /* 5. 笔画之间的相接 */
-Stroke_Sequence ::= "#" "(" Stroke_Part+ "z"? ")"
+Stroke_Chain ::= "#" "(" Stroke_Part+ "z"? ")"
 Stroke_Part ::= StReversed_Indicator? (Ideograph_Char | Stroke_Letter) (StCrossing_Indicator | StBreak_Indicator)?
 Stroke_Letter ::= [HSPN] [g]? | [SP] "Hw" [g]? | [DTJZ] | "Wg" | [Q][abcd]
 StReversed_Indicator ::= "-"
