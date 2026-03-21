@@ -1569,27 +1569,306 @@ Unique_Sequence_Separator ::= "{" ("?"  One_Digit_Number?)? Ideograph_Char_with_
         </p>
         <p>
             合并的过程主要是通过移除附着在汉字部件后面、没有括号、修饰笔画样式的「字形变体标识符」（见 <a href="#4.3.3">§4.3.3〈笔画样式及位置差异的变体〉</a>）。合并的笔画类「字形变体标识符」有以下几种：
-            <ul>
-                <li>
-                    「㇐」（横）变「㇀」（提，<code>t</code>）的避让字形，如<bai-ids>一.</bai-ids>（横）和 <bai-ids>一t</bai-ids>（提）、<bai-ids>土.</bai-ids> 和 <bai-ids>土t</bai-ids>、<bai-ids>马.</bai-ids> 和 <bai-ids>马t</bai-ids>（「驮」左）、<bai-ids>里.</bai-ids> 和 <bai-ids>里t</bai-ids>（「野」左）、<bai-ids>血.</bai-ids> 和 <bai-ids>血t</bai-ids>（「衅」左）……
-                </li>
-                <li>
-                    「㇏」（捺）变「丶」（点，<code>d</code>）的避让字形，如<bai-ids>人.</bai-ids> 和 <bai-ids>人d</bai-ids>、<bai-ids>大.</bai-ids> 和 <bai-ids>大d</bai-ids>、<bai-ids>又.</bai-ids> 和 <bai-ids>又d</bai-ids>、<bai-ids>奴.</bai-ids> 和 <bai-ids>奴d</bai-ids>（「𨥬」上）、<bai-ids>辰.</bai-ids> 和 <bai-ids>辰d</bai-ids>（「辱」上）……
-                </li>
-                <li>
-                    「乚」（竖弯钩）变「㇙」（竖提，<code>t</code>）的避让字形，如<bai-ids>儿.</bai-ids> 和 <bai-ids>儿t</bai-ids>（「頹」左下）、<bai-ids>电.</bai-ids> 和 <bai-ids>电t</bai-ids>（「鵪」左下）、<bai-ids>厄.</bai-ids> 和 <bai-ids>厄d</bai-ids>（「顾」左）、<bai-ids>己.</bai-ids> 和 <bai-ids>己t</bai-ids>（「改」左）、<bai-ids>九.</bai-ids> 和 <bai-ids>九t</bai-ids>（「鸠」左）……
-                </li>
-                <li>
-                    「丨」（竖）变「丿」（撇，<code>p</code>）的避让字形，如<bai-ids>半.</bai-ids> 和 <bai-ids>半p</bai-ids>（「判」左）、<bai-ids>干.</bai-ids> 和 <bai-ids>干p</bai-ids>（「幵」左）、<bai-ids>丰.</bai-ids> 和 <bai-ids>丰..p</bai-ids>（「&#xE003;」，「邦」左）……
-                </li>
-            </ul>
-        </p>
-        <p>
-            如果地区「字形变体标识符」的字形差异也是在笔画层级的区别，且在 UCV 列表中定义，也可以按此规则合并删除「字形变体标识符」（例如：<bai-ids>户戸戶</bai-ids>）。例如：「<bai-ids>𦡰</bai-ids>」的其中一个 IDS 条目是「<bai-ids>⿰⺼蒪H(T)</bai-ids>」，其中的「<code>H</code>」将「<bai-ids>蒪</bai-ids>」中的「<bai-ids>艹</bai-ids>」变成了「<bai-ids>⺿</bai-ids>」，而「<bai-ids>艹</bai-ids>」和「<bai-ids>⺿</bai-ids>」的字形都在 UCV #152 中，所以这个 IDS 条目也会被合并删除「<code>H</code>」，
+            <table>
+                <tr>
+                    <th>合并的笔画避让</th>
+                    <th>例子</th>
+                </tr>
+                <tr>
+                    <td>「㇐」（横）变「㇀」（提，<code>t</code>）</td>
+                    <td>
+                        <ul>
+                            <li><bai-ids>一.</bai-ids>（横）和 <bai-ids>一t</bai-ids>（提）</li>
+                            <li><bai-ids>土.</bai-ids> 和 <bai-ids>土t</bai-ids></li>
+                            <li><bai-ids>马.</bai-ids> 和 <bai-ids>马t</bai-ids>（「驮」左）</li>
+                            <li><bai-ids>里.</bai-ids> 和 <bai-ids>里t</bai-ids>（「野」左）</li>
+                            <li><bai-ids>血.</bai-ids> 和 <bai-ids>血t</bai-ids>（「衅」左）</li>
+                            <li><bai-ids>金.</bai-ids> 和 <bai-ids>金dt</bai-ids>（「釒」下）</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>「㇏」（捺）变「丶」（点，<code>d</code>）</td>
+                    <td>
+                        <ul>
+                            <li><bai-ids>人.</bai-ids> 和 <bai-ids>人d</bai-ids></li>
+                            <li><bai-ids>大.</bai-ids> 和 <bai-ids>大d</bai-ids></li>
+                            <li><bai-ids>又.</bai-ids> 和 <bai-ids>又d</bai-ids></li>
+                            <li><bai-ids>金.</bai-ids> 和 <bai-ids>金d.</bai-ids>（「趛」H源右上）</li>
+                            <li><bai-ids>辰.</bai-ids> 和 <bai-ids>辰d</bai-ids>（「辱」上）</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>「乚」（竖弯钩）变「㇙」（竖提，<code>t</code>）</td>
+                    <td>
+                        <ul>
+                            <li><bai-ids>儿.</bai-ids> 和 <bai-ids>儿t</bai-ids>（「頹」左下）</li>
+                            <li><bai-ids>电.</bai-ids> 和 <bai-ids>电t</bai-ids>（「鵪」左下）</li>
+                            <li><bai-ids>厄.</bai-ids> 和 <bai-ids>厄d</bai-ids>（「顾」左）</li>
+                            <li><bai-ids>己.</bai-ids> 和 <bai-ids>己t</bai-ids>（「改」左）</li>
+                            <li><bai-ids>九.</bai-ids> 和 <bai-ids>九t</bai-ids>（「鸠」左）</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>「丨」（竖）变「丿」（撇，<code>p</code>）</td>
+                    <td>
+                        <ul>
+                            <li><bai-ids>半.</bai-ids> 和 <bai-ids>半p</bai-ids>（「判」左）</li>
+                            <li><bai-ids>干.</bai-ids> 和 <bai-ids>干p</bai-ids>（「幵」左）</li>
+                            <li><bai-ids>丰.</bai-ids> 和 <bai-ids>丰..p</bai-ids>（「&#xE003;」，「邦」左）</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
         </p>
         <h4 id="7.3">7.3. lv2 的合并</h4>
         <p>
             在 ids_lv2 中，IDS 组合内的汉字部件将尽量替换成靠近 G 源常用字的形态；UCV 列表中被认为「必须统一」的部件也会被合并。例如：lv1 的<bai-ids>伔&#09;⿰亻冗(.);⿰亻⿱冖儿(J)</bai-ids>在 lv2 中会被合并为<bai-ids>伔&#09;⿰亻冗(.,J)</bai-ids>，因为「冗」的「<bai-ids>⿱冖几</bai-ids>」「<bai-ids>⿱冖儿</bai-ids>」字形差异在 UCV #119 中被认为「必须统一」，因此合并了「字形变体标识符」<code>.</code> 和 <code>J</code>。
+        </p>
+        <h4 id="7.4">7.4. 目标</h4>
+        <p>
+            以上所有的唯一化和统一化规则的目标都是为了让每个 IDS 组合都能唯一地映射到一个【汉字+「字形变体标识符」】，并且反向的【汉字+「字形变体标识符」】也能唯一地映射到 IDS 组合（不包括<a href="#4.3.1">§4.3.1</a>里的另类定义组），以便于机器能够唯一化地验证和处理。下表展示本页所使用的白式 IDS 组合经过 lv0 唯一化后的数据，注意每栏里面不会有重复的内容。
+
+            <details>
+                <summary>本页所使用的白式 IDS 组合 lv0 数据表（展开阅读）</summary>
+
+                <table>
+                    <tr>
+                        <th>汉字+「字形变体标识符」</th>
+                        <th>IDS 组合</th>
+                    </tr>
+                    <tr>
+                        <td>令.</td>
+                        <td><bai-ids>⿱亽龴.</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>令H</td>
+                        <td><bai-ids>⿱亼.龴.</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>令J</td>
+                        <td><bai-ids>⿱人.𪜁</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>令d..</td>
+                        <td><bai-ids>⿳人d丶.龴.</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>令dh.</td>
+                        <td><bai-ids>⿱亼d龴.</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>令dhs</td>
+                        <td><bai-ids>⿱人d𪜁</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>令hdx</td>
+                        <td><bai-ids>⿱亽卩</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>令hsx</td>
+                        <td><bai-ids>⿱亼.卩</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>冷.</td>
+                        <td><bai-ids>⿰冫令.</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>冷H</td>
+                        <td><bai-ids>⿰冫令H</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>冷J</td>
+                        <td><bai-ids>⿰冫令J</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>刢.</td>
+                        <td><bai-ids>⿰令d..刂</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>刢J</td>
+                        <td><bai-ids>⿰令dhs刂</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>刢T</td>
+                        <td><bai-ids>⿰令dh.刂</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>父.</td>
+                        <td><bai-ids>⿱八d乂.</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>父qq222</td>
+                        <td><bai-ids>⿱儿.乂.</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>&#xE023;.</td>
+                        <td><bai-ids>⿱夂.月.</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>&#xE023;.</td>
+                        <td><bai-ids>⿱攵.⺼.</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>母</td>
+                        <td><bai-ids>⿻⿴#(-𠃌𠃊x0)⺀一</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>又.</td>
+                        <td><bai-ids>#(-乀x1㇇)</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>𡆢</td>
+                        <td><bai-ids>⿴囗#(◞x3◟◜◝-◟)</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>甴</td>
+                        <td><bai-ids>⿻[:-2]丨日</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>由</td>
+                        <td><bai-ids>⿻[:-1]丨日</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>申</td>
+                        <td><bai-ids>⿻丨日</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>甲</td>
+                        <td><bai-ids>⿻[1:]丨日</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>曱</td>
+                        <td><bai-ids>⿻[:2]丨日</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>田</td>
+                        <td><bai-ids>⿴囗.十.</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>曲</td>
+                        <td><bai-ids>⿻[:-1]〢日</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>𫠣</td>
+                        <td><bai-ids>⿻[1:|b]𠃌⿱⿻𠃊.一.八d</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>𫡆</td>
+                        <td><bai-ids>⿴[1]⿴㠯.一.一.</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>日</td>
+                        <td><bai-ids>⿴囗.一.</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>曰</td>
+                        <td><bai-ids>{曰}⿴囗.一.</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>土.</td>
+                        <td><bai-ids>⿱十.一.</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>土t</td>
+                        <td><bai-ids>⿱十.一t</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>士.</td>
+                        <td><bai-ids>{士}⿱十.一.</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>士t</td>
+                        <td><bai-ids>{士}⿱十.一t</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>叱.</td>
+                        <td><bai-ids>⿰口.𠤎.</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>叱V</td>
+                        <td><bai-ids>{?叱}⿰口.七.</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>𡭽. (U+21B7D)</td>
+                        <td><bai-ids>⿱小s𤽄V</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>𡮂J (U+21B7D)</td>
+                        <td><bai-ids>⿱小.𤽄V</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>𡮂J (U+21B82)</td>
+                        <td><bai-ids>{𡮂J}⿱小.𤽄V</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>𡮂T (U+21B82)</td>
+                        <td><bai-ids>{𡮂T}⿱小s𤽄V</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>子.</td>
+                        <td><bai-ids>⿻了.一.</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>子t</td>
+                        <td><bai-ids>⿻了.一t</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>孑</td>
+                        <td><bai-ids>⿻了.㇀</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>一.</td>
+                        <td><bai-ids>#(H)</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>一t</td>
+                        <td><bai-ids>{一}#(T)</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>㇀</td>
+                        <td><bai-ids>#(T)</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>⺄</td>
+                        <td><bai-ids>#(HNg)</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>㇁</td>
+                        <td><bai-ids>#(Wg)</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>〇</td>
+                        <td><bai-ids>#(◟◜◝◞z)</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>口.</td>
+                        <td><bai-ids>#(-丨𠃍-一z)</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>𠂆.</td>
+                        <td><bai-ids>#(丿丿)</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>𠃎</td>
+                        <td><bai-ids>#(一-丨)</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>弓</td>
+                        <td><bai-ids>#(𠃍-一㇉)	</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>己</td>
+                        <td><bai-ids>#(𠃍-一乚)	</bai-ids></td>
+                    </tr>
+                    <tr>
+                        <td>巳</td>
+                        <td><bai-ids>#(一-𠃍乚)</bai-ids></td>
+                    </tr>
+                </table>
+            </details>
         </p>
     </section>
 
@@ -1646,41 +1925,40 @@ Unique_Sequence_Separator ::= "{" ("?"  One_Digit_Number?)? Ideograph_Char_with_
         <details>
             <summary>组装验证（展开阅读）</summary>
 
-            
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>组装</th>
-            </tr>
-            <tr>
-                <td>(.)</td>
-                <td><img src="images/9f9c-g-decompose.svg" style="background-color: white; width: 100%;"></td>
-            </tr>
-            <tr>
-                <td>(H)</td>
-                <td><img src="images/9f9c-h-decompose.svg" style="background-color: white; width: 100%;"></td>
-            </tr>
-            <tr>
-                <td>(J)</td>
-                <td><img src="images/9f9c-j-decompose.svg" style="background-color: white; width: 100%;"></td>
-            </tr>
-            <tr>
-                <td>(K)</td>
-                <td><img src="images/9f9c-k-decompose.svg" style="background-color: white; width: 100%;"></td>
-            </tr>
-            <tr>
-                <td>(T)</td>
-                <td><img src="images/9f9c-t-decompose.svg" style="background-color: white; width: 100%;"></td>
-            </tr>
-            <tr>
-                <td>(V)</td>
-                <td><img src="images/9f9c-v-decompose.svg" style="background-color: white; width: 100%;"></td>
-            </tr>
-            <tr>
-                <td>(q4072)</td>
-                <td><img src="images/9f9c-q4072-decompose.svg" style="background-color: white; width: 100%;"></td>
-            </tr>
-        </table>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>组装</th>
+                </tr>
+                <tr>
+                    <td>(.)</td>
+                    <td><img src="images/9f9c-g-decompose.svg" style="background-color: white; width: 100%;"></td>
+                </tr>
+                <tr>
+                    <td>(H)</td>
+                    <td><img src="images/9f9c-h-decompose.svg" style="background-color: white; width: 100%;"></td>
+                </tr>
+                <tr>
+                    <td>(J)</td>
+                    <td><img src="images/9f9c-j-decompose.svg" style="background-color: white; width: 100%;"></td>
+                </tr>
+                <tr>
+                    <td>(K)</td>
+                    <td><img src="images/9f9c-k-decompose.svg" style="background-color: white; width: 100%;"></td>
+                </tr>
+                <tr>
+                    <td>(T)</td>
+                    <td><img src="images/9f9c-t-decompose.svg" style="background-color: white; width: 100%;"></td>
+                </tr>
+                <tr>
+                    <td>(V)</td>
+                    <td><img src="images/9f9c-v-decompose.svg" style="background-color: white; width: 100%;"></td>
+                </tr>
+                <tr>
+                    <td>(q4072)</td>
+                    <td><img src="images/9f9c-q4072-decompose.svg" style="background-color: white; width: 100%;"></td>
+                </tr>
+            </table>
         </details>
     </section>
 
