@@ -7,7 +7,7 @@
     --color-link-visited: cadetblue;
     --color-code: #ffed29;
     --color-ids-text: #a0f0a0;
-    --color-highlight: pink;
+    --color-highlight: aqua;
     --color-credit-border: green;
 }
 
@@ -124,6 +124,9 @@ code {
 pre {
     padding: 8px;
     overflow-x: auto;
+    & > code {
+        padding: 0;
+    }
 }
 
 a {
