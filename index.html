@@ -654,7 +654,7 @@ Imaginary_UCV ::= "qq" UCV_ID_Number+</code></pre>
             <figcaption>依据 UCV #222 生成的 <bai-ids>&#xE021;qq222</bai-ids> 变体</figcaption>
         </figure>
         <p>
-            例二：「<bai-ids>&#xE023;&#09;⿱夂.月.(.); ⿱攵.⺼.(qq053194)</bai-ids>」中的「<code>(qq053194)</code>」表示该 IDS 描述 <bai-ids>⿱攵.⺼.</bai-ids> 的字中有一个部件（<code>夂</code>）变成了 UCV #53 中的一个变体（<code>攵</code>），还有一个部件（<code>月</code>）变成了 UCV #194 中的一个变体（<code>⺼</code>）。见下两图。
+            例二：「<bai-ids>&#xE023;&#09;⿱夂.月.(.); ⿱攵.⺼.(qq053194)</bai-ids>」中的「<code>(qq053194)</code>」表示该 IDS 描述 <bai-ids>⿱攵.⺼.</bai-ids> 的字中有一个部件（<code>月</code>）变成了 UCV #53 中的一个变体（<code>⺼</code>），还有一个部件（<code>夂</code>）变成了 UCV #194 中的一个变体（<code>攵</code>）。见下两图。
         </p>
         <figure>
             <img src="images/ucv-53-194.png">
@@ -1032,11 +1032,11 @@ IDS_BinaryOverlapOperator ::= "⿻"</code></pre>
         <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">Overlap_Matrix ::= Overlap_Horizontal_Indexing | ...
 Overlap_Horizontal_Indexing ::= (Number | Negative_Number)? ":" (Number | Negative_Number)?</code></pre>
         <p>
-            垂直结构穿过水平结构的限制语法，在「穿过表达式」里为：前面一个正整数，后面一个（一般是负）整数，中间用冒号分隔。两个整数中可省略其中一者，但不能都省略。水平结构的序号从 0 开始、从上往下数；如果是负数，则从下往上数，-1 表示最后一个水平结构。
+            垂直结构穿过水平结构的限制语法，在「穿过表达式」里为：前面一个正整数，后面一个（一般是负）整数，中间用冒号分隔。两个整数中可省略其中一者，但不能都省略。
         </p>
         <h4 id="6.2.1">6.2.1. 完整情况</h4>
         <p>
-            最常见的限制语法是：<bai-ids>⿻[a:b]字₁字₂</bai-ids>（<code>a</code>、<code>b</code> 为正整数）表示 <bai-ids>字₁</bai-ids> 里面的<em>全部</em>垂直结构的顶端在 <bai-ids>字₂</bai-ids> 的第 <code>a</code> 个水平结构正下面接触（如「丅」形）；<bai-ids>字₁</bai-ids> 垂直结构的底端在 <bai-ids>字₂</bai-ids> 的第 <code>b</code> 个水平结构正上面接触（如「丄」形）。
+            最常见的限制语法是：<bai-ids>⿻[a:b]字₁字₂</bai-ids>（<code>a</code>、<code>b</code> 为正整数）表示 <bai-ids>字₁</bai-ids> 里面的<em>全部</em>垂直结构的顶端在 <bai-ids>字₂</bai-ids> 的第 <code>a</code> 个水平结构正下面接触（如「丅」形）；<bai-ids>字₁</bai-ids> 垂直结构的底端在 <bai-ids>字₂</bai-ids> 的第 <code>b</code> 个水平结构正上面接触（如「丄」形）。<bai-ids>字₂</bai-ids> 的水平结构的序号从 1 开始、从上往下数；如果是负数，则从下往上数，-1 表示最后一个水平结构。
         </p>
         <h4 id="6.2.2">6.2.2. 负数情况</h4>
         <p>
