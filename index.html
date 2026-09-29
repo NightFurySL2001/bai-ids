@@ -21,7 +21,7 @@
         <input type="checkbox" id="toggle-light-mode">
     </div>
     <h1>（白式）IDS 延展语法导论</h1>
-    <subtitle>（2026-05-28 更新）</subtitle>
+    <subtitle>（2026-09-30 更新）</subtitle>
 
     <section>
         <h3>目录</h3>
@@ -1449,10 +1449,12 @@ IDS_BinaryAmbiguousOperator ::= [⿴⿵⿶⿷⿼] | ...</code></pre>
             </tr>
         </table>
         <p>
-            产生的什么歧义呢？以一个虚拟的 IDS 举例：「<bai-ids>⿴日丶</bai-ids>」。请问这个点应该放在上面的格内还是下面的格内？对于这种歧义情况，白式 IDS 的包围扩展语法为在包围 IDC 后面添加方括号 <code>[ ]</code>，里面填写数字使之成为 <bai-ids>⿴[x]字₁字₂</bai-ids>。其中的 <code>x</code> 是一个正整数，表示<bai-ids>字₂</bai-ids>放置在<bai-ids>字₁</bai-ids>（即「日」）的第 <code>x + 1</code> 个<em>四方形全封闭</em>空间内（从上到下、先中间，然后左到右数）。如果 <code>x</code> 为 <code>0</code>（表示放在第一个全封闭空间）时，整个扩展语法 <code>[0]</code> 可以省略不写。
+            产生的什么歧义呢？以一个虚拟的 IDS 举例：「<bai-ids>⿴日丶</bai-ids>」。请问这个点应该放在上面的格内还是下面的格内？对于这种歧义情况，白式 IDS 的包围扩展语法为在包围 IDC 后面添加方括号 <code>[ ]</code>，里面填写数字使之成为 <bai-ids>⿴[x]字₁字₂</bai-ids>。其中的 <code>x</code> 是一个正整数，表示<bai-ids>字₂</bai-ids>放置在<bai-ids>字₁</bai-ids>（即「日」）的第 <code>x</code> 个（从 0 数起）<em>四方形全封闭</em>空间内（中间从上到下，然后左边从上到下、最后右从上到下数）。如果 <code>x</code> 为 <code>0</code>（表示放在第一个全封闭空间）时，整个扩展语法 <code>[0]</code> 可以省略不写。
+            
         </p>
         <p>
             全包围的「四方形全封闭」空间计数例子：
+            <img src="images/contain-counting.svg" class="invert-dark-mode"></img>
             <img src="images/9f9c-counting.svg" class="invert-dark-mode"></img>
         </p>
         <p>

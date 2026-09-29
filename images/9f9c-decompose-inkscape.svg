@@ -24,15 +24,15 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.37594512"
-     inkscape:cx="422.93407"
-     inkscape:cy="905.71731"
+     inkscape:zoom="1.0775"
+     inkscape:cx="599.99998"
+     inkscape:cy="199.99999"
      inkscape:window-width="1920"
      inkscape:window-height="1001"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer9">
+     inkscape:current-layer="layer3">
     <inkscape:page
        x="0"
        y="0"
@@ -473,7 +473,7 @@
            id="tspan10743-5"
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Sarasa Mono CL';-inkscape-font-specification:'Sarasa Mono CL Bold';stroke-width:3"
            x="87.274948"
-           y="65.053421">1</tspan></text>
+           y="65.053421">2</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:'Source Han Sans';-inkscape-font-specification:'Source Han Sans';fill:#ff0000;stroke-width:3;stroke-dasharray:12, 3"
@@ -484,7 +484,7 @@
            id="tspan10743-5-6"
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Sarasa Mono CL';-inkscape-font-specification:'Sarasa Mono CL Bold';stroke-width:3"
            x="107.36981"
-           y="65.367691">2</tspan></text>
+           y="65.367691">3</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:'Source Han Sans';-inkscape-font-specification:'Source Han Sans';fill:#ff0000;stroke-width:3;stroke-dasharray:12, 3"
@@ -495,7 +495,7 @@
            id="tspan10743-5-6-9"
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Sarasa Mono CL';-inkscape-font-specification:'Sarasa Mono CL Bold';stroke-width:3"
            x="96.991173"
-           y="86.575409">3</tspan></text>
+           y="86.575409">1</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.2889px;font-family:'Sarasa Mono CL';-inkscape-font-specification:'Sarasa Mono CL Bold';fill:#ff0000;stroke-width:3;stroke-dasharray:12, 3"
@@ -885,7 +885,7 @@
            id="tspan10743-5-7"
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Sarasa Mono CL';-inkscape-font-specification:'Sarasa Mono CL Bold';stroke-width:3"
            x="415.2998"
-           y="64.217339">1</tspan></text>
+           y="64.217339">2</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:'Source Han Sans';-inkscape-font-specification:'Source Han Sans';fill:#ff0000;stroke-width:3;stroke-dasharray:12, 3"
@@ -896,7 +896,7 @@
            id="tspan10743-5-6-5"
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Sarasa Mono CL';-inkscape-font-specification:'Sarasa Mono CL Bold';stroke-width:3"
            x="435.39465"
-           y="64.531609">2</tspan></text>
+           y="64.531609">3</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:'Source Han Sans';-inkscape-font-specification:'Source Han Sans';fill:#ff0000;stroke-width:3;stroke-dasharray:12, 3"
@@ -907,7 +907,7 @@
            id="tspan10743-5-6-9-3"
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Sarasa Mono CL';-inkscape-font-specification:'Sarasa Mono CL Bold';stroke-width:3"
            x="425.01602"
-           y="85.739326">3</tspan></text>
+           y="85.739326">1</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.2889px;font-family:'Sarasa Mono CL';-inkscape-font-specification:'Sarasa Mono CL Bold';fill:#ff0000;stroke-width:3;stroke-dasharray:12, 3"
@@ -1052,17 +1052,6 @@
        d="m 83.145055,157.66764 4.36711,-0.0127 v -0.72285 -6.37308 l -2.96866,0.0127 v 0.72286 l 2.2367,-0.0127 v 5.65022 l -3.63515,0.0127 v -6.37308 h -0.73196 v 7.55544 h 0.73196 z"
        style="font-size:11.2889px;font-family:'Source Han Sans SC VF';-inkscape-font-specification:'Source Han Sans SC VF';display:inline;stroke-width:2.40208;stroke-dasharray:9.60832, 2.40208"
        sodipodi:nodetypes="cccccccccccccc" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:'Source Han Sans K VF';-inkscape-font-specification:'Source Han Sans K VF';fill:#000000;stroke-width:3;stroke-dasharray:12, 3"
-       x="0"
-       y="0"
-       id="text2369"><tspan
-         sodipodi:role="line"
-         id="tspan2367"
-         style="stroke-width:3"
-         x="0"
-         y="0">·</tspan></text>
     <g
        aria-label="雪"
        id="text2373"
