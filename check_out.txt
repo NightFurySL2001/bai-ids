@@ -107,17 +107,12 @@ Processed 101000 lines...
 Processed 102000 lines...
 
 Tested file: ids/ids_lv0.txt
-Total lines: 102032
-Matched IDS_Definition_Row : 102025
-Failed                     : 7
+Total lines: 102033
+Matched IDS_Definition_Row : 102031
+Failed                     : 2
 ----------------------------------------
 Line 7942 Failed match: 洅	⿰氵.再(.);⿰氵.⿱[:-1]一.冉K(J)
-Line 30002 Failed match: 𠥥	⿷匚.雔.	⿷龨隹.(,)
-Line 76727 Failed match: 𬀌	⿸𭤨d克.	⿸𬀇儿.(,)
-Line 85800 Failed match: 𮍿	⿰𠦝舍.	⿸倝.舌T;⿸幹口.(,)
-Line 88032 Failed match: 𰁖	⿹𬼽亻	⿹亓丨(,)
-Line 90979 Failed match: 𰯙	⿸𰮤.圭.	⿸塍.土.(,)
-Line 99064 Failed match: 𲤅	⿸𣄆.一.	⿸𣄆.一.(,)
+Line 74699 Failed match: 𫠞	⿰日欠.
 
 ================
 Testing file: ids/ids_lv1.txt
@@ -225,16 +220,11 @@ Processed 101000 lines...
 Processed 102000 lines...
 
 Tested file: ids/ids_lv1.txt
-Total lines: 102032
-Matched IDS_Definition_Row : 102026
-Failed                     : 6
+Total lines: 102033
+Matched IDS_Definition_Row : 102032
+Failed                     : 1
 ----------------------------------------
-Line 30002 Failed match: 𠥥	⿷匚雔	⿷龨隹(,)
-Line 76727 Failed match: 𬀌	⿸𭤨克	⿸𬀇儿(,)
-Line 85800 Failed match: 𮍿	⿰𠦝舍	⿸倝舌;⿸幹口(,)
-Line 88032 Failed match: 𰁖	⿹𬼽亻	⿹亓丨(,)
-Line 90979 Failed match: 𰯙	⿸𰮤圭	⿸塍土(,)
-Line 99064 Failed match: 𲤅	⿸𣄆一	⿸𣄆一(,)
+Line 74699 Failed match: 𫠞	⿰日欠
 
 ================
 Testing file: ids/ids_lv2.txt
@@ -342,16 +332,11 @@ Processed 101000 lines...
 Processed 102000 lines...
 
 Tested file: ids/ids_lv2.txt
-Total lines: 102032
-Matched IDS_Definition_Row : 102023
-Failed                     : 9
+Total lines: 102033
+Matched IDS_Definition_Row : 102029
+Failed                     : 4
 ----------------------------------------
 Line 6220 Failed match: 晋	⿱亚日(q3883,)
 Line 7557 Failed match: 殄	⿰歹㐱(q397a2,)
-Line 30002 Failed match: 𠥥	⿷匚雔	⿷龨隹(,)
 Line 35419 Failed match: 𡺎	⿰山𫥎(,T)
-Line 76727 Failed match: 𬀌	⿸𭤨克	⿸𬀇儿(,)
-Line 85800 Failed match: 𮍿	⿰𠦝舍	⿸倝舌;⿸幹口(,)
-Line 88032 Failed match: 𰁖	⿹𬼽亻	⿹亓丨(,)
-Line 90979 Failed match: 𰯙	⿸𰮤圭	⿸塍土(,)
-Line 99064 Failed match: 𲤅	⿸𣄆一	⿸𣄆一(,)
+Line 74699 Failed match: 𫠞	⿰日欠

@@ -50,7 +50,7 @@ Overlap_Crossing ::= [xabcd]
 Overlap_Non_Crossing ::= [lr]
 Index_Modifier ::= "[" Number "]"
 
-/* 7. 统一化 */
+/* 7. 唯一化及归一化 */
 Unique_Sequence_Separator ::= "{" ("?"  One_Digit_Number?)? Ideograph_Char_with_Variant Unicode_Sources? "}"
 
 /* 字符定义 */
