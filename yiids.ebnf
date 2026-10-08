@@ -1,6 +1,6 @@
 /* zi.tools IDS Database EBNF syntax */
 
-IDS_Definition_Row ::= Ideograph_Char TAB IDS_Locale_Definition (TAB IDS_Alternative_Definition)
+IDS_Definition_Row ::= Ideograph_Char TAB IDS_Locale_Definition (TAB IDS_Alternative_Definition)?
 
 /* 单个部件描述 */
 
@@ -56,9 +56,9 @@ Unique_Sequence_Separator ::= "{" ("?"  One_Digit_Number?)? Ideograph_Char_with_
 /* 字符定义 */
 Ideograph_Char ::= Ideograph_Char_with_Variant | Curves | [リ〢〣コ]
 Ideograph_Char_with_Variant ::= Hanzi | CJK_Stroke | [ユス]
-Hanzi ::= \p{Ideographic=Y} | \p{Radical=Y} | 
+Hanzi ::= \p{Ideographic=Y} | \p{Radical=Y}
 Curves ::= [◝◞◟◜]
-CJK_Stroke ::= [#x31C0-#x31E3] // U+30E4 和 U+30E5 未收录进 zi.tools 笔画库
+CJK_Stroke ::= [#x31C0-#x31E5] // U+31E4 实际未收录进 zi.tools 笔画库
 TAB ::= #x0009
 IDS_UnaryOperator ::= [⿾⿿]
 IDS_BinaryOperator ::= IDS_BinaryUnique | IDS_BinaryOverlap | IDS_BinaryAmbiguousWrapping

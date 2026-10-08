@@ -21,7 +21,7 @@
         <input type="checkbox" id="toggle-light-mode">
     </div>
     <h1>（白式）IDS 延展语法导论</h1>
-    <subtitle>（2026-09-30 更新）</subtitle>
+    <subtitle>（2026-11-16 更新）</subtitle>
 
     <section>
         <h3>目录</h3>
@@ -248,7 +248,7 @@ IDS_TrinaryOperator ::= [⿲⿳]</code></pre>
         <p>
             EBNF 语法定义：
         </p>
-        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">IDS_Definition_Row ::= Ideograph_Char TAB IDS_Locale_Definition (TAB IDS_Alternative_Definition)
+        <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">IDS_Definition_Row ::= Ideograph_Char TAB IDS_Locale_Definition (TAB IDS_Alternative_Definition)?
 IDS_Locale_Definition ::= IDS_Sequence | IDS_Locale_Sequence (";" IDS_Locale_Sequence)*
 IDS_Alternative_Definition ::= (IDS_Sequence | IDS_Locale_Sequence)  (";" (IDS_Sequence | IDS_Locale_Sequence))*
 </code></pre>
@@ -609,7 +609,7 @@ Unicode_Sources ::= [BGHJKMPSTUVQ]</code></pre>
             EBNF 语法定义：
         </p>
         <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">UCV_Full_Position ::= [qpxy] UCV_ID_Number UCV_Position_Number
-UCV_ID_Number ::= Three_Digit_Number [a-z]?
+UCV_ID_Number ::= Three_Digit_Number ([a-z] | z [a-z])?
 UCV_Position_Number ::= (Positive_Numeral | Two_Digit_Number) [xy]?
 Imaginary_UCV ::= "qq" UCV_ID_Number+</code></pre>
         <p>
@@ -630,7 +630,7 @@ Imaginary_UCV ::= "qq" UCV_ID_Number+</code></pre>
             <figcaption>UCV #393</figcaption>
         </figure>
         <p>
-            例三：「<bai-ids>滿&#09;⿰氵.⿱艹.⿵𠔼十.(q454a17)</bai-ids>」中的「<code>(q454a17)</code>」表示该 IDS 适用于 UCV #454a 的第十七个字形（如下图）。
+            例三：「<bai-ids>滿&#09;⿰氵.⿱艹.⿵冂.干.(q454a17)</bai-ids>」中的「<code>(q454a17)</code>」表示该 IDS 适用于 UCV #454a 的第十七个字形（如下图）。
         </p>
         <figure>
             <img src="images/ucv-454a.png">
@@ -759,7 +759,7 @@ Imaginary_UCV ::= "qq" UCV_ID_Number+</code></pre>
                 「<code>(m)</code>」表示镜像汉字或带有镜像部件的变体，例：「<bai-ids>𱤻&#09;<span
                     class="highlight">⿾</span>止.<span
                     class="highlight">(m)</span></bai-ids>」「<bai-ids>𡴧&#09;⿳屮.⿰止.𱤻<span
-                    class="highlight">m</span>亡.<span class="highlight">(m)</span></bai-ids>」
+                    class="highlight">m</span>⿱人.亡.<span class="highlight">(m)</span></bai-ids>」
             </li>
             <li>
                 「<code>(e)</code>」表示该 IDS 组合出的字与原字相似（？）但不在 UCV 规则内，例：「<bai-ids>𠪧&#09;⿰𠂬果.<span
@@ -818,12 +818,12 @@ StBreak_Indicator ::= "b"</code></pre>
         <p>
             独立笔画字母包括：
             <ul>
-                <li>一：H 横</li>
-                <li>丨：S 竖</li>
-                <li>丿：P 撇</li>
-                <li>乀：N 捺</li>
+                <li>一：H 横（等粗）</li>
+                <li>丨：S 竖（等粗）</li>
+                <li>丿：P 撇（上粗下细）</li>
+                <li>乀：N 捺（上细下粗）</li>
                 <li>丶：D 点</li>
-                <li>㇀：T 横折</li>
+                <li>㇀：T 提（左粗右细）</li>
                 <li>㇝：J 提捺</li>
                 <li>←：Z 左（仅用于<bai-ids>㇘&#09;#(SZ)</bai-ids> 兼容《康熙字典》形）</li>
                 <li>㇁：Wg 弯钩（W不会单独出现，必须是 Wg）</li>
@@ -832,7 +832,7 @@ StBreak_Indicator ::= "b"</code></pre>
                 <li>◟：Qc</li>
                 <li>◜：Qd</li>
             </ul>
-            注：Q（圈）系曲线的书写方式依据顺时针。
+            注：Q（圈）系曲线的书写方式依据顺时针。横竖不看角度，只看粗细方向。
         </p>
         <p>
             笔画修饰字符包括：
@@ -848,7 +848,7 @@ StBreak_Indicator ::= "b"</code></pre>
                 <li><code>-</code>：用于单个笔画字符之前，表示这个笔画字符的组合方向方向要倒着写（指起点和终点反转），如：<bai-ids>𠃎&#09;#(一<span class="highlight">-丨</span>)</bai-ids>在组合时里面的「丨」的终点。</li>
                 <li><code>z</code>：用于单个笔画链的末尾，表示这个笔画链首尾相连，如：<bai-ids>口&#09;#(-丨𠃍-一<span class="highlight">z</span>)</bai-ids>。</li>
                 <li>
-                    <code>x</code>：用于单个笔画字符之后，在此控制字符之后要加上一个正整数 <code>n</code>，表示这个笔画字符与其所在笔画链中的第 <code>n</code> 个笔画字符交叉（笔画字符的序号是从 0 开始数，而不是从 1 开始）。取 IDS 条目<bai-ids>母&#09;⿻⿴#(-𠃌𠃊<span class="highlight">x0</span>)⺀一</bai-ids>为例，「母」外框「&#xE00C;」的笔画链如下：
+                    <code>x</code>：用于单个笔画字符之后，在此控制字符之后要加上一个非负整数 <code>n</code>，表示这个笔画字符与其所在笔画链中的第 <code>n</code> 个笔画字符交叉（笔画字符的序号是从 0 开始数，而不是从 1 开始）。取 IDS 条目<bai-ids>母&#09;⿻⿴#(-𠃌𠃊<span class="highlight">x0</span>)⺀一</bai-ids>为例，「母」外框「&#xE00C;」的笔画链如下：
                     <table>
                         <tr>
                             <th>笔画链</th>
@@ -1272,7 +1272,7 @@ Overlap_Non_Crossing ::= [lr]</code></pre>
             为什么<a href="#6.2">§6.2〈重叠速成版：垂直结构穿过水平结构的限制语法〉</a>会说「从 1 开始」呢？这是因为 Python 的切片语法的 <code>a:b</code> 是包括 <code>a</code> 但不包括 <code>b</code> 的区间，导致「从 0 开始」数的 <code>a</code> 对应的符号是 <code>x</code>（交叉），但是 <code>b</code> 对应的符号是 <code>.</code>（正上/下方），需要记忆「<code>a</code> 横是第一个横竖交叉点，<code>b</code> 横最后触碰竖」。如果简单的介绍用「从 1 开始」数，则 <code>a</code> 和 <code>b</code> 都对应的符号是 <code>.</code>，更容易理解成「<code>a</code> 横和 <code>b</code> 横都触碰竖」，这就需要引入「虚拟」横的概念且能够对应反向的 <code>-0</code> 横。
         </div>
         <p>
-            例：「<bai-ids>曲</bai-ids>」如果拆分成「<bai-ids>⿻〢日</bai-ids>」，则「<bai-ids>〢</bai-ids>」是纵向部件，「<bai-ids>日</bai-ids>」是横向部件。按以上步骤开始分析「<bai-ids>曲</bai-ids>」的穿插关系以得到「<bai-ids>⿻[:-1]〢日</bai-ids>」：
+            例：「<bai-ids>曲</bai-ids>」如果想要拆分成「<bai-ids>⿻〢日</bai-ids>」，则「<bai-ids>〢</bai-ids>」是纵向部件，「<bai-ids>日</bai-ids>」是横向部件。按以上步骤开始分析「<bai-ids>曲</bai-ids>」的穿插关系以得到完整的 IDS「<bai-ids>⿻[:-1]〢日</bai-ids>」：
             <details>
                 <summary>「<bai-ids>曲</bai-ids>」的穿插关系分析（展开阅读）</summary>
 
@@ -1470,7 +1470,7 @@ IDS_BinaryAmbiguousOperator ::= [⿴⿵⿶⿷⿼] | ...</code></pre>
         <p>
             半包围例子：
             <ul>
-                <li><bai-ids>𦥮&#09;⿻<span class="highlight">⿷[1]</span><u>#(-一𠃑-一丨)</u>一<span class="highlight">⿼[1]</span><u>#(一-𠃑一-𠃍)</u>一(T)</yi-i></li>
+                <li><bai-ids>𦥮&#09;⿻<span class="highlight">⿷[1]</span><u>#(-一𠃑-一丨)</u>一<span class="highlight">⿼[1]</span><u>#(一-𠃑一-𠃍)</u>一.(T)</yi-i></li>
             </ul>
         </p>
         
@@ -1522,7 +1522,7 @@ IDS_BinaryAmbiguousOperator ::= ... | [㇯]</code></pre>
             注意事项：
             <ol>
                 <li>减法 IDS 并不会用在 IDS 数据库内，仅用于快速在字统网查询汉字。</li>
-                <li>进行减法操作时，<bai-ids>字₁</bai-ids> 里由<a href="#5">「笔画链」</a>组成的部件不可被计数、删除。例：<bai-ids>㇯[1]日一</bai-ids>是非法语句，因为「日」的外壳是「口」，而「口」是由「笔画链」所组成的（<bai-ids>#(-丨𠃍-一z)</bai-ids>），因此「口」里面的横不可被删除；但是<bai-ids>㇯日一</bai-ids>可得「口」。</li>
+                <li>进行减法操作时，<bai-ids>字₁</bai-ids> 里由<a href="#5">「笔画链」</a>组成的部件不可被计数、删除，因为删除「笔画链」的笔画一般会改变包围状态。例：<bai-ids>㇯[1]日一</bai-ids>是非法语句，因为「日」的外壳是「口」，而「口」是由「笔画链」所组成的（<bai-ids>#(-丨𠃍-一z)</bai-ids>），因此「口」里面的横不可被删除；但是<bai-ids>㇯日一</bai-ids>可得「口」。</li>
             </ol>
         </p>
     </section>
@@ -1573,7 +1573,7 @@ Unique_Sequence_Separator ::= "{" ("?"  One_Digit_Number?)? Ideograph_Char_with_
             </ul>
             汉字的前后还可以添加一些额外的标识来提供更多信息和区分：
             <ul>
-                <li>与同字其他提交源有较大差异、且与另外码位撞形的 IDS 条目也会添加「唯一化分隔符」。此时在「与同字其他提交源有较大差异」的汉字前面加上问号（和一位数字？）即 <code>{?</code>，数字?，汉字，<code>}</code>，如：<code>{?字}</code>、<code>{?0字}</code>；</li>
+                <li>与同字其他提交源有较大差异、且与另外码位撞形的 IDS 条目也会添加「唯一化分隔符」。此时在「与同字其他提交源有较大差异」的汉字前面加上问号（和一位数字）即 <code>{?</code>，数字?，汉字，<code>}</code>，如：<code>{?字}</code>、<code>{?0字}</code>，数字按出现重复的次数增加；</li>
                 <li>如果该 IDS 组合是针对特定提交源的，可在汉字后面加上提交源的「字形变体标识符」（参考 <a href="#4.3.1">§4.3.1〈提交源的变体〉</a>）即 <code>{</code>，汉字，大写字母，<code>}</code>，如：<code>{字T}</code> 代表 T 源。</li>
             </ul>
         </p>
@@ -1586,7 +1586,7 @@ Unique_Sequence_Separator ::= "{" ("?"  One_Digit_Number?)? Ideograph_Char_with_
                 <li>「<a href="https://zi.tools/zi/%E5%8F%B1" target="_blank">叱（U+53F1）</a>」有两个形：<bai-ids>⿰口.𠤎.(.)</bai-ids>（撇𠤎）和<bai-ids>⿰口.七.(V)</bai-ids>（横七）。其中「<bai-ids>叱V</bai-ids>」来源和已编码字「<a href="https://zi.tools/zi/%F0%A0%AE%9F" target="_blank">𠮟（U+20B9F）</a>」撞形，因此需要使用「唯一化分隔符」来区分「<bai-ids>叱V</bai-ids>」的 IDS：<bai-ids>{?叱}⿰口.七.(V)</bai-ids>。</li>
                 <li>
                     「<a href="https://zi.tools/zi/%F0%A1%AE%82" target="_blank">𡮂（U+21B82）</a>」有两个形：<bai-ids>{𡮂J}⿱小.𤽄V(J)</bai-ids> J 源与<bai-ids>{𡮂T}⿱小s𤽄V(T)</bai-ids> T 源。这两者的表达式和「<a href="https://zi.tools/zi/%F0%A1%AD%BD" target="_blank">𡭽（U+21B7D）</a>」的 IDS 组合一样：<bai-ids>⿱小s𤽄V(.);⿱小.𤽄V(J)</bai-ids>，因此给「𡮂（U+21B82）」的 IDS 组合「唯一化分隔符」加上按提交源的「字形变体标识符」。
-                    <small>（主要原因是「𡮂（U+21B82）」如果写成<bai-ids>⿱少𣌢</bai-ids>，按照「白式 IDS 简化」后还是会变成<bai-ids>⿱小𤽄</bai-ids>……这部分目前没有公开资料可参考，仅由字统网站长白易口头说明。）</small>
+                    <small>（主要原因是「𡮂（U+21B82）」如果写成<bai-ids>⿱少𣌢</bai-ids>，按照「归一化」后还是会变成<bai-ids>⿱小𤽄</bai-ids>，因为是线性结构+撇组合优先程度……这部分目前没有公开资料可参考，仅由字统网站长白易口头说明。）</small>
                 </li>
             </ul>
         </p>
@@ -1595,8 +1595,8 @@ Unique_Sequence_Separator ::= "{" ("?"  One_Digit_Number?)? Ideograph_Char_with_
         </p>
         <h3 id="7.2">7.2. lv1 的合并</h3>
         <p>
-            在 ids_lv1（即字统网使用的）中，所有的笔画级别差异（即相同位置的相似笔画，如在同一位置上的「<bai-ids>丶</bai-ids>」和「<bai-ids>乀</bai-ids>」）都将被合并。例：<a href="https://zi.tools/zi/𡕆" target="_blank">「<bai-ids>𡕆</bai-ids>」(U+21546) </a>有两个
-            IDS：<bai-ids>⿰壴t咨.(.);⿰壴t咨T(T)</bai-ids>。其中的「<code>.</code>」和「<code>T</code>」只是将「<bai-ids>咨</bai-ids>」中「<bai-ids>次</bai-ids>」的「<bai-ids>冫</bai-ids>」的点的方向改变了。因此，「<code>.</code>」和「<code>T</code>」都只造成了笔画级别差异。所以这两个 IDS 会在 ids_lv1 中被合并为「<bai-ids>⿰壴咨(.,T)</bai-ids>」。
+            在 ids_lv1（即字统网使用的）中，所有可认同的笔画级别差异（即相同位置的相似笔画，如在同一位置上的「<bai-ids>丶</bai-ids>」和「<bai-ids>乀</bai-ids>」）都将被合并，并去掉部件的「字形变体标识符」。例：<a href="https://zi.tools/zi/𡕆" target="_blank">「<bai-ids>𡕆</bai-ids>」(U+21546) </a>有两个
+            IDS：<bai-ids>⿰壴t咨.(.);⿰壴t咨J(J);⿰壴t咨T(T)</bai-ids>。其中的「<code>.</code>」、「<code>J</code>」和「<code>T</code>」只是将「<bai-ids>咨</bai-ids>」中「<bai-ids>次</bai-ids>」的「<bai-ids>冫</bai-ids>」的点的方向改变了。因此，「<code>.</code>」、「<code>J</code>」和「<code>T</code>」都只造成了笔画级别差异。所以这两个 IDS 会在 ids_lv1 中被合并为「<bai-ids>⿰壴咨(.,T,J)</bai-ids>」。
         </p>
         <p>
             合并的过程主要是通过移除附着在汉字部件后面、没有括号、修饰笔画样式的「字形变体标识符」（见 <a href="#4.3.3">§4.3.3〈笔画样式及位置差异的变体〉</a>）。合并的笔画类「字形变体标识符」有以下几种：
@@ -2000,7 +2000,7 @@ Unique_Sequence_Separator ::= "{" ("?"  One_Digit_Number?)? Ideograph_Char_with_
         </p>
         <pre><code lang="ebnf" id="ids-ebnf" class="language-w3cebnf">/* zi.tools IDS Database EBNF syntax */
 
-IDS_Definition_Row ::= Ideograph_Char TAB IDS_Locale_Definition (TAB IDS_Alternative_Definition)
+IDS_Definition_Row ::= Ideograph_Char TAB IDS_Locale_Definition (TAB IDS_Alternative_Definition)?
 
 /* 单个部件描述 */
 
@@ -2025,7 +2025,7 @@ Variant_Identifier ::= Wildcard_Source | Unicode_Sources | UCV_Full_Position | I
 Wildcard_Source ::= "."
 Unicode_Sources ::= [BGHJKMPSTUVQ]
 UCV_Full_Position ::= [qpxy] UCV_ID_Number UCV_Position_Number
-UCV_ID_Number ::= Three_Digit_Number [a-z]?
+UCV_ID_Number ::= Three_Digit_Number ([a-z] | z [a-z])?
 UCV_Position_Number ::= (Positive_Numeral | Two_Digit_Number) [xy]?
 Imaginary_UCV ::= "qq" UCV_ID_Number+
 Alternate_Variants ::= [0-9a-z.]+
@@ -2056,9 +2056,9 @@ Unique_Sequence_Separator ::= "{" ("?"  One_Digit_Number?)? Ideograph_Char_with_
 /* 字符定义 */
 Ideograph_Char ::= Ideograph_Char_with_Variant | Curves | [リ〢〣コ]
 Ideograph_Char_with_Variant ::= Hanzi | CJK_Stroke | [ユス]
-Hanzi ::= \p{Ideographic=Y} | \p{Radical=Y} | 
+Hanzi ::= \p{Ideographic=Y} | \p{Radical=Y}
 Curves ::= [◝◞◟◜]
-CJK_Stroke ::= [#x31C0-#x31E3] // U+30E4 和 U+30E5 未收录进 zi.tools 笔画库
+CJK_Stroke ::= [#x31C0-#x31E5] // U+31E4 实际未收录进 zi.tools 笔画库
 TAB ::= #x0009
 IDS_UnaryOperator ::= [⿾⿿]
 IDS_BinaryOperator ::= IDS_BinaryUnique | IDS_BinaryOverlap | IDS_BinaryAmbiguousWrapping

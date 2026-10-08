@@ -107,12 +107,11 @@ Processed 101000 lines...
 Processed 102000 lines...
 
 Tested file: ids/ids_lv0.txt
-Total lines: 102033
-Matched IDS_Definition_Row : 102031
-Failed                     : 2
+Total lines: 102034
+Matched IDS_Definition_Row : 102033
+Failed                     : 1
 ----------------------------------------
 Line 7942 Failed match: 洅	⿰氵.再(.);⿰氵.⿱[:-1]一.冉K(J)
-Line 74699 Failed match: 𫠞	⿰日欠.
 
 ================
 Testing file: ids/ids_lv1.txt
@@ -220,11 +219,10 @@ Processed 101000 lines...
 Processed 102000 lines...
 
 Tested file: ids/ids_lv1.txt
-Total lines: 102033
-Matched IDS_Definition_Row : 102032
-Failed                     : 1
+Total lines: 102034
+Matched IDS_Definition_Row : 102034
+Failed                     : 0
 ----------------------------------------
-Line 74699 Failed match: 𫠞	⿰日欠
 
 ================
 Testing file: ids/ids_lv2.txt
@@ -332,11 +330,10 @@ Processed 101000 lines...
 Processed 102000 lines...
 
 Tested file: ids/ids_lv2.txt
-Total lines: 102033
-Matched IDS_Definition_Row : 102029
-Failed                     : 4
+Total lines: 102034
+Matched IDS_Definition_Row : 102031
+Failed                     : 3
 ----------------------------------------
 Line 6220 Failed match: 晋	⿱亚日(q3883,)
 Line 7557 Failed match: 殄	⿰歹㐱(q397a2,)
 Line 35419 Failed match: 𡺎	⿰山𫥎(,T)
-Line 74699 Failed match: 𫠞	⿰日欠
